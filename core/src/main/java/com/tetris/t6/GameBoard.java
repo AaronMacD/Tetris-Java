@@ -5,10 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class MainGame extends ApplicationAdapter {
+public class GameBoard extends ApplicationAdapter {
     //Graphics
     private Texture blueBlock;
     private Texture cyanBlock;
@@ -22,9 +23,12 @@ public class MainGame extends ApplicationAdapter {
     //Sounds
 
 
-    //Camera and Renderer
+    //Camera
     private OrthographicCamera camera;
+    //Renderer
     private SpriteBatch batch;
+    //Font
+    private BitmapFont font;
 
     @Override
     public void create() {
@@ -46,8 +50,10 @@ public class MainGame extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 576, 832);
 
-        //Setting up SpriteBatch for drawing
+        //Setting up SpriteBatch for rendering all of our graphics
         batch = new SpriteBatch();
+        //Setting up a bitmap for rendering all of our on screen text
+        font = new BitmapFont();
     }
 
     @Override
@@ -62,6 +68,6 @@ public class MainGame extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-
+        font.dispose();
     }
 }

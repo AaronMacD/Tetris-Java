@@ -1,4 +1,4 @@
 package com.tetris.t6;
 
-public class S_Piece {
+public class S_Piece extends Pieces {
 }
