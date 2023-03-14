@@ -3,6 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,7 @@ public class GameBoard extends Game {
     private Texture redBlock;
     private Texture yellowBlock;
 
+    private Texture image;
     //Sounds
 
 
@@ -55,6 +57,8 @@ public class GameBoard extends Game {
         batch = new SpriteBatch();
         //Setting up a bitmap for rendering all of our on screen text
         font = new BitmapFont();
+
+        image = blueBlock; //TODO replace this later
     }
 
     @Override
@@ -66,7 +70,7 @@ public class GameBoard extends Game {
         batch.draw(image, 140, 210);
         batch.end();
     }
-
+    
     @Override
     public void dispose() {
         batch.dispose();
