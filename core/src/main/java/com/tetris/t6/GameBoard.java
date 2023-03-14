@@ -1,17 +1,26 @@
 package com.tetris.t6;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class GameBoard extends Game {
+public class GameBoard implements Screen{
+
+    GameController game;
+    GameLogic gameplay;
+
+    final Vector2 cell = new Vector2(32,32);
+    Rectangle area;
+
+
     //Graphics
     private Texture blueBlock;
     private Texture cyanBlock;
@@ -26,15 +35,13 @@ public class GameBoard extends Game {
     //Sounds
 
 
-    //Camera
-    private OrthographicCamera camera;
-    //Renderer
-    private SpriteBatch batch;
-    //Font
-    private BitmapFont font;
 
-    @Override
-    public void create() {
+    public GameBoard(GameController game) {
+        this.game = game;
+        gameplay = new GameLogic();
+        area = new Rectangle(0,0,320, 704);
+
+
         //Loading Graphics
         blueBlock = new Texture(Gdx.files.internal("BlueBlock.png"));
         cyanBlock = new Texture(Gdx.files.internal("CyanBlock.png"));
@@ -49,31 +56,46 @@ public class GameBoard extends Game {
 
         //Loading Music
 
-        //Setting up Camera
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 576, 832);
-
-        //Setting up SpriteBatch for rendering all of our graphics
-        batch = new SpriteBatch();
-        //Setting up a bitmap for rendering all of our on screen text
-        font = new BitmapFont();
-
         image = blueBlock; //TODO replace this later
     }
 
+
     @Override
-    public void render() {
-        super.render();
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();
+    public void show() {
+
     }
-    
+
+    @Override
+    public void render(float delta) {
+
+
+        //Inputs
+
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
+
     }
 }

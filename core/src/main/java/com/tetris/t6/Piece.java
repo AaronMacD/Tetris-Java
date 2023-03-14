@@ -76,6 +76,13 @@ public class Piece {
         }
     }
 
+    private void drawPiece(IntArray coords) {
+    }
+
+    private boolean coordEmpty(int i, int i1) {
+        return true;
+    }
+
     private void generatePieceType() {
         Random rand = new Random();
         int num = rand.nextInt(7);
