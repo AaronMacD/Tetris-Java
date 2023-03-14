@@ -1,6 +1,11 @@
 package com.tetris.t6;
 
+import com.badlogic.gdx.utils.IntArray;
+
+import java.util.ArrayList;
 import java.util.Random;
+
+import static com.tetris.t6.Orientation.*;
 
 public class Piece {
     //3d array because we need to create 2d shapes that have multiple different rotations
@@ -10,13 +15,16 @@ public class Piece {
     //TODO consider making this an enum
     private int rotationNum;
 
-    //x-coordinate of the top-left corner of a piece's
+    //x-coordinate of the top-left corner of a piece
     private int xCoord;
     private int yCoord;
     private Orientation orientation;
 
     Piece() {
-
+        xCoord = 4;
+        yCoord = 22;
+        rotationNum = 0;
+        generatePieceType();
     }
 
     public int getxCoord(){
@@ -42,12 +50,30 @@ public class Piece {
 
     }
 
-    public void rotateCW(){
+    /**
+     *
+     * @param rNum  the current rotation number: 0, 1, 2, or 3
+     * @param direction 1 if clockwise, -1 if counterclockwise
+     */
+    public void rotate(int rNum, int direction){
+        IntArray coords = new IntArray();
 
-    }
+        rNum = Math.floorMod(rNum + direction, 4);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (dimensions[rNum][i][j] == 1) {
+                    if (coordEmpty(xCoord+i,yCoord-j)) {
+                        coords.add(xCoord+i,yCoord-j);
+                    }
+                }
+            }
+        }
 
-    public void rotateCCW(){
-
+        //if rotation is succesful, draw piece and set rotationNum
+        if (coords.size == 4) {
+            drawPiece(coords);
+            rotationNum = rNum;
+        }
     }
 
     private void generatePieceType() {
@@ -70,18 +96,6 @@ public class Piece {
                 break;
             default: makeZ();
                 break;
-        }
-    }
-
-    private void draw3x3(int rotationNum) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (dimensions[rotationNum][i][j] == 1) {
-                    if (coordEmpty(xCoord+i,yCoord+j)) {
-                        //add coords to array
-                    }
-                }
-            }
         }
     }
 
