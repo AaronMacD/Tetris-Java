@@ -1,5 +1,6 @@
 package com.tetris.t6;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.IntArray;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Piece {
     private int xCoord;
     private int yCoord;
     private Orientation orientation;
+
+    private Color color;
 
     Piece() {
         xCoord = 4;
@@ -79,7 +82,7 @@ public class Piece {
     private void drawPiece(IntArray coords) {
     }
 
-    private boolean coordEmpty(int i, int i1) {
+    private boolean coordEmpty(int x, int y) {
         return true;
     }
 
@@ -118,6 +121,7 @@ public class Piece {
             //rotation 0
              {{1,0,0,0},
               {1,1,1,0},
+              {0,0,0,0},
               {0,0,0,0}},
             //rotation 1
              {{0,1,1,0},
@@ -135,6 +139,8 @@ public class Piece {
               {1,1,0,0},
               {0,0,0,0}}
         };
+
+        color = new Color(0,0,1,1);
     }
     private void makeL() {
         dimensions = new int[][][] {
@@ -159,6 +165,8 @@ public class Piece {
              {0,1,0,0},
              {0,0,0,0}}
         };
+
+        color = new Color(0xffa500ff);
     }
 
     private void makeLine() {
@@ -184,6 +192,8 @@ public class Piece {
              {0,1,0,0},
              {0,1,0,0}}
         };
+
+        color = new Color(0, 1, 1, 1);
     }
 
     private void makeS() {
@@ -209,6 +219,8 @@ public class Piece {
              {0,1,0,0},
              {0,0,0,0}}
         };
+
+        color = new Color(0x00ff00ff);
     }
 
     private void makeSquare() {
@@ -235,6 +247,8 @@ public class Piece {
              {0,0,0,0},
              {0,0,0,0}},
         };
+
+        color = new Color(0xffff00ff);
     }
 
     private void makeT() {
@@ -260,6 +274,8 @@ public class Piece {
              {0,1,0,0},
              {0,0,0,0}}
         };
+
+        color = new Color(0xa020f0ff);
     }
 
     private void makeZ() {
@@ -285,5 +301,7 @@ public class Piece {
              {1,0,0,0},
              {0,0,0,0}}
         };
+
+        color = new Color(0xff0000ff);
     }
 }
