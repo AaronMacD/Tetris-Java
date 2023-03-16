@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Random;
 
@@ -14,12 +16,16 @@ public class GameController extends Game {
     SpriteBatch batch;
     BitmapFont font;
     OrthographicCamera camera;
+    Viewport viewport;
 
     public void create() {
         batch = new SpriteBatch();
         // Use LibGDX's default Arial font.
         font = new BitmapFont();
         camera = new OrthographicCamera();
+        camera.setToOrtho(false, 576 , 832);
+        viewport = new FillViewport(576,832, camera);
+
         this.setScreen(new MainMenu(this));
     }
 

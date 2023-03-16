@@ -3,15 +3,19 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MainMenu implements Screen {
 
     final GameController game;
+    GlyphLayout gl = new GlyphLayout();
+    String menuText1 = "Welcome to Tetris T6!";
+    String menuText2 = "Click anywhere to start the game";
 
     public MainMenu(final GameController game) {
         this.game = game;
-        game.camera.setToOrtho(false, 1200, 500);
+
     }
 
     @Override
@@ -21,9 +25,15 @@ public class MainMenu implements Screen {
         game.camera.update();
         game.batch.setProjectionMatrix(game.camera.combined);
 
+        gl.setText(game.font, menuText1);
+        float w1 = gl.width;
+        gl.setText(game.font, menuText2);
+        float w2 = gl.width;
+
+
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Tetris T6!", 200, 250);
-        game.font.draw(game.batch, "Click anywhere to start the game",  200, 150);
+        game.font.draw(game.batch, menuText1, (Gdx.graphics.getWidth() - w1)/2, 750);
+        game.font.draw(game.batch, menuText2,  (Gdx.graphics.getWidth() - w2)/2, 150);
         game.batch.end();
 
         if (Gdx.input.isTouched()){
@@ -34,7 +44,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        game.viewport.update(width, height);
     }
 
     @Override
