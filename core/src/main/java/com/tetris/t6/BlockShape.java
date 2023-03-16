@@ -7,5 +7,6 @@ public enum BlockShape {
     Z,
     J,
     L,
-    T
+    T,
+    EMPTY
 }

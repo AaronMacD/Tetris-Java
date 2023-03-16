@@ -21,7 +21,7 @@ public class UserInterface implements Screen {
     public UserInterface(final GameController game){
         this.game = game;
         playArea = new GameBoard(game);
-        //heldBlock = new HeldBlock(game);
+        heldBlock = new HeldBlock(game);
         //nextBlock = new NextBlock(game);
 
 

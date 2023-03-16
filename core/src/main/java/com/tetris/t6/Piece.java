@@ -22,11 +22,13 @@ public class Piece {
     private Orientation orientation;
 
     private Color color;
+    private BlockShape blockShape;
 
     Piece() {
         xCoord = 4;
         yCoord = 22;
         rotationNum = 0;
+        orientation = Orientation.UP;
         generatePieceType();
     }
 
@@ -58,6 +60,8 @@ public class Piece {
      * @param rNum  the current rotation number: 0, 1, 2, or 3
      * @param direction 1 if clockwise, -1 if counterclockwise
      */
+
+    //TODO Change to orientation enum?
     public void rotate(int rNum, int direction){
         IntArray coords = new IntArray();
 
@@ -74,12 +78,12 @@ public class Piece {
 
         //if rotation is succesful, draw piece and set rotationNum
         if (coords.size == 4) {
-            drawPiece(coords);
+            drawPiece(coords, this.blockShape, this.orientation);
             rotationNum = rNum;
         }
     }
 
-    private void drawPiece(IntArray coords) {
+    public void drawPiece(IntArray coords, BlockShape block, Orientation orient) {
     }
 
     private boolean coordEmpty(int x, int y) {
@@ -141,6 +145,8 @@ public class Piece {
         };
 
         color = new Color(0,0,1,1);
+        this.blockShape = BlockShape.J;
+
     }
     private void makeL() {
         dimensions = new int[][][] {
@@ -167,6 +173,7 @@ public class Piece {
         };
 
         color = new Color(0xffa500ff);
+        this.blockShape = BlockShape.L;
     }
 
     private void makeLine() {
@@ -194,6 +201,7 @@ public class Piece {
         };
 
         color = new Color(0, 1, 1, 1);
+        this.blockShape = BlockShape.LINE;
     }
 
     private void makeS() {
@@ -221,6 +229,7 @@ public class Piece {
         };
 
         color = new Color(0x00ff00ff);
+        this.blockShape = BlockShape.S;
     }
 
     private void makeSquare() {
@@ -249,6 +258,7 @@ public class Piece {
         };
 
         color = new Color(0xffff00ff);
+        this.blockShape = BlockShape.SQUARE;
     }
 
     private void makeT() {
@@ -276,6 +286,7 @@ public class Piece {
         };
 
         color = new Color(0xa020f0ff);
+        this.blockShape = BlockShape.T;
     }
 
     private void makeZ() {
@@ -303,5 +314,6 @@ public class Piece {
         };
 
         color = new Color(0xff0000ff);
+        this.blockShape = BlockShape.Z;
     }
 }

@@ -18,7 +18,6 @@ public class GameBoard implements Screen{
     GameLogic gameplay;
 
     final Vector2 cell = new Vector2(32,32);
-    Rectangle area;
 
 
     //Graphics
@@ -39,7 +38,7 @@ public class GameBoard implements Screen{
     public GameBoard(GameController game) {
         this.game = game;
         gameplay = new GameLogic();
-        area = new Rectangle(0,0,320, 704);
+
 
 
         //Loading Graphics
