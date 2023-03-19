@@ -46,6 +46,13 @@ public class Piece {
         this.yCoord = y;
     }
 
+    public Color getColor() { return this.color; }
+
+    public int[][][] getDimensions() {
+        return dimensions;
+    }
+
+    public int getRotationNum() { return this.rotationNum; }
 
     public void moveLeft(){
 
