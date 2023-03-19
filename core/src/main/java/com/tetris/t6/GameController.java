@@ -27,10 +27,11 @@ public class GameController extends Game {
         font = new BitmapFont();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 0, 0);
+        camera.setToOrtho(true, 0, 0);
         viewport = new FillViewport(0,0, camera);
 
         shapeRenderer = new ShapeRenderer();
+
         //TODO: uncomment
         //this.setScreen(new MainMenu(this));
 

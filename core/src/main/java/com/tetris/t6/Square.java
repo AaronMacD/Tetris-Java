@@ -1,5 +1,6 @@
 package com.tetris.t6;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -12,10 +13,20 @@ public class Square {
     private final int width = 40;
     private final int height = 40;
 
+    private int x;
+
+    private int y;
+
     public Square(int row, int col, Color color){
         this.row = row;
         this.col = col;
         this.color = color;
+
+        x = col * width;
+
+        //converts to y-down coordinates
+        y = Gdx.graphics.getHeight() - 1 - (row * height);
+
     }
 
     public int getRow() { return row; }
@@ -25,7 +36,7 @@ public class Square {
     public Color getColor() { return color; }
 
     public void drawSquare(ShapeRenderer shape){
-        shape.rect(col * width, row * height, width, height);
+        shape.rect(x, y, width, height);
         shape.setColor(color);
     }
 }

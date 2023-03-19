@@ -23,7 +23,7 @@ public class GameScreen implements Screen {
         //initialize board
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                board[i][j] = new Square(i, j, Color.GRAY);
+                board[i][j] = new Square(i, j, Color.BLACK);
             }
         }
 
@@ -47,16 +47,11 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.print(dimensions[rNum][i][j]);
-                if (j == 3) { System.out.println();}
                 if (dimensions[rNum][i][j] == 1) {
                     board[row+i][col+j] = new Square(row+i, col+j, color);
                 }
                 else {
-                    if (i == 0) {
                         board[row+i][col+j] = new Square(row+i, col+j, Color.PINK);
-                    }
-
                 }
             }
         }
