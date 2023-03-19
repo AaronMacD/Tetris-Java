@@ -8,6 +8,9 @@ public class GameScreen implements Screen {
     GameController game;
     public Square[][] board;
 
+    public final int ROWS = 22;
+    public final int COLS = 10;
+
 
     //Sounds
 
@@ -16,11 +19,11 @@ public class GameScreen implements Screen {
     public GameScreen(GameController game) {
         this.game = game;
         //gameplay = new GameLogic();
-        board = new Square[10][22];
+        board = new Square[ROWS][COLS];
         //initialize board
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 22; y++) {
-                board[x][y] = new Square(x, y, Color.GRAY);
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                board[i][j] = new Square(i, j, Color.GRAY);
             }
         }
 
@@ -30,19 +33,14 @@ public class GameScreen implements Screen {
 
     }
 
-    public void setSquare(int x, int y, Color color) {
-        board[x][y] = new Square(x, y, color);
-    }
-
-
     @Override
     public void show() {
 
     }
 
     public void drawPiece(Piece p) {
-        int x = p.getxCoord();
-        int y = p.getyCoord();
+        int row = p.getRow();
+        int col = p.getCol();
         Color color = p.getColor();
         int rNum = p.getRotationNum();
         int[][][] dimensions = p.getDimensions();
@@ -52,10 +50,13 @@ public class GameScreen implements Screen {
                 System.out.print(dimensions[rNum][i][j]);
                 if (j == 3) { System.out.println();}
                 if (dimensions[rNum][i][j] == 1) {
-                    board[x+i][y+j] = new Square(x+i, y+j, color);
+                    board[row+i][col+j] = new Square(row+i, col+j, color);
                 }
                 else {
-                    board[x+i][y+j] = new Square(x+i, y+j, Color.PINK);
+                    if (i == 0) {
+                        board[row+i][col+j] = new Square(row+i, col+j, Color.PINK);
+                    }
+
                 }
             }
         }
@@ -63,10 +64,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 20; y++) {
-                board[x][y].drawSquare(game.shapeRenderer);
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                board[i][j].drawSquare(game.shapeRenderer);
             }
         }
         game.shapeRenderer.end();

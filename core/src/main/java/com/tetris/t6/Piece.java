@@ -17,43 +17,28 @@ public class Piece {
     private int rotationNum;
 
     //x-coordinate of the top-left corner of a piece
-    private int xCoord;
-    private int yCoord;
+    private int row;
+    private int col;
     private Orientation orientation;
 
     private Color color;
     private BlockShape blockShape;
 
     Piece() {
-        xCoord = 4;
-        yCoord = 15;
+        row = 4;
+        col = 4;
         rotationNum = 0;
         orientation = Orientation.UP;
         generatePieceType();
     }
 
-    public int getxCoord(){
-        return this.xCoord;
-    }
-    public void setxCoord(int x){
-        this.xCoord = x;
-    }
-
-    public int getyCoord(){
-        return this.yCoord;
-    }
-    public void setyCoord(int y){
-        this.yCoord = y;
-    }
-
+    public int getRow() { return this.row; }
+    public int getCol() { return this.col; }
     public Color getColor() { return this.color; }
-
     public int[][][] getDimensions() {
         return dimensions;
     }
-
     public int getRotationNum() { return this.rotationNum; }
-
     public void moveLeft(){
 
     }
@@ -95,8 +80,9 @@ public class Piece {
     }
 
     private void generatePieceType() {
-        Random rand = new Random();
-        int num = rand.nextInt(7);
+//        Random rand = new Random();
+//        int num = rand.nextInt(7);
+        int num = 3;
 
         //create new piece based on random number
         switch (num) {

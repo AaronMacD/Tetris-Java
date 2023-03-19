@@ -5,27 +5,27 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Square {
 
-    private int x;
-    private int y;
+    private int row;
+    private int col;
     private Color color;
 
     private final int width = 40;
     private final int height = 40;
 
-    public Square(int x, int y, Color color){
-        this.x = x;
-        this.y = y;
+    public Square(int row, int col, Color color){
+        this.row = row;
+        this.col = col;
         this.color = color;
     }
 
-    public int getX() { return x; }
+    public int getRow() { return row; }
 
-    public int getY() { return y; }
+    public int getCol() { return col; }
 
     public Color getColor() { return color; }
 
     public void drawSquare(ShapeRenderer shape){
-        shape.rect(x * width, y * height, width, height);
+        shape.rect(col * width, row * height, width, height);
         shape.setColor(color);
     }
 }
