@@ -9,6 +9,9 @@ public class Square {
     private int y;
     private Color color;
 
+    private final int width = 40;
+    private final int height = 40;
+
     public Square(int x, int y, Color color){
         this.x = x;
         this.y = y;
@@ -21,15 +24,8 @@ public class Square {
 
     public Color getColor() { return color; }
 
-//    public void drawSquare(ShapeRenderer shape){
-//
-//     /*
-//     If the gridWidth and gridHeight don't change over time then you can
-//     move the calculation of the left, right, bottom and top positions
-//     into the constructor for better performance.
-//     */
-//
-//
-//        shape.rect(x, y, x * squareWidth, y * squareHeight);
-//    }
+    public void drawSquare(ShapeRenderer shape){
+        shape.rect(x * width, y * height, width, height);
+        shape.setColor(color);
+    }
 }

@@ -13,7 +13,6 @@ public class GameLogic {
     GameLogic(GameScreen gameScreen) {
         //TODO: remove this test
         currentPiece = new Piece();
-        currentPiece.setyCoord(10);
         gameScreen.drawPiece(currentPiece);
     }
 

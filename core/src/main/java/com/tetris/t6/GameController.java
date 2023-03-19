@@ -16,8 +16,9 @@ public class GameController extends Game {
     OrthographicCamera camera;
     Viewport viewport;
     ShapeRenderer shapeRenderer;
-    GameLogic game;
     GameScreen gameScreen;
+
+    GameLogic game;
 
 
     public void create() {
@@ -26,8 +27,8 @@ public class GameController extends Game {
         font = new BitmapFont();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 576 , 832);
-        viewport = new FillViewport(576,832, camera);
+        camera.setToOrtho(false, 0, 0);
+        viewport = new FillViewport(0,0, camera);
 
         shapeRenderer = new ShapeRenderer();
         //TODO: uncomment

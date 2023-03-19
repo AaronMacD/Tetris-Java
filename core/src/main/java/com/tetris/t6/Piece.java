@@ -26,7 +26,7 @@ public class Piece {
 
     Piece() {
         xCoord = 4;
-        yCoord = 22;
+        yCoord = 15;
         rotationNum = 0;
         orientation = Orientation.UP;
         generatePieceType();
@@ -64,34 +64,31 @@ public class Piece {
 
     /**
      *
-     * @param rNum  the current rotation number: 0, 1, 2, or 3
-     * @param direction 1 if clockwise, -1 if counterclockwise
+     * rNum  the current rotation number: 0, 1, 2, or 3
+     * direction 1 if clockwise, -1 if counterclockwise
      */
 
     //TODO Change to orientation enum?
-    public void rotate(int rNum, int direction){
-        IntArray coords = new IntArray();
-
-        rNum = Math.floorMod(rNum + direction, 4);
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (dimensions[rNum][i][j] == 1) {
-                    if (coordEmpty(xCoord+i,yCoord-j)) {
-                        coords.add(xCoord+i,yCoord-j);
-                    }
-                }
-            }
-        }
-
-        //if rotation is succesful, draw piece and set rotationNum
-        if (coords.size == 4) {
-            drawPiece(coords, this.blockShape, this.orientation);
-            rotationNum = rNum;
-        }
-    }
-
-    public void drawPiece(IntArray coords, BlockShape block, Orientation orient) {
-    }
+//    public void rotate(int rNum, int direction){
+//        IntArray coords = new IntArray();
+//
+//        rNum = Math.floorMod(rNum + direction, 4);
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j < 4; j++) {
+//                if (dimensions[rNum][i][j] == 1) {
+//                    if (coordEmpty(xCoord+i,yCoord-j)) {
+//                        coords.add(xCoord+i,yCoord-j);
+//                    }
+//                }
+//            }
+//        }
+//
+//        //if rotation is succesful, draw piece and set rotationNum
+//        if (coords.size == 4) {
+//            drawPiece(coords, this.blockShape, this.orientation);
+//            rotationNum = rNum;
+//        }
+//    }
 
     private boolean coordEmpty(int x, int y) {
         return true;
@@ -120,13 +117,6 @@ public class Piece {
         }
     }
 
-    private void drawLine() {
-
-    }
-
-    private void drawSquare() {
-
-    }
     private void makeJ() {
         dimensions = new int[][][] {
             //rotation 0
@@ -151,7 +141,7 @@ public class Piece {
               {0,0,0,0}}
         };
 
-        color = new Color(0,0,1,1);
+        color = new Color(Color.BLUE);
         this.blockShape = BlockShape.J;
 
     }
@@ -179,7 +169,7 @@ public class Piece {
              {0,0,0,0}}
         };
 
-        color = new Color(0xffa500ff);
+        color = new Color(Color.ORANGE);
         this.blockShape = BlockShape.L;
     }
 
@@ -207,7 +197,7 @@ public class Piece {
              {0,1,0,0}}
         };
 
-        color = new Color(0, 1, 1, 1);
+        color = new Color(Color.CYAN);
         this.blockShape = BlockShape.LINE;
     }
 
@@ -235,7 +225,7 @@ public class Piece {
              {0,0,0,0}}
         };
 
-        color = new Color(0x00ff00ff);
+        color = new Color(Color.GREEN);
         this.blockShape = BlockShape.S;
     }
 
@@ -264,7 +254,7 @@ public class Piece {
              {0,0,0,0}},
         };
 
-        color = new Color(0xffff00ff);
+        color = new Color(Color.YELLOW);
         this.blockShape = BlockShape.SQUARE;
     }
 
@@ -292,7 +282,7 @@ public class Piece {
              {0,0,0,0}}
         };
 
-        color = new Color(0xa020f0ff);
+        color = new Color(Color.PURPLE);
         this.blockShape = BlockShape.T;
     }
 
@@ -320,7 +310,7 @@ public class Piece {
              {0,0,0,0}}
         };
 
-        color = new Color(0xff0000ff);
+        color = new Color(Color.RED);
         this.blockShape = BlockShape.Z;
     }
 }

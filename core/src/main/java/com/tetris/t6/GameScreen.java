@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
         //initialize board
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 22; y++) {
-                board[x][y] = new Square(x, y, Color.BLACK);
+                board[x][y] = new Square(x, y, Color.GRAY);
             }
         }
 
@@ -49,8 +49,13 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
+                System.out.print(dimensions[rNum][i][j]);
+                if (j == 3) { System.out.println();}
                 if (dimensions[rNum][i][j] == 1) {
-                    board[x+i][y-j] = new Square(x+i, y-j, color);
+                    board[x+i][y+j] = new Square(x+i, y+j, color);
+                }
+                else {
+                    board[x+i][y+j] = new Square(x+i, y+j, Color.PINK);
                 }
             }
         }
@@ -58,16 +63,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
-        //Inputs
-        float squareWidth = game.camera.viewportWidth / 10;
-        float squareHeight = game.camera.viewportHeight / 20;
-
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 20; y++) {
-                game.shapeRenderer.rect(x, y, x * squareWidth*100, y * squareHeight*100);
-                game.shapeRenderer.setColor(board[x][y].getColor());
+                board[x][y].drawSquare(game.shapeRenderer);
             }
         }
         game.shapeRenderer.end();

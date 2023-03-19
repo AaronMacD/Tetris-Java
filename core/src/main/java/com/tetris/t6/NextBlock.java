@@ -17,14 +17,14 @@ public class NextBlock extends Piece {
         coordinates.add(12,23);
     }
 
-    public BlockShape swapBlock(BlockShape newBlock){
-        BlockShape old = this.block;
-        this.block = newBlock;
-        displayPiece(this.block);
-        return old;
-    }
+//    public BlockShape swapBlock(BlockShape newBlock){
+//        BlockShape old = this.block;
+//        this.block = newBlock;
+//        displayPiece(this.block);
+//        return old;
+//    }
 
-    private void displayPiece(BlockShape bs) {
-        drawPiece(coordinates, this.block, Orientation.UP);
-    }
+//    private void displayPiece(BlockShape bs) {
+//        drawPiece(coordinates, this.block, Orientation.UP);
+//    }
 }
