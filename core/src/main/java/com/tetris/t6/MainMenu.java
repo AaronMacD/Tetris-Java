@@ -37,7 +37,7 @@ public class MainMenu implements Screen {
         game.batch.end();
 
         if (Gdx.input.isTouched()){
-            game.setScreen(new UserInterface(game));
+            game.setScreen(new GameScreen(game));
             dispose();
         }
     }
@@ -59,7 +59,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-    //Main menu music can go here
+        //Main menu music can go here
     }
 
     @Override
