@@ -9,6 +9,8 @@ public class Square {
     private int row;
     private int col;
     private Color color;
+    //whether square is available
+    boolean availability;
 
     private final int width = 40;
     private final int height = 40;
@@ -21,6 +23,7 @@ public class Square {
         this.row = row;
         this.col = col;
         this.color = color;
+        availability = true;
 
         x = col * width;
 
@@ -34,6 +37,12 @@ public class Square {
     public int getCol() { return col; }
 
     public Color getColor() { return color; }
+
+    public boolean isAvailable() { return availability; }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 
     public void drawSquare(ShapeRenderer shape){
         shape.rect(x, y, width, height);
