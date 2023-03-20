@@ -3,6 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.IntArray;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +11,7 @@ import static com.tetris.t6.Orientation.*;
 
 public class Piece {
     //3d array because we need to create 2d shapes that have multiple different rotations
-    private int dimensions[][][];
+    private Point dimensions[][];
 
     //can be 0, 1, 2, or 3
     //TODO consider making this an enum
@@ -25,8 +26,8 @@ public class Piece {
     private BlockShape blockShape;
 
     Piece() {
-        row = 4;
-        col = 4;
+        row = 0;
+        col = 2;
         rotationNum = 0;
         orientation = Orientation.UP;
         generatePieceType();
@@ -47,42 +48,20 @@ public class Piece {
 
     }
 
+    public void moveDown() {
+        row++;
+    }
+
     /**
      *
      * rNum  the current rotation number: 0, 1, 2, or 3
      * direction 1 if clockwise, -1 if counterclockwise
      */
 
-    //TODO Change to orientation enum?
-//    public void rotate(int rNum, int direction){
-//        IntArray coords = new IntArray();
-//
-//        rNum = Math.floorMod(rNum + direction, 4);
-//        for (int i = 0; i < 4; i++) {
-//            for (int j = 0; j < 4; j++) {
-//                if (dimensions[rNum][i][j] == 1) {
-//                    if (coordEmpty(xCoord+i,yCoord-j)) {
-//                        coords.add(xCoord+i,yCoord-j);
-//                    }
-//                }
-//            }
-//        }
-//
-//        //if rotation is succesful, draw piece and set rotationNum
-//        if (coords.size == 4) {
-//            drawPiece(coords, this.blockShape, this.orientation);
-//            rotationNum = rNum;
-//        }
-//    }
-
-    private boolean coordEmpty(int x, int y) {
-        return true;
-    }
 
     private void generatePieceType() {
-//        Random rand = new Random();
-//        int num = rand.nextInt(7);
-        int num = 3;
+        Random rand = new Random();
+        int num = rand.nextInt(7);
 
         //create new piece based on random number
         switch (num) {
@@ -104,27 +83,16 @@ public class Piece {
     }
 
     private void makeJ() {
-        dimensions = new int[][][] {
+        //Point values are row, col for individual square of a piece
+        dimensions = new Point[][] {
             //rotation 0
-             {{1,0,0,0},
-              {1,1,1,0},
-              {0,0,0,0},
-              {0,0,0,0}},
+            {new Point(0,0), new Point(1,0), new Point(1,1), new Point(1,2)},
             //rotation 1
-             {{0,1,1,0},
-              {0,1,0,0},
-              {0,1,0,0},
-              {0,0,0,0}},
+            {new Point(0,1), new Point(0,2), new Point(1,1), new Point(2,1)},
             //rotation 2
-             {{0,0,0,0},
-              {1,1,1,0},
-              {0,0,1,0},
-              {0,0,0,0}},
+            {new Point(1,0), new Point(1,1), new Point(1,2), new Point(2,2)},
             //rotation 3
-             {{0,1,0,0},
-              {0,1,0,0},
-              {1,1,0,0},
-              {0,0,0,0}}
+            {new Point(0,1), new Point(1,1), new Point(2,0), new Point(2,1)}
         };
 
         color = new Color(Color.BLUE);
@@ -132,27 +100,15 @@ public class Piece {
 
     }
     private void makeL() {
-        dimensions = new int[][][] {
+        dimensions = new Point[][] {
             //rotation 0
-            {{0,0,1,0},
-             {1,1,1,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,2), new Point(1,0), new Point(1,1), new Point(1,2)},
             //rotation 1
-            {{0,1,0,0},
-             {0,1,0,0},
-             {0,1,1,0},
-             {0,0,0,0}},
+            {new Point(0,1), new Point(1,1), new Point(2,1), new Point(2,2)},
             //rotation 2
-            {{0,0,0,0},
-             {1,1,1,0},
-             {1,0,0,0},
-             {0,0,0,0}},
+            {new Point(1,0), new Point(1,1), new Point(1,2), new Point(2,0)},
             //rotation 3
-            {{1,1,0,0},
-             {0,1,0,0},
-             {0,1,0,0},
-             {0,0,0,0}}
+            {new Point(0,0), new Point(0,1), new Point(1,1), new Point(2,1)}
         };
 
         color = new Color(Color.ORANGE);
@@ -160,27 +116,15 @@ public class Piece {
     }
 
     private void makeLine() {
-        dimensions = new int[][][] {
+        dimensions = new Point[][] {
             //rotation 0
-            {{0,0,0,0},
-             {1,1,1,1},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(1,0), new Point(1,1), new Point(1,2), new Point(1,3)},
             //rotation 1
-            {{0,0,1,0},
-             {0,0,1,0},
-             {0,0,1,0},
-             {0,0,1,0}},
+            {new Point(0,2), new Point(1,2), new Point(2,2), new Point(3,2)},
             //rotation 2
-            {{0,0,0,0},
-             {0,0,0,0},
-             {1,1,1,1},
-             {0,0,0,0}},
+            {new Point(2,0), new Point(2,1), new Point(2,2), new Point(2,3)},
             //rotation 3
-            {{0,1,0,0},
-             {0,1,0,0},
-             {0,1,0,0},
-             {0,1,0,0}}
+            {new Point(0,1), new Point(1,1), new Point(2,1), new Point(3,1)}
         };
 
         color = new Color(Color.CYAN);
@@ -188,27 +132,15 @@ public class Piece {
     }
 
     private void makeS() {
-        dimensions = new int[][][] {
+        dimensions = new Point[][] {
             //rotation 0
-            {{0,1,1,0},
-             {1,1,0,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,1), new Point(0,2), new Point(1,0), new Point(1,1)},
             //rotation 1
-            {{0,1,0,0},
-             {0,1,1,0},
-             {0,0,1,0},
-             {0,0,0,0}},
+            {new Point(0,1), new Point(1,1), new Point(1,2), new Point(2,2)},
             //rotation 2
-            {{0,0,0,0},
-             {0,1,1,0},
-             {1,1,0,0},
-             {0,0,0,0}},
+            {new Point(1,1), new Point(1,2), new Point(2,0), new Point(2,1)},
             //rotation 3
-            {{1,0,0,0},
-             {1,1,0,0},
-             {0,1,0,0},
-             {0,0,0,0}}
+            {new Point(0,0), new Point(1,0), new Point(1,1), new Point(2,1)}
         };
 
         color = new Color(Color.GREEN);
@@ -216,28 +148,16 @@ public class Piece {
     }
 
     private void makeSquare() {
-        //still represented as 4x4x4 array for convenience
-        dimensions = new int[][][] {
+        //still represented as 2D array for convenience
+        dimensions = new Point[][] {
             //rotation 0
-            {{1,1,0,0},
-             {1,1,0,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)},
             //rotation 1
-            {{1,1,0,0},
-             {1,1,0,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)},
             //rotation 2
-            {{1,1,0,0},
-             {1,1,0,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)},
             //rotation 3
-            {{1,1,0,0},
-             {1,1,0,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)}
         };
 
         color = new Color(Color.YELLOW);
@@ -245,27 +165,15 @@ public class Piece {
     }
 
     private void makeT() {
-        dimensions = new int[][][] {
+        dimensions = new Point[][] {
             //rotation 0
-            {{0,1,0,0},
-             {1,1,1,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,1), new Point(1,0), new Point(1,1), new Point(1,2)},
             //rotation 1
-            {{0,1,0,0},
-             {0,1,1,0},
-             {0,1,0,0},
-             {0,0,0,0}},
+            {new Point(0,1), new Point(1,1), new Point(1,2), new Point(2,1)},
             //rotation 2
-            {{0,0,0,0},
-             {1,1,1,0},
-             {0,1,0,0},
-             {0,0,0,0}},
+            {new Point(1,0), new Point(1,1), new Point(1,2), new Point(2,1)},
             //rotation 3
-            {{0,1,0,0},
-             {1,1,0,0},
-             {0,1,0,0},
-             {0,0,0,0}}
+            {new Point(0,1), new Point(1,0), new Point(1,1), new Point(2,1)}
         };
 
         color = new Color(Color.PURPLE);
@@ -273,27 +181,15 @@ public class Piece {
     }
 
     private void makeZ() {
-        dimensions = new int[][][] {
+        dimensions = new Point[][] {
             //rotation 0
-            {{1,1,0,0},
-             {0,1,1,0},
-             {0,0,0,0},
-             {0,0,0,0}},
+            {new Point(0,0), new Point(0,1), new Point(1,1), new Point(1,2)},
             //rotation 1
-            {{0,0,1,0},
-             {0,1,1,0},
-             {0,1,0,0},
-             {0,0,0,0}},
+            {new Point(0,2), new Point(1,1), new Point(1,2), new Point(2,1)},
             //rotation 2
-            {{0,0,0,0},
-             {1,1,0,0},
-             {0,1,1,0},
-             {0,0,0,0}},
+            {new Point(1,0), new Point(1,1), new Point(2,1), new Point(2,2)},
             //rotation 3
-            {{0,1,0,0},
-             {1,1,0,0},
-             {1,0,0,0},
-             {0,0,0,0}}
+            {new Point(0,1), new Point(1,0), new Point(1,1), new Point(2,0)}
         };
 
         color = new Color(Color.RED);
