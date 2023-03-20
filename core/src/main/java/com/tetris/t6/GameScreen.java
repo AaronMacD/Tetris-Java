@@ -4,6 +4,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.awt.*;
+
 public class GameScreen implements Screen {
     GameController game;
     public static Square[][] board;
@@ -39,18 +41,17 @@ public class GameScreen implements Screen {
     }
 
     public void drawPiece(Piece p) {
+        //row and column for the top-left corner
         int row = p.getRow();
         int col = p.getCol();
         Color color = p.getColor();
         int rNum = p.getRotationNum();
-        int[][][] dimensions = p.getDimensions();
+        Point[][] dimensions = p.getDimensions();
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (dimensions[rNum][i][j] == 1) {
-                    board[row+i][col+j] = new Square(row+i, col+j, color);
-                }
-            }
+            int squareRow = row + dimensions[rNum][i].x;
+            int squareCol = col + dimensions[rNum][i].y;
+            board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
         }
     }
 
