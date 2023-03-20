@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameScreen implements Screen {
     GameController game;
-    public Square[][] board;
+    public static Square[][] board;
 
     public final int ROWS = 22;
     public final int COLS = 10;
@@ -50,17 +50,18 @@ public class GameScreen implements Screen {
                 if (dimensions[rNum][i][j] == 1) {
                     board[row+i][col+j] = new Square(row+i, col+j, color);
                 }
-                else {
-                        board[row+i][col+j] = new Square(row+i, col+j, Color.PINK);
-                }
             }
         }
     }
 
     @Override
     public void render(float delta) {
+//  TODO: consider something like this for updating game logic?
+//        if(!paused)
+//            GameLogic.update(deltaTime);
+
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = 0; i < ROWS - 2; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.shapeRenderer);
             }
