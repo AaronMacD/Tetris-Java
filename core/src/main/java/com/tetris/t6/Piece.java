@@ -34,19 +34,27 @@ public class Piece {
     }
 
     public int getRow() { return this.row; }
+
     public int getCol() { return this.col; }
+
     public Color getColor() { return this.color; }
     public Point[][] getDimensions() {
         return dimensions;
     }
     public int getRotationNum() { return this.rotationNum; }
-    public void moveLeft(){
 
+    public void setRow(int row) {
+        this.row = row;
     }
-
-    public void moveRight(){
-
+    public void setCol(int col) {
+        this.col = col;
     }
+    public void setRotationNum(int rNum) {
+        this.rotationNum = rNum;
+    }
+    public void moveLeft(){ col--; }
+
+    public void moveRight() { col++; }
 
     public void moveDown() {
         row++;
