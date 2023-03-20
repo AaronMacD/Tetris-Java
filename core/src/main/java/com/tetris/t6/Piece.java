@@ -36,7 +36,7 @@ public class Piece {
     public int getRow() { return this.row; }
     public int getCol() { return this.col; }
     public Color getColor() { return this.color; }
-    public int[][][] getDimensions() {
+    public Point[][] getDimensions() {
         return dimensions;
     }
     public int getRotationNum() { return this.rotationNum; }
