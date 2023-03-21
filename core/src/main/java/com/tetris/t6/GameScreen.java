@@ -224,8 +224,9 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             squareRow = row + dimensions[rotationNum][i].x;
             squareCol = col + dimensions[rotationNum][i].y;
-            //TODO index checking beforehand
-            if (board[squareRow][squareCol].isAvailable()) {
+
+            if (squareRow < 21 && squareCol >= 0 && squareCol < 10
+                && board[squareRow][squareCol].isAvailable()) {
                 availableCount++;
             }
         }
