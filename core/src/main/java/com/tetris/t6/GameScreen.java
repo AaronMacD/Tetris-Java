@@ -138,7 +138,6 @@ public class GameScreen implements Screen {
         }
 
         //returns true or false
-        System.out.println(availableCount);
         return (availableCount == 4);
     }
 
