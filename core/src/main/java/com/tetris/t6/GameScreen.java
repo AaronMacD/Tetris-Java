@@ -18,8 +18,7 @@ public class GameScreen implements Screen {
     //four levels of speed to start. cells per frame is 1/speed
     //TODO:add the rest of the speeds, cap out at 10 for now?
     private float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
-    private float timeSeconds = 0f;
-    private float period = 1f;
+    private float time_movement = 0f;
     private int score;
     private final int singleClear = 100 * level;
     private final int doubleClear = 300 * level;
@@ -33,6 +32,10 @@ public class GameScreen implements Screen {
     SoundController SoundCtrl;
 
     //Sounds
+
+    //tools and testing
+    String testText1, testText2, testText3;
+    boolean timers_enabled = true;
 
     public GameScreen(TetrisGame game) {
         this.game = game;
@@ -59,39 +62,30 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        timeSeconds += Gdx.graphics.getDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
             moveDownLogically();
             drawSquares(currentPiece.getColor());
-        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            moveDownLogically();
-            drawSquares(currentPiece.getColor());
+            time_movement = 100f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             moveLeftRight(-1);
-            drawSquares(currentPiece.getColor());
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             moveLeftRight(1);
-            drawSquares(currentPiece.getColor());
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             rotate(1);
-            drawSquares(currentPiece.getColor());
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             rotate(-1);
-            drawSquares(currentPiece.getColor());
         }
 
-
+        drawSquares(currentPiece.getColor());
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (int i = 0; i < ROWS - 1; i++) {
             for (int j = 0; j < COLS; j++) {
@@ -99,6 +93,25 @@ public class GameScreen implements Screen {
             }
         }
         game.shapeRenderer.end();
+
+
+
+        //Tools and testing
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            timers_enabled = !timers_enabled;
+        }
+
+
+        testText1 = "";
+        testText2 = "Current time for drop to occur: " + time_movement;
+        testText3 = String.format("The current x and y values of the active piece are %s and %s", currentPiece.getCol(), currentPiece.getRow());
+
+        game.batch.begin();
+        game.font.draw(game.batch, testText1, 5, 100);
+        game.font.draw(game.batch, testText2, 5, 75);
+        game.font.draw(game.batch, testText3, 5, 50);
+        game.batch.end();
     }
 
     public void drawSquares(Color color) {
@@ -126,10 +139,16 @@ public class GameScreen implements Screen {
 //    }
 
     public void moveDownLogically() {
-        if (moveDownPossible()){
-            //set current squares to black
-            drawSquares(Color.BLACK);
-            currentPiece.moveDown();
+        if (timers_enabled) {
+            time_movement += levelSpeeds[level];
+        }
+        //should be >= 1, normally, but set to 5 for testing purposes.
+        while (time_movement >= 5) {
+            if (moveDownPossible()) {
+                drawSquares(Color.BLACK);
+                currentPiece.moveDown();
+                time_movement = 0f;
+            }
         }
     }
 
