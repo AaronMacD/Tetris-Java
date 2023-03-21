@@ -5,8 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.IntArray;
 
 import java.awt.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class GameScreen implements Screen {
     TetrisGame game;
@@ -265,6 +268,8 @@ public class GameScreen implements Screen {
     }
 
     private void lockSquares() {
+        IntArray rowsToCheck = new IntArray(4);
+
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -276,6 +281,28 @@ public class GameScreen implements Screen {
             squareRow = row + dimensions[rotationNum][i].x;
             squareCol = col + dimensions[rotationNum][i].y;
             board[squareRow][squareCol].setAvailability(false);
+            if (!rowsToCheck.contains(squareRow)) {
+                rowsToCheck.add(squareRow);
+            }
+        }
+
+        checkFullRow(rowsToCheck);
+    }
+
+    //TODO: currently inefficient because we might check the same row multiple times
+    private void checkFullRow(IntArray rowList) {
+
+        for (int i = 0; i < rowList.size; i++) {
+            int squareCount = 0;
+            for (int j = 0; j < 10; j++) {
+                if (!board[rowList.get(i)][j].isAvailable()) {
+                    squareCount++;
+                }
+            }
+
+            if (squareCount == 10) {
+                clearLine(rowList.get(i));
+            }
         }
     }
 
