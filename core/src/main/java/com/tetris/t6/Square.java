@@ -25,7 +25,7 @@ public class Square {
         this.color = color;
         availability = true;
 
-        x = col * width;
+        x = (col-1) * width;
 
         //converts to y-down coordinates
         y = Gdx.graphics.getHeight() - 1 - (row * height);
