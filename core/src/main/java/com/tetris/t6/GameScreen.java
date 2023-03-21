@@ -21,6 +21,7 @@ public class GameScreen implements Screen {
     private float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
     private float time_movement = 0f;
     private int score;
+    String scoreText;
     private final int singleClear = 100 * level;
     private final int doubleClear = 300 * level;
     private final int tripleClear = 500 * level;
@@ -86,18 +87,17 @@ public class GameScreen implements Screen {
 
         drawPiece(currentPiece.getColor());
         levelUp();
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-//        Square test = new Square(1,0,Color.BLUE);
-//        test.drawSquare(game.shapeRenderer);
-//        System.out.println(test.getCol());
+        scoreText = String.format("Score: %d", this.score);
 
+        game.batch.begin();
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                board[i][j].drawSquare(game.shapeRenderer);
+                board[i][j].drawSquare(game.drawer);
             }
         }
-        game.shapeRenderer.end();
+        game.font.draw(game.batch, scoreText, 300,780);
+        game.batch.end();
 
 
 
@@ -108,15 +108,6 @@ public class GameScreen implements Screen {
         }
 
 
-        testText1 = "";
-        testText2 = "Current time for drop to occur: " + time_movement;
-        testText3 = String.format("The current x and y values of the active piece are %s and %s", currentPiece.getCol(), currentPiece.getRow());
-
-        game.batch.begin();
-        game.font.draw(game.batch, testText1, 5, 100);
-        game.font.draw(game.batch, testText2, 5, 75);
-        game.font.draw(game.batch, testText3, 5, 50);
-        game.batch.end();
     }
 
     public void drawPiece(Color color) {

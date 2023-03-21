@@ -3,6 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Square {
 
@@ -48,8 +49,8 @@ public class Square {
         this.availability = availability;
     }
 
-    public void drawSquare(ShapeRenderer shape) {
-        shape.rect(x, y, width, height);
+    public void drawSquare(ShapeDrawer shape) {
+        shape.filledRectangle(x, y, width, height);
         shape.setColor(color);
     }
 }
