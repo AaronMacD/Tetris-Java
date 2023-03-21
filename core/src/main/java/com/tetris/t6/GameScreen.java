@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        drawPiece();
+        drawSquares(currentPiece.getColor());
         //Loading Sounds
 
         //Loading Music
@@ -61,10 +61,16 @@ public class GameScreen implements Screen {
 
         moveDownLogically();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             moveLeftRight(-1);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            drawSquares(currentPiece.getColor());
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             moveLeftRight(1);
+            drawSquares(currentPiece.getColor());
+        }
+
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (int i = 0; i < ROWS - 2; i++) {
@@ -75,12 +81,11 @@ public class GameScreen implements Screen {
         game.shapeRenderer.end();
     }
 
-    public void drawPiece() {
+    public void drawSquares(Color color) {
 
         //row and column for the top-left corner
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
-        Color color = currentPiece.getColor();
         int rNum = currentPiece.getRotationNum();
         Point[][] dimensions = currentPiece.getDimensions();
 
@@ -133,15 +138,20 @@ public class GameScreen implements Screen {
         }
 
         //returns true or false
+        System.out.println(availableCount);
         return (availableCount == 4);
     }
 
     public void moveLeftRight(int lr) {
         if (moveLeftRightPossible(lr)) {
             if (lr == -1) {
+                //set current squares to black
+                drawSquares(Color.BLACK);
+                //new squares will be set to appropriate color
                 currentPiece.moveLeft();
             }
             else {
+                drawSquares(Color.BLACK);
                 currentPiece.moveRight();
             }
         }
@@ -170,7 +180,6 @@ public class GameScreen implements Screen {
             }
         }
 
-        System.out.println(availableCount);
         //returns true or false
         return (availableCount == 4);
     }
@@ -204,6 +213,10 @@ public class GameScreen implements Screen {
 
         //returns true or false
         return (availableCount == 4);
+    }
+
+    private void resetSquares() {
+
     }
 
     private void levelUp(){
