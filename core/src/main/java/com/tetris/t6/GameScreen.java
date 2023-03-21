@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
 
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (int i = 0; i < ROWS - 2; i++) {
+        for (int i = 0; i < ROWS - 1; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.shapeRenderer);
             }
