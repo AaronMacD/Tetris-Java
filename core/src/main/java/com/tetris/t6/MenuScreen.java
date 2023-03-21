@@ -2,18 +2,17 @@ package com.tetris.t6;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MainMenu implements Screen {
+public class MenuScreen implements Screen {
 
-    final GameController game;
+    final TetrisGame game;
     GlyphLayout gl = new GlyphLayout();
     String menuText1 = "Welcome to Tetris T6!";
     String menuText2 = "Click anywhere to start the game";
 
-    public MainMenu(final GameController game) {
+    public MenuScreen(final TetrisGame game) {
         this.game = game;
 
     }

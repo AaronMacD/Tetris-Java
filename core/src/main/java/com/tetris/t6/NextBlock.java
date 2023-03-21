@@ -4,14 +4,14 @@ import com.badlogic.gdx.utils.IntArray;
 
 public class NextBlock extends Piece {
 
-    final GameController game;
+    final TetrisGame game;
     final IntArray coordinates = new IntArray();
 
     BlockShape block;
 
     //Constructor
     //TODO Figure out the parameters we're going to be passing to the constructor
-    public NextBlock(GameController game){
+    public NextBlock(TetrisGame game){
         this.game = game;
         block = BlockShape.EMPTY;
         coordinates.add(12,23);

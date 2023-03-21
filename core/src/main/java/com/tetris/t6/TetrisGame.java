@@ -1,7 +1,6 @@
 package com.tetris.t6;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class GameController extends Game {
+public class TetrisGame extends Game {
 
     SpriteBatch batch;
     BitmapFont font;
@@ -17,8 +16,6 @@ public class GameController extends Game {
     Viewport viewport;
     ShapeRenderer shapeRenderer;
     GameScreen gameScreen;
-
-    GameLogic game;
 
 
     public void create() {
@@ -34,11 +31,8 @@ public class GameController extends Game {
 
         //TODO: uncomment
         //this.setScreen(new MainMenu(this));
-
         gameScreen = new GameScreen(this);
         this.setScreen(gameScreen);
-
-        game = new GameLogic(gameScreen);
     }
 
     public void render() {
