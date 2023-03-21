@@ -10,7 +10,6 @@ import java.util.Random;
 import static com.tetris.t6.Orientation.*;
 
 public class Piece {
-    //3d array because we need to create 2d shapes that have multiple different rotations
     private Point dimensions[][];
 
     //can be 0, 1, 2, or 3
@@ -26,8 +25,8 @@ public class Piece {
     private BlockShape blockShape;
 
     Piece() {
-        row = 0;
-        col = 2;
+        row = 1;
+        col = 0;
         rotationNum = 0;
         orientation = Orientation.UP;
         generatePieceType();

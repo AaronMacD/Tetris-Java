@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        drawSquares(currentPiece.getColor());
+        drawPiece(currentPiece.getColor());
         //Loading Sounds
 
         //Loading Music
@@ -63,7 +63,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
             moveDownLogically();
-            drawSquares(currentPiece.getColor());
+            drawPiece(currentPiece.getColor());
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             time_movement = 100f;
@@ -85,9 +85,14 @@ public class GameScreen implements Screen {
             rotate(-1);
         }
 
-        drawSquares(currentPiece.getColor());
+        drawPiece(currentPiece.getColor());
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (int i = 0; i < ROWS - 1; i++) {
+
+//        Square test = new Square(1,0,Color.BLUE);
+//        test.drawSquare(game.shapeRenderer);
+//        System.out.println(test.getCol());
+
+        for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.shapeRenderer);
             }
@@ -114,7 +119,7 @@ public class GameScreen implements Screen {
         game.batch.end();
     }
 
-    public void drawSquares(Color color) {
+    public void drawPiece(Color color) {
 
         //row and column for the top-left corner
         int row = currentPiece.getRow();
@@ -125,8 +130,9 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             int squareRow = row + dimensions[rNum][i].x;
             int squareCol = col + dimensions[rNum][i].y;
-
-            board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+            if (squareCol>=0) {
+                board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+            }
         }
     }
 
@@ -145,9 +151,13 @@ public class GameScreen implements Screen {
         //should be >= 1, normally, but set to 5 for testing purposes.
         while (time_movement >= 5) {
             if (moveDownPossible()) {
-                drawSquares(Color.BLACK);
+                drawPiece(Color.BLACK);
                 currentPiece.moveDown();
                 time_movement = 0f;
+            }
+            else {
+                lockSquares();
+                currentPiece = new Piece();
             }
         }
     }
@@ -181,12 +191,12 @@ public class GameScreen implements Screen {
         if (moveLeftRightPossible(lr)) {
             if (lr == -1) {
                 //set current squares to black
-                drawSquares(Color.BLACK);
+                drawPiece(Color.BLACK);
                 //new squares will be set to appropriate color
                 currentPiece.moveLeft();
             }
             else {
-                drawSquares(Color.BLACK);
+                drawPiece(Color.BLACK);
                 currentPiece.moveRight();
             }
         }
@@ -226,7 +236,7 @@ public class GameScreen implements Screen {
         rotationNum = Math.floorMod(rotationNum + direction, 4);
 
         if (rotationPossible(rotationNum)) {
-            drawSquares(Color.BLACK);
+            drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
         }
     }
@@ -254,8 +264,19 @@ public class GameScreen implements Screen {
         return (availableCount == 4);
     }
 
-    private void resetSquares() {
+    private void lockSquares() {
+        Point[][] dimensions = currentPiece.getDimensions();
+        int row = currentPiece.getRow();
+        int col = currentPiece.getCol();
+        int rotationNum = currentPiece.getRotationNum();
+        int squareRow;
+        int squareCol;
 
+        for (int i = 0; i < 4; i++) {
+            squareRow = row + dimensions[rotationNum][i].x;
+            squareCol = col + dimensions[rotationNum][i].y;
+            board[squareRow][squareCol].setAvailability(false);
+        }
     }
 
     private void levelUp(){

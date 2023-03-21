@@ -24,8 +24,8 @@ public class TetrisGame extends Game {
         font = new BitmapFont();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, 0, 0);
-        viewport = new FillViewport(0,0, camera);
+        camera.setToOrtho(true, 400, 800);
+        viewport = new FillViewport(400,800, camera);
 
         shapeRenderer = new ShapeRenderer();
 
@@ -36,7 +36,7 @@ public class TetrisGame extends Game {
     }
 
     public void render() {
-        super.render(); // important!
+        super.render();
     }
 
     public void dispose() {
