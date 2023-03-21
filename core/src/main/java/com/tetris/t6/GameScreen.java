@@ -18,8 +18,8 @@ public class GameScreen implements Screen {
     //four levels of speed to start. cells per frame is 1/speed
     //TODO:add the rest of the speeds, cap out at 10 for now?
     private float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
-    private float time_exists;
-    private float time_movement;
+    private float timeSeconds = 0f;
+    private float period = 1f;
     private int score;
     private final int singleClear = 100 * level;
     private final int doubleClear = 300 * level;
@@ -59,8 +59,12 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-//        if (timer)
-//        moveDownLogically();
+        timeSeconds += Gdx.graphics.getDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            moveDownLogically();
+            drawSquares(currentPiece.getColor());
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             moveDownLogically();
@@ -122,15 +126,10 @@ public class GameScreen implements Screen {
 //    }
 
     public void moveDownLogically() {
-        time_exists += Gdx.graphics.getDeltaTime();
-        while (time_exists > time_movement) {
-            if (moveDownPossible()){
-                //set current squares to black
-                drawSquares(Color.BLACK);
-                currentPiece.moveDown();
-
-                time_movement += 1 / levelSpeeds[level];
-            }
+        if (moveDownPossible()){
+            //set current squares to black
+            drawSquares(Color.BLACK);
+            currentPiece.moveDown();
         }
     }
 
