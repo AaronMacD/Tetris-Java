@@ -38,6 +38,10 @@ public class Square {
 
     public Color getColor() { return color; }
 
+    public void setColor(Color color){
+        this.color = color;
+    }
+
     public boolean isAvailable() { return availability; }
 
     public void setAvailability(boolean availability) {

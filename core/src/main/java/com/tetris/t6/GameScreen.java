@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
 
 import java.awt.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class GameScreen implements Screen {
     TetrisGame game;
@@ -64,8 +62,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-            moveDownLogically();
-            drawPiece(currentPiece.getColor());
+        moveDownLogically();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             time_movement = 100f;
@@ -88,6 +85,7 @@ public class GameScreen implements Screen {
         }
 
         drawPiece(currentPiece.getColor());
+        levelUp();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
 //        Square test = new Square(1,0,Color.BLUE);
@@ -291,6 +289,7 @@ public class GameScreen implements Screen {
     //TODO: currently inefficient because we might check the same row multiple times
     private void checkFullRow(IntArray rowList) {
 
+        IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
             int squareCount = 0;
             for (int j = 0; j < 10; j++) {
@@ -300,9 +299,15 @@ public class GameScreen implements Screen {
             }
 
             if (squareCount == 10) {
-                clearLine(rowList.get(i));
+                fullRows.add(rowList.get(i));
             }
         }
+        if(fullRows.notEmpty()){
+            clearLine(rowList);
+            dropAfterClear(rowList);
+        }
+
+
     }
 
     private void levelUp(){
@@ -320,37 +325,41 @@ public class GameScreen implements Screen {
         return speed; //return the level's speed.
     }
 
-//    private void clearLine(int[] fullRows){
-//        int fullRowsCounter = fullRows[4];
-//        linesCleared += fullRowsCounter;
-//        switch (fullRowsCounter){
-//            case 0: return;
-//            case 1: score += singleClear;
-//            case 2: score += doubleClear;
-//            case 3: score += tripleClear;
-//            case 4: score += tetrisClear;
-//        }
-//
-//        fullRows[4] = 99;
-//        for(int row : fullRows){
-//            if (row > 22){
-//                continue;
-//            }
-//            for(int x = 0; x < 10; x++){
-//                logicBoard[x][row] = BlockShape.EMPTY;
-//            }
+    private void clearLine(IntArray rowList) {
+        switch (rowList.size) {
+            case 0:
+                return;
+            case 1:
+                score += singleClear;
+            case 2:
+                score += doubleClear;
+            case 3:
+                score += tripleClear;
+            case 4:
+                score += tetrisClear;
+        }
 
-    //Was moving the board down after clearing, but might be easier to just have everything always move down till it can't
-//            for(int y = row; y < 21; y++){
-//                for (int x = 0; x < 10; x++){
-//                    if (logicBoard[x][y+1] > 0){
-//                        logicBoard[x][y] = logicBoard[x][y+1];
-//                        logicBoard[x][y+1] = 0;
-//                    }
-//                }
-//            }
-//        }
-//    }
+        for (int row : rowList.items) {
+            for (int x = 0; x < 10; x++) {
+                board[row][x].setColor(Color.BLACK);
+                board[row][x].setAvailability(true);
+            }
+        }
+    }
+
+    private void dropAfterClear(IntArray rowList){
+        rowList.sort();
+        for (int row : rowList.items){
+            for (int i = row; i > 0; i--) {
+                for (int j = 0; j < COLS; j++) {
+                    board[i][j].setColor(board[i-1][j].getColor());
+                    board[i][j].setAvailability(board[i-1][j].isAvailable());
+                }
+            }
+        }
+    }
+
+
 
     @Override
     public void show() {
