@@ -59,7 +59,13 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        moveDownLogically();
+//        if (timer)
+//        moveDownLogically();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            moveDownLogically();
+            drawSquares(currentPiece.getColor());
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             moveLeftRight(-1);
@@ -68,6 +74,16 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             moveLeftRight(1);
+            drawSquares(currentPiece.getColor());
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            rotate(1);
+            drawSquares(currentPiece.getColor());
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            rotate(-1);
             drawSquares(currentPiece.getColor());
         }
 
@@ -109,6 +125,8 @@ public class GameScreen implements Screen {
         time_exists += Gdx.graphics.getDeltaTime();
         while (time_exists > time_movement) {
             if (moveDownPossible()){
+                //set current squares to black
+                drawSquares(Color.BLACK);
                 currentPiece.moveDown();
 
                 time_movement += 1 / levelSpeeds[level];
@@ -183,12 +201,14 @@ public class GameScreen implements Screen {
         return (availableCount == 4);
     }
 
-    public void rotate(int rotationNum, int direction){
+    public void rotate(int direction) {
+        int rotationNum = currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
         //or counterclockwise (-1)
         rotationNum = Math.floorMod(rotationNum + direction, 4);
 
         if (rotationPossible(rotationNum)) {
+            drawSquares(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
         }
     }
@@ -205,6 +225,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             squareRow = row + dimensions[rotationNum][i].x;
             squareCol = col + dimensions[rotationNum][i].y;
+            //TODO index checking beforehand
             if (board[squareRow][squareCol].isAvailable()) {
                 availableCount++;
             }
