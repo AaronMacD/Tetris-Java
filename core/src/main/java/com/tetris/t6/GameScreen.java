@@ -36,7 +36,6 @@ public class GameScreen implements Screen {
     //tools and testing
     String testText1, testText2, testText3;
     boolean timers_enabled = true;
-
     public GameScreen(TetrisGame game) {
         this.game = game;
 
@@ -284,6 +283,14 @@ public class GameScreen implements Screen {
             level++;
             linesCleared = 0;
         }
+    }
+
+    //TODO: Find a way to calculate the speed based on level etc instead of using an array to hold values.
+    //Not sure what the equation is to scale the speed, or if there even is a way to copy the same from the actual game.
+
+    public float changeSpeed(int lvl){ // Might be useful to call to change the speed with the level.
+        float speed = levelSpeeds[lvl]; //Looks at the position of the array and sets speed to that level value speed.
+        return speed; //return the level's speed.
     }
 
 //    private void clearLine(int[] fullRows){
