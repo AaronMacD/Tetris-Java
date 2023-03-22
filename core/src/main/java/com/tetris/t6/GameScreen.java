@@ -24,10 +24,6 @@ public class GameScreen implements Screen {
     private float time_movement = 0f;
     private int score;
     private String scoreText;
-    private final int singleClear = 100 * level;
-    private final int doubleClear = 300 * level;
-    private int tripleClear = 500 * level;
-    private int tetrisClear = 800 * level;
     private int linesCleared;
     private boolean pieceIsActive;
     private BlockShape activePiece;
