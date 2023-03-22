@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
 
 import java.awt.*;
+import java.util.logging.Level;
 
 public class GameScreen implements Screen {
     TetrisGame game;
@@ -15,17 +16,18 @@ public class GameScreen implements Screen {
     public final int ROWS = 22;
     public final int COLS = 10;
     private Piece currentPiece;
-    public int level;
+    private int level = 1;
+    private String levelText;
     //four levels of speed to start. cells per frame is 1/speed
     //TODO:add the rest of the speeds, cap out at 10 for now?
     private float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
     private float time_movement = 0f;
     private int score;
-    String scoreText;
+    private String scoreText;
     private final int singleClear = 100 * level;
     private final int doubleClear = 300 * level;
-    private final int tripleClear = 500 * level;
-    private final int tetrisClear = 800 * level;
+    private int tripleClear = 500 * level;
+    private int tetrisClear = 800 * level;
     private int linesCleared;
     private boolean pieceIsActive;
     private BlockShape activePiece;
@@ -89,6 +91,7 @@ public class GameScreen implements Screen {
         levelUp();
 
         scoreText = String.format("Score: %d", this.score);
+        levelText = String.format("Level: %d", this.level);
 
         game.batch.begin();
         for (int i = 0; i < ROWS; i++) {
@@ -97,6 +100,7 @@ public class GameScreen implements Screen {
             }
         }
         game.font.draw(game.batch, scoreText, 300,780);
+        game.font.draw(game.batch, levelText, 301,795);
         game.batch.end();
 
 
@@ -127,20 +131,13 @@ public class GameScreen implements Screen {
         }
     }
 
-//    public void update() {
-//        if(!pieceIsActive){
-//            //create a new piece based on 'next block'
-//            time_exists = 0f;
-//            time_movement = 0f;
-//        }
-//    }
 
     public void moveDownLogically() {
         if (timers_enabled) {
             time_movement += levelSpeeds[level];
         }
         //should be >= 1, normally, but set to 5 for testing purposes.
-        while (time_movement >= 5) {
+        while (time_movement >= 1) {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
                 currentPiece.moveDown();
@@ -294,8 +291,8 @@ public class GameScreen implements Screen {
             }
         }
         if(fullRows.notEmpty()){
-            clearLine(rowList);
-            dropAfterClear(rowList);
+            clearLine(fullRows);
+            dropAfterClear(fullRows);
         }
 
 
@@ -321,13 +318,17 @@ public class GameScreen implements Screen {
             case 0:
                 return;
             case 1:
-                score += singleClear;
+                score += 100 * level;
+                break;
             case 2:
-                score += doubleClear;
+                score += 300 * level;
+                break;
             case 3:
-                score += tripleClear;
+                score += 500 * level;
+                break;
             case 4:
-                score += tetrisClear;
+                score += 800 * level;
+                break;
         }
 
         for (int row : rowList.items) {
