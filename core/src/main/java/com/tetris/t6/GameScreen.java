@@ -20,8 +20,8 @@ public class GameScreen implements Screen {
     private String levelText;
     //four levels of speed to start. cells per frame is 1/speed
     //TODO:add the rest of the speeds, cap out at 10 for now?
-    private float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
-    private float time_movement = 0f;
+    private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
+    private float time_movement;
     private int score;
     private String scoreText;
     private int linesCleared;
@@ -52,7 +52,6 @@ public class GameScreen implements Screen {
             }
         }
 
-        drawPiece(currentPiece.getColor());
         //Loading Sounds
 
         //Loading Music

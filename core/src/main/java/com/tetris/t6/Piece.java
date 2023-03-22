@@ -19,7 +19,7 @@ public class Piece {
     //x-coordinate of the top-left corner of a piece
     private int row;
     private int col;
-    private Orientation orientation;
+    private final Orientation orientation;
 
     private Color color;
     private BlockShape blockShape;
