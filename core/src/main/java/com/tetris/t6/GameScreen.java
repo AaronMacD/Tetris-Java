@@ -26,7 +26,6 @@ public class GameScreen implements Screen {
     private String scoreText;
     private int linesCleared;
     private boolean pieceIsActive;
-    private BlockShape activePiece;
     HeldBlock heldBlock;
     NextBlock nextBlock;
     SoundController SoundCtrl;

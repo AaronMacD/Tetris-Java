@@ -8,13 +8,10 @@ public class HeldBlock extends Piece {
     final TetrisGame game;
     final IntArray coordinates = new IntArray();
 
-    BlockShape block;
-
     //Constructor
     //TODO Figure out the parameters we're going to be passing to the constructor
     public HeldBlock(TetrisGame game){
         this.game = game;
-        block = BlockShape.EMPTY;
         coordinates.add(12,23);
     }
 
