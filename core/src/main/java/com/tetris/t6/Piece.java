@@ -1,30 +1,35 @@
 package com.tetris.t6;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.IntArray;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The type Piece.
+ * Represents a single Piece
  */
 public class Piece {
+    /**
+     * 2D array of points. First dimension determines rotation status,
+     * second dimension holds Points representing coordinates relative to the top-left
+     * square of a piece.
+     */
     private Point dimensions[][];
 
     //can be 0, 1, 2, or 3
     //TODO consider making this an enum
     private int rotationNum;
 
-    //x-coordinate of the top-left corner of a piece
+    //row number of the top-left square of a piece
     private int row;
+    //column number of the top-left square of a piece
     private int col;
 
     private Color color;
 
     /**
-     * Instantiates a new Piece.
+     * Instantiates a new Piece. Initializes row, col, rotationNum,
+     * and calls generatePieceType
      */
     Piece() {
         row = 1;
@@ -34,44 +39,44 @@ public class Piece {
     }
 
     /**
-     * Gets row.
+     * Gets row of the top-left square.
      *
-     * @return the row
+     * @return row
      */
     public int getRow() { return this.row; }
 
     /**
-     * Gets col.
+     * Gets column of the top left square.
      *
-     * @return the col
+     * @return col
      */
     public int getCol() { return this.col; }
 
     /**
-     * Gets color.
+     * Gets color of the piece.
      *
-     * @return the color
+     * @return color
      */
     public Color getColor() { return this.color; }
 
     /**
      * Get dimensions point [ ] [ ].
      *
-     * @return the point [ ] [ ]
+     * @return the point [ ] [ ] array of piece coordinates
      */
     public Point[][] getDimensions() {
         return dimensions;
     }
 
     /**
-     * Gets rotation num.
+     * Gets rotation number.
      *
-     * @return the rotation num
+     * @return rotationNum
      */
     public int getRotationNum() { return this.rotationNum; }
 
     /**
-     * Sets row.
+     * Sets row of the top-left square.
      *
      * @param row the row
      */
@@ -80,7 +85,7 @@ public class Piece {
     }
 
     /**
-     * Sets col.
+     * Sets column of the top-left square.
      *
      * @param col the col
      */
@@ -89,38 +94,35 @@ public class Piece {
     }
 
     /**
-     * Sets rotation num.
+     * Sets rotation number.
      *
-     * @param rNum the r num
+     * @param rotationNum the rotation number
      */
-    public void setRotationNum(int rNum) {
-        this.rotationNum = rNum;
+    public void setRotationNum(int rotationNum) {
+        this.rotationNum = rotationNum;
     }
 
     /**
-     * Move left.
+     * Move left by one column.
      */
     public void moveLeft(){ col--; }
 
     /**
-     * Move right.
+     * Move right by one column.
      */
     public void moveRight() { col++; }
 
     /**
-     * Move down.
+     * Move down by one row.
      */
     public void moveDown() {
         row++;
     }
 
     /**
-     *
-     * rNum  the current rotation number: 0, 1, 2, or 3
-     * direction 1 if clockwise, -1 if counterclockwise
+     *  Generates a random number and calls a method to set
+     *  coordinates for a specific piece type
      */
-
-
     private void generatePieceType() {
         Random rand = new Random();
         int num = rand.nextInt(7);
@@ -144,6 +146,9 @@ public class Piece {
         }
     }
 
+    /**
+     * Creates relative coordinates for a J piece and sets color.
+     */
     private void makeJ() {
         //Point values are row, col for individual square of a piece
         dimensions = new Point[][] {
@@ -159,6 +164,10 @@ public class Piece {
 
         color = new Color(Color.BLUE);
     }
+
+    /**
+     * Creates relative coordinates for an L piece and sets color.
+     */
     private void makeL() {
         dimensions = new Point[][] {
             //rotation 0
@@ -174,6 +183,9 @@ public class Piece {
         color = new Color(Color.ORANGE);
     }
 
+    /**
+     * Creates relative coordinates for a line piece and sets color.
+     */
     private void makeLine() {
         dimensions = new Point[][] {
             //rotation 0
@@ -189,6 +201,9 @@ public class Piece {
         color = new Color(Color.CYAN);
     }
 
+    /**
+     * Creates relative coordinates for an S piece and sets color.
+     */
     private void makeS() {
         dimensions = new Point[][] {
             //rotation 0
@@ -204,6 +219,9 @@ public class Piece {
         color = new Color(Color.GREEN);
     }
 
+    /**
+     * Creates relative coordinates for a Square piece and sets color.
+     */
     private void makeSquare() {
         //still represented as 2D array for convenience
         dimensions = new Point[][] {
@@ -220,6 +238,9 @@ public class Piece {
         color = new Color(Color.YELLOW);
     }
 
+    /**
+     * Creates relative coordinates for a T piece and sets color.
+     */
     private void makeT() {
         dimensions = new Point[][] {
             //rotation 0
@@ -235,6 +256,9 @@ public class Piece {
         color = new Color(Color.PURPLE);
     }
 
+    /**
+     * Creates relative coordinates for an Z piece and sets color.
+     */
     private void makeZ() {
         dimensions = new Point[][] {
             //rotation 0
