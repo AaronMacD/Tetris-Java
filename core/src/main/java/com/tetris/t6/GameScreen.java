@@ -10,10 +10,22 @@ import com.badlogic.gdx.utils.IntArray;
 import java.awt.*;
 import java.util.logging.Level;
 
+/**
+ * The type Game screen.
+ */
 public class GameScreen implements Screen {
+    /**
+     * The Game.
+     */
     TetrisGame game;
     private Square[][] board;
+    /**
+     * The Rows.
+     */
     public final int ROWS = 22;
+    /**
+     * The Cols.
+     */
     public final int COLS = 10;
     private Piece currentPiece;
     private int level = 1;
@@ -26,15 +38,42 @@ public class GameScreen implements Screen {
     private String scoreText;
     private int linesCleared;
     private boolean pieceIsActive;
+    /**
+     * The Held block.
+     */
     HeldBlock heldBlock;
+    /**
+     * The Next block.
+     */
     NextBlock nextBlock;
+    /**
+     * The Sound ctrl.
+     */
     SoundController SoundCtrl;
 
     //Sounds
 
-    //tools and testing
-    String testText1, testText2, testText3;
+    /**
+     * The Test text 1.
+     */
+//tools and testing
+    String testText1, /**
+     * The Test text 2.
+     */
+    testText2, /**
+     * The Test text 3.
+     */
+    testText3;
+    /**
+     * The Timers enabled.
+     */
     boolean timers_enabled = true;
+
+    /**
+     * Instantiates a new Game screen.
+     *
+     * @param game the game
+     */
     public GameScreen(TetrisGame game) {
         this.game = game;
 
@@ -108,6 +147,11 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * Draw piece.
+     *
+     * @param color the color
+     */
     public void drawPiece(Color color) {
 
         //row and column for the top-left corner
@@ -126,6 +170,9 @@ public class GameScreen implements Screen {
     }
 
 
+    /**
+     * Move down logically.
+     */
     public void moveDownLogically() {
         if (timers_enabled) {
             time_movement += levelSpeeds[level];
@@ -169,6 +216,11 @@ public class GameScreen implements Screen {
         return (availableCount == 4);
     }
 
+    /**
+     * Move left right.
+     *
+     * @param lr the lr
+     */
     public void moveLeftRight(int lr) {
         if (moveLeftRightPossible(lr)) {
             if (lr == -1) {
@@ -211,6 +263,11 @@ public class GameScreen implements Screen {
         return (availableCount == 4);
     }
 
+    /**
+     * Rotate.
+     *
+     * @param direction the direction
+     */
     public void rotate(int direction) {
         int rotationNum = currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
@@ -302,6 +359,12 @@ public class GameScreen implements Screen {
     //TODO: Find a way to calculate the speed based on level etc instead of using an array to hold values.
     //Not sure what the equation is to scale the speed, or if there even is a way to copy the same from the actual game.
 
+    /**
+     * Change speed float.
+     *
+     * @param lvl the lvl
+     * @return the float
+     */
     public float changeSpeed(int lvl){ // Might be useful to call to change the speed with the level.
         float speed = levelSpeeds[lvl]; //Looks at the position of the array and sets speed to that level value speed.
         return speed; //return the level's speed.

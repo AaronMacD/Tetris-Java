@@ -5,13 +5,33 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+/**
+ * The type Menu screen.
+ */
 public class MenuScreen implements Screen {
 
+    /**
+     * The Game.
+     */
     final TetrisGame game;
+    /**
+     * The Gl.
+     */
     GlyphLayout gl = new GlyphLayout();
+    /**
+     * The Menu text 1.
+     */
     String menuText1 = "Welcome to Tetris T6!";
+    /**
+     * The Menu text 2.
+     */
     String menuText2 = "Click anywhere to start the game";
 
+    /**
+     * Instantiates a new Menu screen.
+     *
+     * @param game the game
+     */
     public MenuScreen(final TetrisGame game) {
         this.game = game;
 

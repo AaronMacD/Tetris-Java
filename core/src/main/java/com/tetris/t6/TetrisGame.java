@@ -14,18 +14,54 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
+/**
+ * The type Tetris game.
+ */
 public class TetrisGame extends Game {
 
+    /**
+     * The Sprite batch.
+     */
     SpriteBatch spriteBatch;
+    /**
+     * The Batch.
+     */
     PolygonSpriteBatch batch;
+    /**
+     * The Region.
+     */
     TextureRegion region;
+    /**
+     * The Texture.
+     */
     Texture texture;
+    /**
+     * The Font.
+     */
     BitmapFont font;
+    /**
+     * The Camera.
+     */
     OrthographicCamera camera;
+    /**
+     * The Viewport.
+     */
     Viewport viewport;
+    /**
+     * The Shape renderer.
+     */
     ShapeRenderer shapeRenderer;
+    /**
+     * The Game screen.
+     */
     GameScreen gameScreen;
+    /**
+     * The Drawer.
+     */
     ShapeDrawer drawer;
+    /**
+     * The Pixmap.
+     */
     Pixmap pixmap;
 
 

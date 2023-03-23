@@ -7,6 +7,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Piece.
+ */
 public class Piece {
     private Point dimensions[][];
 
@@ -20,6 +23,9 @@ public class Piece {
 
     private Color color;
 
+    /**
+     * Instantiates a new Piece.
+     */
     Piece() {
         row = 1;
         col = 0;
@@ -27,29 +33,83 @@ public class Piece {
         generatePieceType();
     }
 
+    /**
+     * Gets row.
+     *
+     * @return the row
+     */
     public int getRow() { return this.row; }
 
+    /**
+     * Gets col.
+     *
+     * @return the col
+     */
     public int getCol() { return this.col; }
 
+    /**
+     * Gets color.
+     *
+     * @return the color
+     */
     public Color getColor() { return this.color; }
+
+    /**
+     * Get dimensions point [ ] [ ].
+     *
+     * @return the point [ ] [ ]
+     */
     public Point[][] getDimensions() {
         return dimensions;
     }
+
+    /**
+     * Gets rotation num.
+     *
+     * @return the rotation num
+     */
     public int getRotationNum() { return this.rotationNum; }
 
+    /**
+     * Sets row.
+     *
+     * @param row the row
+     */
     public void setRow(int row) {
         this.row = row;
     }
+
+    /**
+     * Sets col.
+     *
+     * @param col the col
+     */
     public void setCol(int col) {
         this.col = col;
     }
+
+    /**
+     * Sets rotation num.
+     *
+     * @param rNum the r num
+     */
     public void setRotationNum(int rNum) {
         this.rotationNum = rNum;
     }
+
+    /**
+     * Move left.
+     */
     public void moveLeft(){ col--; }
 
+    /**
+     * Move right.
+     */
     public void moveRight() { col++; }
 
+    /**
+     * Move down.
+     */
     public void moveDown() {
         row++;
     }
