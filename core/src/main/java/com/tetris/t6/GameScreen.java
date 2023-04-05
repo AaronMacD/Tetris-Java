@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.awt.*;
 import java.util.logging.Level;
@@ -28,7 +26,7 @@ public class GameScreen implements Screen {
     private String scoreText;
     private int linesCleared;
     private boolean pieceIsActive;
-    private BlockShape activePiece;
+
     HeldBlock heldBlock;
     NextBlock nextBlock;
     SoundController SoundCtrl;
@@ -53,8 +51,6 @@ public class GameScreen implements Screen {
         level = 1;
         score = 0;
 
-
-
         board = new Square[ROWS][COLS];
         //initialize board
         for (int i = 0; i < ROWS; i++) {
@@ -76,6 +72,11 @@ public class GameScreen implements Screen {
 
 
         time_controls += delta;
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            hardDrop();
+            time_movement = 100f;
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             time_movement = 100f;
@@ -205,7 +206,7 @@ public class GameScreen implements Screen {
     }
 
     //TODO: work on combining with rotationPossible to eliminate reused code
-    private boolean moveDownPossible(){
+    private boolean moveDownPossible() {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -227,6 +228,12 @@ public class GameScreen implements Screen {
 
         //returns true or false
         return (availableCount == 4);
+    }
+
+    private void hardDrop() {
+        while(moveDownPossible()) {
+            moveDownLogically();
+        }
     }
 
     public void moveLeftRight(int lr) {

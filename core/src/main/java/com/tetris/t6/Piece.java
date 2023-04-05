@@ -7,7 +7,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.tetris.t6.Orientation.*;
 
 public class Piece {
     private Point dimensions[][];
@@ -19,16 +18,13 @@ public class Piece {
     //x-coordinate of the top-left corner of a piece
     private int row;
     private int col;
-    private final Orientation orientation;
 
     private Color color;
-    private BlockShape blockShape;
 
     Piece() {
         row = 2;
         col = 2;
         rotationNum = 0;
-        orientation = Orientation.UP;
         generatePieceType();
     }
 
@@ -103,7 +99,6 @@ public class Piece {
         };
 
         color = new Color(Color.BLUE);
-        this.blockShape = BlockShape.J;
 
     }
     private void makeL() {
@@ -119,7 +114,6 @@ public class Piece {
         };
 
         color = new Color(Color.ORANGE);
-        this.blockShape = BlockShape.L;
     }
 
     private void makeLine() {
@@ -135,7 +129,6 @@ public class Piece {
         };
 
         color = new Color(Color.CYAN);
-        this.blockShape = BlockShape.LINE;
     }
 
     private void makeS() {
@@ -151,7 +144,6 @@ public class Piece {
         };
 
         color = new Color(Color.GREEN);
-        this.blockShape = BlockShape.S;
     }
 
     private void makeSquare() {
@@ -168,7 +160,6 @@ public class Piece {
         };
 
         color = new Color(Color.YELLOW);
-        this.blockShape = BlockShape.SQUARE;
     }
 
     private void makeT() {
@@ -184,7 +175,6 @@ public class Piece {
         };
 
         color = new Color(Color.PURPLE);
-        this.blockShape = BlockShape.T;
     }
 
     private void makeZ() {
@@ -200,6 +190,5 @@ public class Piece {
         };
 
         color = new Color(Color.RED);
-        this.blockShape = BlockShape.Z;
     }
 }
