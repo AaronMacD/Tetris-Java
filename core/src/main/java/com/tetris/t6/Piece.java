@@ -25,8 +25,8 @@ public class Piece {
     private BlockShape blockShape;
 
     Piece() {
-        row = 1;
-        col = 0;
+        row = 2;
+        col = 2;
         rotationNum = 0;
         orientation = Orientation.UP;
         generatePieceType();
@@ -68,7 +68,7 @@ public class Piece {
 
     private void generatePieceType() {
         Random rand = new Random();
-        int num = rand.nextInt(7);
+        int num = 0; //rand.nextInt(7);
 
         //create new piece based on random number
         switch (num) {

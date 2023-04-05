@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.awt.*;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ public class GameScreen implements Screen {
     //TODO:add the rest of the speeds, cap out at 10 for now?
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
     private float time_movement;
+    private float time_controls;
     private int score;
     private String scoreText;
     private int linesCleared;
@@ -30,6 +32,13 @@ public class GameScreen implements Screen {
     HeldBlock heldBlock;
     NextBlock nextBlock;
     SoundController SoundCtrl;
+
+    Square test1;
+    Square[] test2 = new Square[22];
+    Square[] test3 = new Square[10];
+    Square[][] test4 = new Square[22][10];
+
+    int test5 = 0;
 
     //Sounds
 
@@ -44,13 +53,17 @@ public class GameScreen implements Screen {
         level = 1;
         score = 0;
 
+
+
         board = new Square[ROWS][COLS];
         //initialize board
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                board[i][j] = new Square(i, j, Color.BLACK);
+                    board[i][j] = new Square(i, j, Color.RED);
             }
         }
+        currentPiece = new Piece();
+        drawPiece(currentPiece.getColor());
 
         //Loading Sounds
 
@@ -59,19 +72,23 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        //ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        moveDownLogically();
+
+        time_controls += delta;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             time_movement = 100f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && time_controls > 0.15f) {
             moveLeftRight(-1);
+            time_controls = 0f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && time_controls > 0.15f) {
             moveLeftRight(1);
+            time_controls = 0f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
@@ -82,20 +99,54 @@ public class GameScreen implements Screen {
             rotate(-1);
         }
 
-        drawPiece(currentPiece.getColor());
+
         levelUp();
 
         scoreText = String.format("Score: %d", this.score);
         levelText = String.format("Level: %d", this.level);
 
         game.batch.begin();
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = 2; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.drawer);
             }
         }
-        game.font.draw(game.batch, scoreText, 300,780);
-        game.font.draw(game.batch, levelText, 301,795);
+        test1 = new Square(0,0, Color.WHITE);
+        if (test5 == 0) {
+            test1.drawSquare(game.drawer);
+            test5++;
+        }
+//        for(int q = 0; q < 22; q++){
+//            test2[q] = new Square(q, 0, Color.RED);
+//            test2[q].drawSquare(game.drawer);
+//        }
+//
+//        for(int q = 0; q < 10; q++){
+//            test3[q] = new Square(0, q, Color.RED);
+//            test3[q].drawSquare(game.drawer);
+//        }
+//        test4[0][0] = new Square(0,0,Color.WHITE);
+//        test4[0][0].drawSquare(game.drawer);
+
+//        test4[0][1] = new Square(0, 1, Color.WHITE);
+//        test4[0][1].drawSquare(game.drawer);
+//
+//        test4[1][0] = new Square(1, 0, Color.WHITE);
+//        test4[1][0].drawSquare(game.drawer);
+
+//        for(int q = 1; q < 2; q++){
+//            for(int w = 0; w < 1; w++){
+//                test4[q][w] = new Square(q, w, Color.GRAY);
+//                test4[q][w].drawSquare(game.drawer);
+//
+//            }
+//        }
+
+
+
+        moveDownLogically();
+        game.font.draw(game.batch, scoreText, 400,780);
+        game.font.draw(game.batch, levelText, 401,795);
         game.batch.end();
 
 
@@ -104,6 +155,12 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
             timers_enabled = !timers_enabled;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.pause();
+            this.hide();
+            game.setScreen(new PauseScreen(game, this));
         }
 
 
@@ -121,7 +178,8 @@ public class GameScreen implements Screen {
             int squareRow = row + dimensions[rNum][i].x;
             int squareCol = col + dimensions[rNum][i].y;
             if (squareCol>=0) {
-                board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+                //board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+                board[squareRow][squareCol].setColor(color);
             }
         }
     }
@@ -136,6 +194,7 @@ public class GameScreen implements Screen {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
                 currentPiece.moveDown();
+                drawPiece(currentPiece.getColor());
                 time_movement = 0f;
             }
             else {

@@ -36,8 +36,8 @@ public class TetrisGame extends Game {
         font = new BitmapFont();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, 400, 800);
-        viewport = new FillViewport(400,800, camera);
+        camera.setToOrtho(false, 600, 900);
+        viewport = new FillViewport(600,900, camera);
 
         pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -50,9 +50,9 @@ public class TetrisGame extends Game {
         drawer = new ShapeDrawer(batch, region);
 
         //TODO: uncomment
-        //this.setScreen(new MainMenu(this));
-        gameScreen = new GameScreen(this);
-        this.setScreen(gameScreen);
+        this.setScreen(new MenuScreen(this));
+        //gameScreen = new GameScreen(this);
+        //this.setScreen(gameScreen);
     }
 
     public void render() {

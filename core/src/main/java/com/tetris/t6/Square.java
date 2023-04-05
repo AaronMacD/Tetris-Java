@@ -13,8 +13,8 @@ public class Square {
     //whether square is available
     boolean availability;
 
-    private final int width = 40;
-    private final int height = 40;
+    private final int width = 20;
+    private final int height = 20;
 
     private int x;
 
@@ -26,10 +26,10 @@ public class Square {
         this.color = color;
         availability = true;
 
-        x = col * width;
+        x = 100 + col * width;
 
         //converts to y-down coordinates
-        y = Gdx.graphics.getHeight() - (row * height);
+        y = 700 - (row * height);
 
     }
 
