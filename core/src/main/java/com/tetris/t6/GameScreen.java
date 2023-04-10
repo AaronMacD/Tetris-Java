@@ -21,6 +21,7 @@ public class GameScreen implements Screen {
     //four levels of speed to start. cells per frame is 1/speed
     //TODO:add the rest of the speeds, cap out at 10 for now?
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
+    private float time_controls;
     private float time_movement;
     private int score;
     private String scoreText;
@@ -60,18 +61,25 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        moveDownLogically();
+        time_controls += delta;
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            hardDrop();
+            time_movement = 100f;
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             time_movement = 100f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && time_controls > 0.15f) {
             moveLeftRight(-1);
+            time_controls = 0f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && time_controls > 0.15f) {
             moveLeftRight(1);
+            time_controls = 0f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
@@ -87,6 +95,8 @@ public class GameScreen implements Screen {
 
         scoreText = String.format("Score: %d", this.score);
         levelText = String.format("Level: %d", this.level);
+
+        moveDownLogically();
 
         game.batch.begin();
         for (int i = 0; i < ROWS; i++) {
@@ -168,6 +178,12 @@ public class GameScreen implements Screen {
 
         //returns true or false
         return (availableCount == 4);
+    }
+
+    private void hardDrop() {
+        while(moveDownPossible()) {
+            moveDownLogically();
+        }
     }
 
     public void moveLeftRight(int lr) {
