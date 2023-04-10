@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     private String scoreText;
     private int linesCleared;
     private boolean pieceIsActive;
-    private BlockShape activePiece;
+
     HeldBlock heldBlock;
     NextBlock nextBlock;
     SoundController SoundCtrl;
@@ -93,10 +93,10 @@ public class GameScreen implements Screen {
         drawPiece(currentPiece.getColor());
         levelUp();
 
+        moveDownLogically();
+
         scoreText = String.format("Score: %d", this.score);
         levelText = String.format("Level: %d", this.level);
-
-        moveDownLogically();
 
         game.batch.begin();
         for (int i = 0; i < ROWS; i++) {
@@ -305,6 +305,9 @@ public class GameScreen implements Screen {
             clearLine(fullRows);
             dropAfterClear(fullRows);
         }
+        else {
+            checkLoss();
+        }
 
 
     }
@@ -360,8 +363,15 @@ public class GameScreen implements Screen {
                 }
             }
         }
+        checkLoss();
     }
 
+    //TODO: change so that it doesn't just exit
+    private void checkLoss() {
+        if (currentPiece.getRow() == 0) {
+            System.exit(0);
+        }
+    }
 
 
     @Override
