@@ -22,7 +22,7 @@ public class Piece {
     private Color color;
 
     Piece() {
-        row = 0;
+        row = 1;
         col = 0;
         rotationNum = 0;
         generatePieceType();

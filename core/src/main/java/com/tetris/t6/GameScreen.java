@@ -123,7 +123,7 @@ public class GameScreen implements Screen {
         levelText = String.format("Level: %d", this.level);
 
         game.batch.begin();
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = 1; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.drawer);
             }
@@ -159,10 +159,10 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             int squareRow = row + dimensions[rNum][i].x;
             int squareCol = col + dimensions[rNum][i].y;
-            if (squareCol>=0) {
+            //if (squareCol>=0) {
                 //board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
                 board[squareRow][squareCol].setColor(color);
-            }
+            //}
         }
     }
 
@@ -182,6 +182,7 @@ public class GameScreen implements Screen {
                 lockSquares();
                 currentPiece = nextBlock.getNextPiece();
                 nextBlock.generateNextPiece();
+                time_movement = 0f;
             }
         }
     }
@@ -339,8 +340,6 @@ public class GameScreen implements Screen {
         else {
             checkLoss();
         }
-
-
     }
 
     private void levelUp(){
@@ -399,9 +398,22 @@ public class GameScreen implements Screen {
 
     //TODO: change so that it doesn't just exit
     private void checkLoss() {
-        if (currentPiece.getRow() == 0) {
-            System.exit(0);
+//        if (currentPiece.getRow() == 0) {
+//            System.exit(0);
+//        }
+
+        for (int i = 0; i < 2; i++){
+            for (int j = 0; j < 10; j++){
+                if (!board[i][j].isAvailable()){
+                    this.pause();
+                    this.hide();
+                    game.setScreen(new LossScreen(game));
+                    this.dispose();
+                    return;
+                }
+            }
         }
+
     }
 
 

@@ -49,7 +49,6 @@ public class TetrisGame extends Game {
         shapeRenderer = new ShapeRenderer();
         drawer = new ShapeDrawer(batch, region);
 
-        //TODO: uncomment
         this.setScreen(new MenuScreen(this));
     }
 

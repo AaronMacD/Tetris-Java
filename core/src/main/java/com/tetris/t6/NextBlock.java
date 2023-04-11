@@ -26,7 +26,7 @@ public class NextBlock{
 
     public Piece getNextPiece(){
         nextPiece.setCol(0);
-        nextPiece.setRow(0);
+        nextPiece.setRow(1);
         updateGrid(Color.BLACK);
         return nextPiece;
     }
