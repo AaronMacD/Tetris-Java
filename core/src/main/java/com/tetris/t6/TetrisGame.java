@@ -37,7 +37,7 @@ public class TetrisGame extends Game {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 900);
-        //viewport = new FillViewport(600,900, camera);
+        viewport = new FillViewport(800,900, camera);
 
         pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);

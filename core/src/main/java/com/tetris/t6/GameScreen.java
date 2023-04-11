@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.awt.*;
 import java.util.logging.Level;
@@ -62,6 +64,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor( 0, 0, 0.2f, 1 );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
         time_controls += delta;
 
@@ -102,6 +106,12 @@ public class GameScreen implements Screen {
             else{
                 currentPiece = heldBlock.swapPiece(currentPiece);
             }
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.pause();
+            this.hide();
+            game.setScreen(new PauseScreen(game, this));
         }
 
         drawPiece(currentPiece.getColor());
@@ -150,7 +160,8 @@ public class GameScreen implements Screen {
             int squareRow = row + dimensions[rNum][i].x;
             int squareCol = col + dimensions[rNum][i].y;
             if (squareCol>=0) {
-                board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+                //board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
+                board[squareRow][squareCol].setColor(color);
             }
         }
     }
