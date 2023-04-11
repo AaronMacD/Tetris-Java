@@ -1,5 +1,6 @@
 package com.tetris.t6;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 import java.awt.*;
@@ -9,7 +10,8 @@ import static com.tetris.t6.Orientation.*;
 
 public class Piece {
     private Point dimensions[][];
-
+    Random rand = new Random();
+    //(long) (Gdx.graphics.getDeltaTime()*10000)
     //can be 0, 1, 2, or 3
     //TODO consider making this an enum
     private int rotationNum;
@@ -69,7 +71,6 @@ public class Piece {
 
 
     private void generatePieceType() {
-        Random rand = new Random();
         int num = rand.nextInt(7);
 
         //create new piece based on random number
@@ -122,6 +123,7 @@ public class Piece {
         color = new Color(Color.ORANGE);
     }
 
+    // X = row, Y = col
     private void makeLine() {
         dimensions = new Point[][] {
             //rotation 0

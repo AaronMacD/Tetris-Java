@@ -41,6 +41,8 @@ public class GameScreen implements Screen {
         this.game = game;
 
         currentPiece = new Piece();
+        nextBlock = new NextBlock();
+        heldBlock = new HeldBlock();
 
         level = 1;
         score = 0;
@@ -90,6 +92,18 @@ public class GameScreen implements Screen {
             rotate(-1);
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            drawPiece(Color.BLACK);
+            if(heldBlock.getHeldPiece() == null){
+                heldBlock.setHeldPiece(currentPiece);
+                currentPiece = nextBlock.getNextPiece();
+                nextBlock.generateNextPiece();
+            }
+            else{
+                currentPiece = heldBlock.swapPiece(currentPiece);
+            }
+        }
+
         drawPiece(currentPiece.getColor());
         levelUp();
 
@@ -104,6 +118,11 @@ public class GameScreen implements Screen {
                 board[i][j].drawSquare(game.drawer);
             }
         }
+
+
+        heldBlock.drawNext(game.drawer);
+        nextBlock.drawNext(game.drawer);
+
         game.font.draw(game.batch, scoreText, 300,780);
         game.font.draw(game.batch, levelText, 301,795);
         game.batch.end();
@@ -150,7 +169,8 @@ public class GameScreen implements Screen {
             }
             else {
                 lockSquares();
-                currentPiece = new Piece();
+                currentPiece = nextBlock.getNextPiece();
+                nextBlock.generateNextPiece();
             }
         }
     }

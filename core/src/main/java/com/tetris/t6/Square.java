@@ -26,10 +26,10 @@ public class Square {
         this.color = color;
         availability = true;
 
-        x = col * width;
+        x = 20 + col * width;
 
         //converts to y-down coordinates
-        y = Gdx.graphics.getHeight() - (row * height);
+        y = 800 - (row * height);
 
     }
 
@@ -50,7 +50,8 @@ public class Square {
     }
 
     public void drawSquare(ShapeDrawer shape) {
-        shape.filledRectangle(x, y, width, height);
         shape.setColor(color);
+        shape.filledRectangle(x, y, width-1, height-1);
+
     }
 }
