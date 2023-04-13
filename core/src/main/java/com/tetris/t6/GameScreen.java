@@ -3,6 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -33,10 +34,11 @@ public class GameScreen implements Screen {
 
     HeldBlock heldBlock;
     NextBlock nextBlock;
-    Sound lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
-    Sound rotate = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
-    Sound line_clear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
-    Sound tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
+    Sound lock;
+    Sound rotate;
+    Sound line_clear;
+    Sound tetris;
+    Music victory1;
 
     //Sounds
 
@@ -62,8 +64,15 @@ public class GameScreen implements Screen {
         }
 
         //Loading Sounds
+        lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
+        rotate = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
+        line_clear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
+        tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
 
         //Loading Music
+        victory1 = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
+        victory1.play();
+        victory1.setVolume(0.50f);
     }
 
     @Override
