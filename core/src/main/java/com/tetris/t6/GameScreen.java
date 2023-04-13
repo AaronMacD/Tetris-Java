@@ -3,6 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -32,7 +33,10 @@ public class GameScreen implements Screen {
 
     HeldBlock heldBlock;
     NextBlock nextBlock;
-    SoundController SoundCtrl;
+    Sound lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
+    Sound rotate = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
+    Sound line_clear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
+    Sound tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
 
     //Sounds
 
@@ -90,10 +94,12 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             rotate(1);
+            rotate.play(1.0f);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             rotate(-1);
+            rotate.play(1.0f);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
@@ -149,7 +155,6 @@ public class GameScreen implements Screen {
     }
 
     public void drawPiece(Color color) {
-
         //row and column for the top-left corner
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -187,7 +192,6 @@ public class GameScreen implements Screen {
         }
     }
 
-    //TODO: work on combining with rotationPossible to eliminate reused code
     private boolean moveDownPossible(){
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
@@ -233,7 +237,6 @@ public class GameScreen implements Screen {
         }
     }
 
-    //TODO: combine with moveDownPossible, include parameters for down, left/right
     //-1 for left, 1 for right
     private boolean moveLeftRightPossible(int lr) {
         Point[][] dimensions = currentPiece.getDimensions();
@@ -317,7 +320,6 @@ public class GameScreen implements Screen {
         checkFullRow(rowsToCheck);
     }
 
-    //TODO: currently inefficient because we might check the same row multiple times
     private void checkFullRow(IntArray rowList) {
 
         IntArray fullRows = new IntArray();
@@ -338,6 +340,7 @@ public class GameScreen implements Screen {
             dropAfterClear(fullRows);
         }
         else {
+            lock.play(1.0f);
             checkLoss();
         }
     }
@@ -363,15 +366,19 @@ public class GameScreen implements Screen {
                 return;
             case 1:
                 score += 100 * level;
+                line_clear.play(1.0f);
                 break;
             case 2:
                 score += 300 * level;
+                line_clear.play(1.0f);
                 break;
             case 3:
                 score += 500 * level;
+                line_clear.play(1.0f);
                 break;
             case 4:
                 score += 800 * level;
+                tetris.play(1.0f);
                 break;
         }
 
