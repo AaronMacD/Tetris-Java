@@ -36,8 +36,8 @@ public class HeldBlock{
     public Piece swapPiece(Piece newPiece){
         updateGrid(Color.BLACK);
         Piece temp = heldPiece;
-        temp.setRow(newPiece.getRow());
-        temp.setCol(newPiece.getCol());
+        temp.setRow(0);
+        temp.setCol(0);
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
         return temp;
