@@ -8,17 +8,43 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.IntArray;
-import java.awt.*;
+import java.awt.Point;
+
 
 public final class GameScreen implements Screen {
+    /**
+     * The instance of the game.
+     */
     private TetrisGame game;
+    /**
+     * 2D array of squares to represent the game board.
+     */
     private Square[][] board;
+    /**
+     * Number of rows in the board.
+     */
     private final int ROWS = 22;
+    /**
+     * Number of columns in the board.
+     */
     private final int COLS = 10;
+    /**
+     * The piece that is currently falling.
+     */
     private Piece currentPiece;
-    private int level = 1;
+    /**
+     * Level counter.
+     */
+    private int level;
+
+    /**
+     * The text to display the current level.
+     */
     private String levelText;
-    //four levels of speed to start. cells per frame is 1/speed
+    /**
+     * Speeds for pieces to fall for different levels.
+     * Cells per frame is 1/speed.
+     */
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
         0.035256f};
     private float timeControls;
@@ -26,6 +52,7 @@ public final class GameScreen implements Screen {
     private int score;
     private String scoreText;
     private int linesCleared;
+    private final int linesToLevelUp = 10;
     private HeldBlock heldBlock;
     private NextBlock nextBlock;
     //Sounds
@@ -340,7 +367,7 @@ public final class GameScreen implements Screen {
     }
 
     private void levelUp() {
-        if (linesCleared >= 10) {
+        if (linesCleared >= linesToLevelUp) {
             level++;
             linesCleared = 0;
         }
