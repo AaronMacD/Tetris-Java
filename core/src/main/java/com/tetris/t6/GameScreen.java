@@ -71,6 +71,7 @@ public class GameScreen implements Screen {
 
         //Loading Music
         victory1 = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
+        victory1.setLooping(true);
         victory1.play();
         victory1.setVolume(0.50f);
     }
@@ -201,6 +202,7 @@ public class GameScreen implements Screen {
         }
     }
 
+    //TODO prevent pieces from overlapping at spawn
     private boolean moveDownPossible(){
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
@@ -421,6 +423,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 2; i++){
             for (int j = 0; j < 10; j++){
                 if (!board[i][j].isAvailable()){
+                    victory1.stop();
                     this.pause();
                     this.hide();
                     game.setScreen(new LossScreen(game));
