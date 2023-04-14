@@ -7,44 +7,34 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.ScreenUtils;
-
 import java.awt.*;
-import java.util.logging.Level;
 
-public class GameScreen implements Screen {
-    TetrisGame game;
+public final class GameScreen implements Screen {
+    private TetrisGame game;
     private Square[][] board;
-    public final int ROWS = 22;
-    public final int COLS = 10;
+    private final int ROWS = 22;
+    private final int COLS = 10;
     private Piece currentPiece;
     private int level = 1;
     private String levelText;
     //four levels of speed to start. cells per frame is 1/speed
-    //TODO:add the rest of the speeds, cap out at 10 for now?
-    private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f, 0.035256f};
-    private float time_controls;
-    private float time_movement;
+    private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
+        0.035256f};
+    private float timeControls;
+    private float timeMovement;
     private int score;
     private String scoreText;
     private int linesCleared;
-    private boolean pieceIsActive;
-
-    HeldBlock heldBlock;
-    NextBlock nextBlock;
-    Sound lock;
-    Sound rotate;
-    Sound line_clear;
-    Sound tetris;
-    Music victory1;
-
+    private HeldBlock heldBlock;
+    private NextBlock nextBlock;
     //Sounds
-
-    //tools and testing
-    String testText1, testText2, testText3;
-    boolean timers_enabled = true;
+    private Sound lock;
+    private Sound rotate;
+    private Sound lineClear;
+    private Sound tetris;
+    private Music victory1;
+    private boolean timersEnabled = true;
     public GameScreen(TetrisGame game) {
         this.game = game;
 
@@ -66,7 +56,7 @@ public class GameScreen implements Screen {
         //Loading Sounds
         lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
         rotate = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
-        line_clear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
+        lineClear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
         tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
 
         //Loading Music
@@ -78,28 +68,28 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor( 0, 0, 0.2f, 1 );
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-        time_controls += delta;
+        timeControls += delta;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             hardDrop();
-            time_movement = 100f;
+            timeMovement = 100f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            time_movement = 100f;
+            timeMovement = 100f;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && time_controls > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && timeControls > 0.15f) {
             moveLeftRight(-1);
-            time_controls = 0f;
+            timeControls = 0f;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && time_controls > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && timeControls > 0.15f) {
             moveLeftRight(1);
-            time_controls = 0f;
+            timeControls = 0f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
@@ -114,12 +104,11 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             drawPiece(Color.BLACK);
-            if(heldBlock.getHeldPiece() == null){
+            if (heldBlock.getHeldPiece() == null) {
                 heldBlock.setHeldPiece(currentPiece);
                 currentPiece = nextBlock.getNextPiece();
                 nextBlock.generateNextPiece();
-            }
-            else{
+            } else {
                 currentPiece = heldBlock.swapPiece(currentPiece);
             }
         }
@@ -149,8 +138,8 @@ public class GameScreen implements Screen {
         heldBlock.drawNext(game.drawer);
         nextBlock.drawNext(game.drawer);
 
-        game.font.draw(game.batch, scoreText, 300,780);
-        game.font.draw(game.batch, levelText, 301,795);
+        game.font.draw(game.batch, scoreText, 300, 780);
+        game.font.draw(game.batch, levelText, 301, 795);
         game.batch.end();
 
 
@@ -158,7 +147,7 @@ public class GameScreen implements Screen {
         //Tools and testing
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            timers_enabled = !timers_enabled;
+            timersEnabled = !timersEnabled;
         }
 
 
@@ -174,36 +163,31 @@ public class GameScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             int squareRow = row + dimensions[rNum][i].x;
             int squareCol = col + dimensions[rNum][i].y;
-            //if (squareCol>=0) {
-                //board[squareRow][squareCol] = new Square(squareRow, squareCol, color);
                 board[squareRow][squareCol].setColor(color);
-            //}
         }
     }
 
 
     public void moveDownLogically() {
-        if (timers_enabled) {
-            time_movement += levelSpeeds[level];
+        if (timersEnabled) {
+            timeMovement += levelSpeeds[level];
         }
         //should be >= 1, normally, but set to 5 for testing purposes.
-        while (time_movement >= 1) {
+        while (timeMovement >= 1) {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
                 currentPiece.moveDown();
-                time_movement = 0f;
-            }
-            else {
+            } else {
                 lockSquares();
                 currentPiece = nextBlock.getNextPiece();
                 nextBlock.generateNextPiece();
-                time_movement = 0f;
             }
+            timeMovement = 0f;
         }
     }
 
     //TODO prevent pieces from overlapping at spawn
-    private boolean moveDownPossible(){
+    private boolean moveDownPossible() {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -218,7 +202,8 @@ public class GameScreen implements Screen {
             squareCol = col + dimensions[rotationNum][i].y;
 
             //first expression prevents index out of bounds
-            if (squareRow+1 < 21 && board[squareRow+1][squareCol].isAvailable()) {
+            if (squareRow + 1 < ROWS - 1
+                && board[squareRow + 1][squareCol].isAvailable()) {
                 availableCount++;
             }
         }
@@ -228,7 +213,7 @@ public class GameScreen implements Screen {
     }
 
     private void hardDrop() {
-        while(moveDownPossible()) {
+        while (moveDownPossible()) {
             moveDownLogically();
         }
     }
@@ -240,8 +225,7 @@ public class GameScreen implements Screen {
                 drawPiece(Color.BLACK);
                 //new squares will be set to appropriate color
                 currentPiece.moveLeft();
-            }
-            else {
+            } else {
                 drawPiece(Color.BLACK);
                 currentPiece.moveRight();
             }
@@ -264,8 +248,8 @@ public class GameScreen implements Screen {
             squareCol = col + dimensions[rotationNum][i].y;
 
             //first two expressions prevent index out of bounds
-            if (squareCol+lr >= 0 && squareCol+lr < 10 &&
-                board[squareRow][squareCol+lr].isAvailable()) {
+            if (squareCol + lr >= 0 && squareCol + lr < COLS
+                && board[squareRow][squareCol + lr].isAvailable()) {
                 availableCount++;
             }
         }
@@ -299,7 +283,7 @@ public class GameScreen implements Screen {
             squareRow = row + dimensions[rotationNum][i].x;
             squareCol = col + dimensions[rotationNum][i].y;
 
-            if (squareRow < 21 && squareCol >= 0 && squareCol < 10
+            if (squareRow < ROWS - 1 && squareCol >= 0 && squareCol < COLS
                 && board[squareRow][squareCol].isAvailable()) {
                 availableCount++;
             }
@@ -336,93 +320,85 @@ public class GameScreen implements Screen {
         IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
             int squareCount = 0;
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < COLS; j++) {
                 if (!board[rowList.get(i)][j].isAvailable()) {
                     squareCount++;
                 }
             }
 
-            if (squareCount == 10) {
+            if (squareCount == COLS) {
                 fullRows.add(rowList.get(i));
             }
         }
-        if(fullRows.notEmpty()){
+        if (fullRows.notEmpty()) {
             clearLine(fullRows);
             dropAfterClear(fullRows);
-        }
-        else {
+        } else {
             lock.play(1.0f);
             checkLoss();
         }
     }
 
-    private void levelUp(){
-        if (linesCleared >= 10){
+    private void levelUp() {
+        if (linesCleared >= 10) {
             level++;
             linesCleared = 0;
         }
     }
 
-    //TODO: Find a way to calculate the speed based on level etc instead of using an array to hold values.
-    //Not sure what the equation is to scale the speed, or if there even is a way to copy the same from the actual game.
-
-    public float changeSpeed(int lvl){ // Might be useful to call to change the speed with the level.
-        float speed = levelSpeeds[lvl]; //Looks at the position of the array and sets speed to that level value speed.
-        return speed; //return the level's speed.
+    public float changeSpeed(int lvl) { // Might be useful to call to change the speed with the level
+        //Looks at the position of the array and sets speed to that level value speed
+        float speed = levelSpeeds[lvl];
+        return speed; //return the level's speed
     }
 
     private void clearLine(IntArray rowList) {
         switch (rowList.size) {
-            case 0:
-                return;
             case 1:
                 score += 100 * level;
-                line_clear.play(1.0f);
+                lineClear.play(1.0f);
                 break;
             case 2:
                 score += 300 * level;
-                line_clear.play(1.0f);
+                lineClear.play(1.0f);
                 break;
             case 3:
                 score += 500 * level;
-                line_clear.play(1.0f);
+                lineClear.play(1.0f);
                 break;
             case 4:
                 score += 800 * level;
                 tetris.play(1.0f);
                 break;
+            default:
+                return;
         }
 
         for (int row : rowList.items) {
-            for (int x = 0; x < 10; x++) {
+            for (int x = 0; x < COLS; x++) {
                 board[row][x].setColor(Color.BLACK);
                 board[row][x].setAvailability(true);
             }
         }
     }
 
-    private void dropAfterClear(IntArray rowList){
+    private void dropAfterClear(IntArray rowList) {
         rowList.sort();
-        for (int row : rowList.items){
+        for (int row : rowList.items) {
             for (int i = row; i > 0; i--) {
                 for (int j = 0; j < COLS; j++) {
-                    board[i][j].setColor(board[i-1][j].getColor());
-                    board[i][j].setAvailability(board[i-1][j].isAvailable());
+                    board[i][j].setColor(board[i - 1][j].getColor());
+                    board[i][j].setAvailability(board[i - 1][j].isAvailable());
                 }
             }
         }
         checkLoss();
     }
 
-    //TODO: change so that it doesn't just exit
     private void checkLoss() {
-//        if (currentPiece.getRow() == 0) {
-//            System.exit(0);
-//        }
-
-        for (int i = 0; i < 2; i++){
-            for (int j = 0; j < 10; j++){
-                if (!board[i][j].isAvailable()){
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < COLS; j++) {
+                if (!board[i][j].isAvailable()) {
                     victory1.stop();
                     this.pause();
                     this.hide();
@@ -432,7 +408,6 @@ public class GameScreen implements Screen {
                 }
             }
         }
-
     }
 
 
