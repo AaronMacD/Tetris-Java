@@ -1,17 +1,15 @@
 package com.tetris.t6;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Square {
+public final class Square {
 
     private int row;
     private int col;
     private Color color;
     //whether square is available
-    boolean availability;
+    private boolean availability;
 
     private final int width = 40;
     private final int height = 40;
@@ -20,10 +18,10 @@ public class Square {
 
     private int y;
 
-    public Square(int row, int col, Color color){
-        this.row = row;
-        this.col = col;
-        this.color = color;
+    public Square(final int aRow, final int aCol, final Color aColor) {
+        this.row = aRow;
+        this.col = aCol;
+        this.color = aColor;
         availability = true;
 
         x = 20 + col * width;
@@ -33,25 +31,33 @@ public class Square {
 
     }
 
-    public int getRow() { return row; }
-
-    public int getCol() { return col; }
-
-    public Color getColor() { return color; }
-
-    public void setColor(Color color){
-        this.color = color;
+    public int getRow() {
+        return row;
     }
 
-    public boolean isAvailable() { return availability; }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
+    public int getCol() {
+        return col;
     }
 
-    public void drawSquare(ShapeDrawer shape) {
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(final Color aColor) {
+        this.color = aColor;
+    }
+
+    public boolean isAvailable() {
+        return availability;
+    }
+
+    public void setAvailability(final boolean anAvailability) {
+        this.availability = anAvailability;
+    }
+
+    public void drawSquare(final ShapeDrawer shape) {
         shape.setColor(color);
-        shape.filledRectangle(x, y, width-1, height-1);
+        shape.filledRectangle(x, y, width - 1, height - 1);
 
     }
 }

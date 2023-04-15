@@ -3,12 +3,21 @@ package com.tetris.t6;
 import com.badlogic.gdx.graphics.Color;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-import java.awt.*;
+import java.awt.Point;
 
-public class HeldBlock{
-
+public class HeldBlock {
     private int col = 12;
     private int row = 15;
+
+    /**
+     * Width of the piece in squares.
+     */
+    private final int widthSquares = 4;
+
+    /**
+     * Height of the piece in squares.
+     */
+    private final int heightSquares = 4;
     private Piece heldPiece;
     private Square[][] displayArea;
 
@@ -16,24 +25,24 @@ public class HeldBlock{
 
 
     //Constructor
-    public HeldBlock(){
+    public HeldBlock() {
         heldPiece = null;
         displayArea = new Square[4][4];
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++){
-                displayArea[i][j] = new Square(i+row, j+col, Color.BLACK);
+            for (int j = 0; j < 4; j++) {
+                displayArea[i][j] = new Square(i + row, j + col, Color.BLACK);
             }
         }
     }
 
-    public void setHeldPiece(Piece newPiece){
+    public void setHeldPiece(Piece newPiece) {
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
     }
-    public Piece getHeldPiece(){
+    public Piece getHeldPiece() {
         return heldPiece;
     }
-    public Piece swapPiece(Piece newPiece){
+    public Piece swapPiece(Piece newPiece) {
         updateGrid(Color.BLACK);
         Piece temp = heldPiece;
         temp.setRow(0);
@@ -52,9 +61,9 @@ public class HeldBlock{
             displayArea[squareRow][squareCol].setColor(color);
         }
     }
-    public void drawNext(ShapeDrawer draw){
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+    public void drawNext(ShapeDrawer draw) {
+        for (int i = 0; i < widthSquares; i++) {
+            for (int j = 0; j < heightSquares; j++) {
                 displayArea[i][j].drawSquare(draw);
             }
         }

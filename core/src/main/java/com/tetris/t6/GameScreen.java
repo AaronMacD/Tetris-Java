@@ -62,8 +62,8 @@ public final class GameScreen implements Screen {
     private Sound tetris;
     private Music victory1;
     private boolean timersEnabled = true;
-    public GameScreen(TetrisGame game) {
-        this.game = game;
+    public GameScreen(TetrisGame aGame) {
+        this.game = aGame;
 
         currentPiece = new Piece();
         nextBlock = new NextBlock();
