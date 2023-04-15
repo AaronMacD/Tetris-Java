@@ -165,6 +165,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         String scoreText = String.format("Score: %d", this.score);
         String levelText = String.format("Level: %d", this.level);
         String linesClearedText = String.format("Lines Cleared: %d", this.linesCleared);
+        String heldText = "Held Block";
+        String nextText = "Next Block";
 
         game.batch.begin();
         for (int i = 1; i < ROWS; i++) {
@@ -180,6 +182,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         game.font.draw(game.batch, scoreText, 30, 825);
         game.font.draw(game.batch, levelText,  175, 825);
         game.font.draw(game.batch, linesClearedText, 300, 825);
+        game.font.draw(game.batch, heldText, 495, 460);
+        game.font.draw(game.batch, nextText, 495, 700);
         game.batch.end();
 
 

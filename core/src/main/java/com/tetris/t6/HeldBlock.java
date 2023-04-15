@@ -6,8 +6,8 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 import java.awt.Point;
 
 public class HeldBlock {
-    private static int col = 12;
-    private static int row = 15;
+    private static int col = 11;
+    private static int row = 10;
 
     /**
      * Width of the piece in squares.

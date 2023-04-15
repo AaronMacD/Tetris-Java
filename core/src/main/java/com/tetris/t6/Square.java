@@ -24,10 +24,10 @@ public final class Square {
         this.color = aColor;
         availability = true;
 
-        x = 20 + col * WIDTH;
+        x = 10 + col * WIDTH;
 
         //converts to y-down coordinates
-        y = 800 - (row * HEIGHT);
+        y = 805 - (row * HEIGHT);
 
     }
 

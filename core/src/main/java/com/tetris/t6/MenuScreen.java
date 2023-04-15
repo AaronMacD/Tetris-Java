@@ -2,6 +2,7 @@ package com.tetris.t6;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -12,8 +13,8 @@ public final class MenuScreen implements Screen {
 
     private final TetrisGame game;
     private GlyphLayout gl = new GlyphLayout();
-    private String menuText1 = "Welcome to Tetris T6!";
     private String menuText2 = "Click anywhere to start the game";
+    private Texture logo;
 
     /**
      * Instantiates a new Menu screen.
@@ -23,6 +24,7 @@ public final class MenuScreen implements Screen {
     public MenuScreen(final TetrisGame aGame) {
         this.game = aGame;
 
+        logo = new Texture(Gdx.files.internal("LOGO.png"));
     }
 
     @Override
@@ -32,15 +34,15 @@ public final class MenuScreen implements Screen {
         game.camera.update();
         game.batch.setProjectionMatrix(game.camera.combined);
 
-        gl.setText(game.font, menuText1);
-        float w1 = gl.width;
+        float w1 = logo.getWidth();
+
         gl.setText(game.font, menuText2);
         float w2 = gl.width;
 
 
         game.batch.begin();
-        game.font.draw(game.batch, menuText1,
-            (Gdx.graphics.getWidth() - w1) / 2, 750);
+
+        game.batch.draw(logo, (Gdx.graphics.getWidth() -w1) / 2, 600);
         game.font.draw(game.batch, menuText2,
             (Gdx.graphics.getWidth() - w2) / 2, 150);
         game.batch.end();
