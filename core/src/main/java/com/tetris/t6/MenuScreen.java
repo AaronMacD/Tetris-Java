@@ -15,6 +15,7 @@ public final class MenuScreen implements Screen {
     private GlyphLayout gl = new GlyphLayout();
     private String menuText2 = "Click anywhere to start the game";
     private Texture logo;
+    private Texture background;
 
     /**
      * Instantiates a new Menu screen.
@@ -25,6 +26,7 @@ public final class MenuScreen implements Screen {
         this.game = aGame;
 
         logo = new Texture(Gdx.files.internal("LOGO.png"));
+        background = new Texture(Gdx.files.internal("bg_menu.png"));
     }
 
     @Override
@@ -41,10 +43,11 @@ public final class MenuScreen implements Screen {
 
 
         game.batch.begin();
+        game.batch.draw(background, 0, 0);
 
         game.batch.draw(logo, (Gdx.graphics.getWidth() -w1) / 2, 600);
         game.font.draw(game.batch, menuText2,
-            (Gdx.graphics.getWidth() - w2) / 2, 150);
+            (Gdx.graphics.getWidth() - w2) / 2, 440);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

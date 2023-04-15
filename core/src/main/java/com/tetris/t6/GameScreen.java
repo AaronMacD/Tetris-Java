@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.IntArray;
 import java.awt.Point;
 
@@ -61,9 +62,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     private final Music victory1_M; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
     private boolean timersEnabled = true;
 
-    /**
-     * The Ls.
-     */
+    private final Texture background;
+
     private LossScreen ls;
 
     /**
@@ -88,7 +88,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
                 board[i][j] = new Square(i, j, Color.BLACK);
             }
         }
+        //Load screens
         ls = new LossScreen(game);
+
+        //Load graphical assets
+        background = new Texture(Gdx.files.internal("bg_gamescreen.png"));
 
         //Loading Sounds
         lock_SE = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
@@ -169,6 +173,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         String nextText = "Next Block";
 
         game.batch.begin();
+        //draw bg first
+        game.batch.draw(background, 0, 0);
+
         for (int i = 1; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 board[i][j].drawSquare(game.drawer);
