@@ -7,19 +7,18 @@ import java.awt.Point;
 
 public final class NextBlock {
 
-    private int col = 12;
-    private int row = 5;
-    private final int WIDTH_SQUARES = 4;
-    private final int HEIGHT_SQUARES = 4;
+    private static int col = 12;
+    private static int row = 5;
+    private final static int WIDTHSQUARES = 4;
+    private final static int HEIGHTSQUARES = 4;
     private Piece nextPiece;
     private Square[][] displayArea;
 
     //Constructor
-    //TODO Figure out the parameters we're going to be passing to the constructor
     public NextBlock() {
-        displayArea = new Square[WIDTH_SQUARES][HEIGHT_SQUARES];
-        for (int i = 0; i < WIDTH_SQUARES; i++) {
-            for (int j = 0; j < HEIGHT_SQUARES; j++) {
+        displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
+        for (int i = 0; i < WIDTHSQUARES; i++) {
+            for (int j = 0; j < HEIGHTSQUARES; j++) {
                 displayArea[i][j] = new Square(i + row, j + col,
                     Color.BLACK);
             }
@@ -50,8 +49,8 @@ public final class NextBlock {
         }
     }
     public void drawNext(final ShapeDrawer draw) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < WIDTHSQUARES; i++) {
+            for (int j = 0; j < HEIGHTSQUARES; j++) {
                 displayArea[i][j].drawSquare(draw);
             }
         }

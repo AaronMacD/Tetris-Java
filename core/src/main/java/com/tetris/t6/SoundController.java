@@ -6,10 +6,11 @@ import com.badlogic.gdx.audio.Sound;
 
 
 public final class SoundController extends ApplicationAdapter {
-    Sound sound;
-    String soundName;
+    private Sound sound;
+    private String soundName;
 
     public SoundController(String s) {
+        super();
         this.soundName = s;
     }
 

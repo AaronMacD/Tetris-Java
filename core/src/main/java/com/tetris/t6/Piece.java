@@ -10,7 +10,6 @@ public final class Piece {
     private Random rand = new Random();
     //(long) (Gdx.graphics.getDeltaTime()*10000)
     //can be 0, 1, 2, or 3
-    //TODO consider making this an enum
     private int rotationNum;
 
     //x-coordinate of the top-left corner of a piece
@@ -38,7 +37,7 @@ public final class Piece {
     }
 
     public Point[][] getDimensions() {
-        return dimensions;
+        return dimensions.clone();
     }
     public int getRotationNum() {
         return this.rotationNum;

@@ -11,23 +11,26 @@ import com.badlogic.gdx.utils.IntArray;
 import java.awt.Point;
 
 
-public final class GameScreen implements Screen {
+/**
+ * The type Game screen.
+ */
+public final class GameScreen implements Screen { //NOPMD - suppressed GodClass - TODO explain reason for suppression
     /**
      * Instance of the game.
      */
-    private TetrisGame game;
+    private final TetrisGame game;
     /**
      * 2D array of squares to represent the game board.
      */
-    private Square[][] board;
+    private final Square[][] board;
     /**
      * Number of rows in the board.
      */
-    private final int ROWS = 22;
+    private final static int ROWS = 22;
     /**
      * Number of columns in the board.
      */
-    private final int COLS = 10;
+    private final static int COLS = 10;
     /**
      * The piece that is currently falling.
      */
@@ -38,30 +41,36 @@ public final class GameScreen implements Screen {
     private int level;
 
     /**
-     * The text to display the current level.
-     */
-    private String levelText;
-    /**
      * Speeds for pieces to fall for different levels.
      * Cells per frame is 1/speed.
      */
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
-        0.035256f};
+        0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
     private float timeControls;
     private float timeMovement;
     private int score;
-    private String scoreText;
     private int linesCleared;
-    private final int linesToLevelUp = 10;
-    private HeldBlock heldBlock;
-    private NextBlock nextBlock;
+    private final static int LINESTOLEVELUP = 10;
+    private final HeldBlock heldBlock;
+    private final NextBlock nextBlock;
     //Sounds
-    private Sound lock;
-    private Sound rotate;
-    private Sound lineClear;
-    private Sound tetris;
-    private Music victory1;
+    private final Sound lock_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound rotate_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound lineClear_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound tetris_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Music victory1_M; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
     private boolean timersEnabled = true;
+
+    /**
+     * The Ls.
+     */
+    private LossScreen ls;
+
+    /**
+     * Instantiates a new Game screen.
+     *
+     * @param aGame the a game
+     */
     public GameScreen(final TetrisGame aGame) {
         this.game = aGame;
 
@@ -79,22 +88,23 @@ public final class GameScreen implements Screen {
                 board[i][j] = new Square(i, j, Color.BLACK);
             }
         }
+        ls = new LossScreen(game);
 
         //Loading Sounds
-        lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
-        rotate = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
-        lineClear = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
-        tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
+        lock_SE = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
+        rotate_SE = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
+        lineClear_SE = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
+        tetris_SE = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
 
         //Loading Music
-        victory1 = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
-        victory1.setLooping(true);
-        victory1.play();
-        victory1.setVolume(0.50f);
+        victory1_M = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
+        victory1_M.setLooping(true);
+        victory1_M.play();
+        victory1_M.setVolume(0.50f);
     }
 
     @Override
-    public void render(final float delta) {
+    public void render(final float delta) { //NOPMD - suppressed CognitiveComplexity - TODO explain reason for suppression //NOPMD - suppressed CyclomaticComplexity - TODO explain reason for suppression
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -145,12 +155,16 @@ public final class GameScreen implements Screen {
         }
 
         drawPiece(currentPiece.getColor());
-        levelUp();
+        if (level < 10){
+            levelUp();
+        }
+
 
         moveDownLogically();
 
-        scoreText = String.format("Score: %d", this.score);
-        levelText = String.format("Level: %d", this.level);
+        String scoreText = String.format("Score: %d", this.score);
+        String levelText = String.format("Level: %d", this.level);
+        String linesClearedText = String.format("Lines Cleared: %d", this.linesCleared);
 
         game.batch.begin();
         for (int i = 1; i < ROWS; i++) {
@@ -163,8 +177,9 @@ public final class GameScreen implements Screen {
         heldBlock.drawNext(game.drawer);
         nextBlock.drawNext(game.drawer);
 
-        game.font.draw(game.batch, scoreText, 300, 780);
-        game.font.draw(game.batch, levelText, 301, 795);
+        game.font.draw(game.batch, scoreText, 30, 825);
+        game.font.draw(game.batch, levelText,  175, 825);
+        game.font.draw(game.batch, linesClearedText, 300, 825);
         game.batch.end();
 
 
@@ -178,6 +193,11 @@ public final class GameScreen implements Screen {
 
     }
 
+    /**
+     * Draw piece.
+     *
+     * @param color the color
+     */
     public void drawPiece(final Color color) {
         //row and column for the top-left corner
         int row = currentPiece.getRow();
@@ -193,12 +213,15 @@ public final class GameScreen implements Screen {
     }
 
 
+    /**
+     * Move down logically.
+     */
     public void moveDownLogically() {
         if (timersEnabled) {
             timeMovement += levelSpeeds[level];
         }
-        //should be >= 1, normally, but set to 5 for testing purposes.
-        while (timeMovement >= 1) {
+        //>=1 is default, but can be adjusted to reduce difficulty. 1 seems pretty fast.
+        while (timeMovement >= 2.5) {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
                 currentPiece.moveDown();
@@ -234,7 +257,7 @@ public final class GameScreen implements Screen {
         }
 
         //returns true or false
-        return (availableCount == 4);
+        return availableCount == 4;
     }
 
     private void hardDrop() {
@@ -243,6 +266,11 @@ public final class GameScreen implements Screen {
         }
     }
 
+    /**
+     * Move left right.
+     *
+     * @param leftRight the left right
+     */
     public void moveLeftRight(final int leftRight) {
         if (moveLeftRightPossible(leftRight)) {
             if (leftRight == -1) {
@@ -280,9 +308,14 @@ public final class GameScreen implements Screen {
         }
 
         //returns true or false
-        return (availableCount == 4);
+        return availableCount == 4;
     }
 
+    /**
+     * Rotate.
+     *
+     * @param direction the direction
+     */
     public void rotate(final int direction) {
         int rotationNum = currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
@@ -292,7 +325,7 @@ public final class GameScreen implements Screen {
         if (rotationPossible(rotationNum)) {
             drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
-            rotate.play(1.0f);
+            rotate_SE.play(1.0f);
         }
     }
 
@@ -316,7 +349,7 @@ public final class GameScreen implements Screen {
         }
 
         //returns true or false
-        return (availableCount == 4);
+        return availableCount == 4;
     }
 
     private void lockSquares() {
@@ -360,41 +393,40 @@ public final class GameScreen implements Screen {
             clearLine(fullRows);
             dropAfterClear(fullRows);
         } else {
-            lock.play(1.0f);
+            lock_SE.play(1.0f);
             checkLoss();
         }
     }
 
     private void levelUp() {
-        if (linesCleared >= linesToLevelUp) {
+        if (linesCleared >= LINESTOLEVELUP) {
             level++;
             linesCleared = 0;
         }
     }
 
-    public float changeSpeed(final int lvl) { // Might be useful to call to change the speed with the level
-        //Looks at the position of the array and sets speed to that level value speed
-        float speed = levelSpeeds[lvl];
-        return speed; //return the level's speed
-    }
 
     private void clearLine(final IntArray rowList) {
         switch (rowList.size) {
             case 1:
                 score += 100 * level;
-                lineClear.play(1.0f);
+                lineClear_SE.play(1.0f);
+                linesCleared += 1;
                 break;
             case 2:
                 score += 300 * level;
-                lineClear.play(1.0f);
+                lineClear_SE.play(1.0f);
+                linesCleared += 2;
                 break;
             case 3:
                 score += 500 * level;
-                lineClear.play(1.0f);
+                lineClear_SE.play(1.0f);
+                linesCleared += 3;
                 break;
             case 4:
                 score += 800 * level;
-                tetris.play(1.0f);
+                tetris_SE.play(1.0f);
+                linesCleared += 4;
                 break;
             default:
                 return;
@@ -425,10 +457,10 @@ public final class GameScreen implements Screen {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < COLS; j++) {
                 if (!board[i][j].isAvailable()) {
-                    victory1.stop();
+                    victory1_M.stop();
                     this.pause();
                     this.hide();
-                    game.setScreen(new LossScreen(game));
+                    game.setScreen(ls);
                     this.dispose();
                     return;
                 }

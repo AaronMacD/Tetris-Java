@@ -11,8 +11,8 @@ public final class Square {
     //whether square is available
     private boolean availability;
 
-    private final int width = 40;
-    private final int height = 40;
+    private final static int WIDTH = 40;
+    private final static int HEIGHT = 40;
 
     private int x;
 
@@ -24,10 +24,10 @@ public final class Square {
         this.color = aColor;
         availability = true;
 
-        x = 20 + col * width;
+        x = 20 + col * WIDTH;
 
         //converts to y-down coordinates
-        y = 800 - (row * height);
+        y = 800 - (row * HEIGHT);
 
     }
 
@@ -57,7 +57,7 @@ public final class Square {
 
     public void drawSquare(final ShapeDrawer shape) {
         shape.setColor(color);
-        shape.filledRectangle(x, y, width - 1, height - 1);
+        shape.filledRectangle(x, y, WIDTH - 1, HEIGHT - 1);
 
     }
 }

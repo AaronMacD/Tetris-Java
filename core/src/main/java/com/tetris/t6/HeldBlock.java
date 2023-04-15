@@ -6,18 +6,18 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 import java.awt.Point;
 
 public class HeldBlock {
-    private int col = 12;
-    private int row = 15;
+    private static int col = 12;
+    private static int row = 15;
 
     /**
      * Width of the piece in squares.
      */
-    private final int widthSquares = 4;
+    private final static int WIDTHSQUARES = 4;
 
     /**
      * Height of the piece in squares.
      */
-    private final int heightSquares = 4;
+    private final static int HEIGHTSQUARES = 4;
     private Piece heldPiece;
     private Square[][] displayArea;
 
@@ -27,9 +27,9 @@ public class HeldBlock {
     //Constructor
     public HeldBlock() {
         heldPiece = null;
-        displayArea = new Square[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
+        for (int i = 0; i < WIDTHSQUARES; i++) {
+            for (int j = 0; j < HEIGHTSQUARES; j++) {
                 displayArea[i][j] = new Square(i + row, j + col, Color.BLACK);
             }
         }
@@ -45,7 +45,7 @@ public class HeldBlock {
     public Piece swapPiece(Piece newPiece) {
         updateGrid(Color.BLACK);
         Piece temp = heldPiece;
-        temp.setRow(0);
+        temp.setRow(1);
         temp.setCol(0);
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
@@ -62,8 +62,8 @@ public class HeldBlock {
         }
     }
     public void drawNext(ShapeDrawer draw) {
-        for (int i = 0; i < widthSquares; i++) {
-            for (int j = 0; j < heightSquares; j++) {
+        for (int i = 0; i < WIDTHSQUARES; i++) {
+            for (int j = 0; j < HEIGHTSQUARES; j++) {
                 displayArea[i][j].drawSquare(draw);
             }
         }

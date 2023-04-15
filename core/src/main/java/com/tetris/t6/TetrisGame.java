@@ -7,31 +7,25 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public final class TetrisGame extends Game {
+public final class TetrisGame extends Game { //NOPMD - suppressed AtLeastOneConstructor - TODO explain reason for suppression
 
-    SpriteBatch spriteBatch;
-    PolygonSpriteBatch batch;
-    TextureRegion region;
-    Texture texture;
-    BitmapFont font;
-    OrthographicCamera camera;
-    Viewport viewport;
-    ShapeRenderer shapeRenderer;
-    GameScreen gameScreen;
-    ShapeDrawer drawer;
-    Pixmap pixmap;
+    public PolygonSpriteBatch batch;
+    private TextureRegion region;
+    private Texture texture;
+    public BitmapFont font;
+    public OrthographicCamera camera;
+    public Viewport viewport;
+    public ShapeDrawer drawer;
+    private Pixmap pixmap;
 
 
     @Override
     public void create() {
-        spriteBatch = new SpriteBatch();
         batch = new PolygonSpriteBatch();
         // Use LibGDX's default Arial font.
         font = new BitmapFont();
@@ -46,15 +40,13 @@ public final class TetrisGame extends Game {
 
         texture = new Texture(pixmap); //remember to dispose of later
         region = new TextureRegion(texture, 0, 0, 1, 1);
-
-        shapeRenderer = new ShapeRenderer();
         drawer = new ShapeDrawer(batch, region);
 
         this.setScreen(new MenuScreen(this));
     }
 
     @Override
-    public void render() {
+    public void render() { //NOPMD - suppressed UselessOverridingMethod - TODO explain reason for suppression
         super.render();
     }
 
@@ -63,5 +55,6 @@ public final class TetrisGame extends Game {
         batch.dispose();
         font.dispose();
         pixmap.dispose();
+        texture.dispose();
     }
 }
