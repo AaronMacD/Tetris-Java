@@ -25,7 +25,7 @@ public final class LossScreen implements Screen {
     public void render(final float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         //gl.setText(game.font, menuText1);
-        //float w1 = gl.width;
+        float w1 = gl.width;
         gl.setText(game.font, menuText2);
         float w2 = gl.width;
         gl.setText(game.font, menuText3);
@@ -42,7 +42,7 @@ public final class LossScreen implements Screen {
             (Gdx.graphics.getWidth() - w3) / 2, 135);
         game.batch.end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {

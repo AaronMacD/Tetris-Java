@@ -10,14 +10,14 @@ public class HeldBlock {
     private static int row = 8;
 
     /**
-     * Width of the piece in squares.
+     * Width of the piece grid in squares.
      */
-    private final static int WIDTHSQUARES = 4;
+    private static final int WIDTHSQUARES = 4;
 
     /**
-     * Height of the piece in squares.
+     * Height of the piece grid in squares.
      */
-    private final static int HEIGHTSQUARES = 4;
+    private static final int HEIGHTSQUARES = 4;
     private Piece heldPiece;
     private Square[][] displayArea;
 
@@ -27,9 +27,9 @@ public class HeldBlock {
     //Constructor
     public HeldBlock() {
         heldPiece = null;
-        displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
-        for (int i = 0; i < WIDTHSQUARES; i++) {
-            for (int j = 0; j < HEIGHTSQUARES; j++) {
+        displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
+        for (int i = 0; i < HEIGHTSQUARES; i++) {
+            for (int j = 0; j < WIDTHSQUARES; j++) {
                 displayArea[i][j] = new Square(i + row, j + col, Color.BLACK);
             }
         }
@@ -62,8 +62,8 @@ public class HeldBlock {
         }
     }
     public void drawNext(ShapeDrawer draw) {
-        for (int i = 0; i < WIDTHSQUARES; i++) {
-            for (int j = 0; j < HEIGHTSQUARES; j++) {
+        for (int i = 0; i < HEIGHTSQUARES; i++) {
+            for (int j = 0; j < WIDTHSQUARES; j++) {
                 displayArea[i][j].drawSquare(draw);
             }
         }

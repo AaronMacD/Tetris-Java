@@ -47,7 +47,13 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      */
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
         0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
+    /**
+     * Timer for left/right inputs.
+     */
     private float timeControls;
+    /**
+     * Timer for falling speeds.
+     */
     private float timeMovement;
     /**
      * Player's current score.
@@ -70,6 +76,10 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      */
     private final HeldBlock heldBlock;
     /**
+     * Boolean for whether swap was used to get the current piece.
+     */
+    private boolean swapUsed;
+    /**
      * Block in the "next" slot that will spawn after current block locks.
      */
     private final NextBlock nextBlock;
@@ -77,23 +87,24 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     /**
      * Lock sound effect.
      */
-    private final Sound lock_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound lockSFX;
     /**
      * Rotate sound effect.
      */
-    private final Sound rotate_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound rotateSFX;
     /**
      * Line clear sound effect.
      */
-    private final Sound lineClear_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound lineClearSFX;
     /**
      * Tetris (four lines cleared) sound effect.
      */
-    private final Sound tetris_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Sound tetrisSFX;
+    private final Sound holdSFX;
     /**
      * Game music.
      */
-    private final Music victory1_M; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    private final Music victory1Music;
     private boolean timersEnabled = true;
 
     /**
@@ -114,6 +125,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         currentPiece = new Piece();
         nextBlock = new NextBlock();
         heldBlock = new HeldBlock();
+        swapUsed = false;
 
         level = 1;
         score = 0;
@@ -132,16 +144,17 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         background = new Texture(Gdx.files.internal("bg_gamescreen.png"));
 
         //Loading Sounds
-        lock_SE = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
-        rotate_SE = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
-        lineClear_SE = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
-        tetris_SE = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
+        lockSFX = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
+        rotateSFX = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
+        lineClearSFX = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
+        tetrisSFX = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
+        holdSFX = Gdx.audio.newSound(Gdx.files.internal("hold.wav"));
 
         //Loading Music
-        victory1_M = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
-        victory1_M.setLooping(true);
-        victory1_M.play();
-        victory1_M.setVolume(0.40f);
+        victory1Music = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
+        victory1Music.setLooping(true);
+        victory1Music.play();
+        victory1Music.setVolume(0.30f);
     }
 
     /**
@@ -188,9 +201,15 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
                 heldBlock.setHeldPiece(currentPiece);
                 currentPiece = nextBlock.getNextPiece();
                 nextBlock.generateNextPiece();
+                holdSFX.play();
             } else {
-                currentPiece = heldBlock.swapPiece(currentPiece);
+                if (!swapUsed) {
+                    currentPiece = heldBlock.swapPiece(currentPiece);
+                    holdSFX.play();
+                }
             }
+
+            swapUsed = true;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -209,7 +228,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
 
         String scoreText = String.format("Score: %d", this.score);
         String levelText = String.format("Level: %d", this.level);
-        String linesClearedText = String.format("Lines Cleared: %d", this.linesCleared);
+        String linesClearedText = String.format("Lines Cleared: %d",
+            this.linesCleared);
         String heldText = "Held Block";
         String nextText = "Next Block";
         String controlsText = "Controls : \n"
@@ -402,7 +422,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         if (rotationPossible(rotationNum)) {
             drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
-            rotate_SE.play(1.0f);
+            rotateSFX.play(1.0f);
         }
     }
 
@@ -457,6 +477,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
             }
         }
 
+        //reset to allow swap for new piece
+        swapUsed = false;
+
         checkFullRow(rowsToCheck);
     }
 
@@ -466,7 +489,6 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      * @param rowList List of rows to check.
      */
     private void checkFullRow(final IntArray rowList) {
-
         IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
             int squareCount = 0;
@@ -484,7 +506,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
             clearLine(fullRows);
             dropAfterClear(fullRows);
         } else {
-            lock_SE.play(1.0f);
+            lockSFX.play(1.0f);
             checkLoss();
         }
     }
@@ -503,22 +525,22 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         switch (rowList.size) {
             case 1:
                 score += 100 * level;
-                lineClear_SE.play(1.0f);
+                lineClearSFX.play(1.0f);
                 linesCleared += 1;
                 break;
             case 2:
                 score += 300 * level;
-                lineClear_SE.play(1.0f);
+                lineClearSFX.play(1.0f);
                 linesCleared += 2;
                 break;
             case 3:
                 score += 500 * level;
-                lineClear_SE.play(1.0f);
+                lineClearSFX.play(1.0f);
                 linesCleared += 3;
                 break;
             case 4:
                 score += 800 * level;
-                tetris_SE.play(1.0f);
+                tetrisSFX.play(1.0f);
                 linesCleared += 4;
                 break;
             default:
@@ -550,7 +572,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < COLS; j++) {
                 if (!board[i][j].isAvailable()) {
-                    victory1_M.stop();
+                    victory1Music.stop();
                     this.pause();
                     this.hide();
                     game.setScreen(lossScreen);

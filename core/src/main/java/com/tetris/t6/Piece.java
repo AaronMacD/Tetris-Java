@@ -16,7 +16,6 @@ public final class Piece {
      * Random Number Generator.
      */
     private Random rand = new Random();
-    //(long) (Gdx.graphics.getDeltaTime()*10000)
     /**
      *  Rotation of Piece; can be 0, 1, 2, or 3 (Numbers are used to know how they are rotated).
      */

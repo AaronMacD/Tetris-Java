@@ -24,13 +24,13 @@ public final class Square {
      */
     private boolean availability;
     /**
-     * Static Width.
+     * Width in pixels.
      */
-    private final static int WIDTH = 40;
+    private static final int WIDTH = 40;
     /**
-     * Static Height.
+     * Height in pixels.
      */
-    private final static int HEIGHT = 40;
+    private static final int HEIGHT = 40;
     /**
      * x coordinates.
      */
