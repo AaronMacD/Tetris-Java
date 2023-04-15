@@ -13,7 +13,7 @@ import java.awt.Point;
 
 public final class GameScreen implements Screen {
     /**
-     * The instance of the game.
+     * Instance of the game.
      */
     private TetrisGame game;
     /**
@@ -62,7 +62,7 @@ public final class GameScreen implements Screen {
     private Sound tetris;
     private Music victory1;
     private boolean timersEnabled = true;
-    public GameScreen(TetrisGame aGame) {
+    public GameScreen(final TetrisGame aGame) {
         this.game = aGame;
 
         currentPiece = new Piece();
@@ -94,7 +94,7 @@ public final class GameScreen implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(final float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -180,7 +180,7 @@ public final class GameScreen implements Screen {
 
     }
 
-    public void drawPiece(Color color) {
+    public void drawPiece(final Color color) {
         //row and column for the top-left corner
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -245,9 +245,9 @@ public final class GameScreen implements Screen {
         }
     }
 
-    public void moveLeftRight(int lr) {
-        if (moveLeftRightPossible(lr)) {
-            if (lr == -1) {
+    public void moveLeftRight(final int leftRight) {
+        if (moveLeftRightPossible(leftRight)) {
+            if (leftRight == -1) {
                 //set current squares to black
                 drawPiece(Color.BLACK);
                 //new squares will be set to appropriate color
@@ -260,7 +260,7 @@ public final class GameScreen implements Screen {
     }
 
     //-1 for left, 1 for right
-    private boolean moveLeftRightPossible(int lr) {
+    private boolean moveLeftRightPossible(final int leftRight) {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -275,8 +275,8 @@ public final class GameScreen implements Screen {
             squareCol = col + dimensions[rotationNum][i].y;
 
             //first two expressions prevent index out of bounds
-            if (squareCol + lr >= 0 && squareCol + lr < COLS
-                && board[squareRow][squareCol + lr].isAvailable()) {
+            if (squareCol + leftRight >= 0 && squareCol + leftRight < COLS
+                && board[squareRow][squareCol + leftRight].isAvailable()) {
                 availableCount++;
             }
         }
@@ -285,7 +285,7 @@ public final class GameScreen implements Screen {
         return (availableCount == 4);
     }
 
-    public void rotate(int direction) {
+    public void rotate(final int direction) {
         int rotationNum = currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
         //or counterclockwise (-1)
@@ -297,7 +297,7 @@ public final class GameScreen implements Screen {
         }
     }
 
-    private boolean rotationPossible(int rotationNum) {
+    private boolean rotationPossible(final int rotationNum) {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
         int col = currentPiece.getCol();
@@ -342,7 +342,7 @@ public final class GameScreen implements Screen {
         checkFullRow(rowsToCheck);
     }
 
-    private void checkFullRow(IntArray rowList) {
+    private void checkFullRow(final IntArray rowList) {
 
         IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
@@ -373,13 +373,13 @@ public final class GameScreen implements Screen {
         }
     }
 
-    public float changeSpeed(int lvl) { // Might be useful to call to change the speed with the level
+    public float changeSpeed(final int lvl) { // Might be useful to call to change the speed with the level
         //Looks at the position of the array and sets speed to that level value speed
         float speed = levelSpeeds[lvl];
         return speed; //return the level's speed
     }
 
-    private void clearLine(IntArray rowList) {
+    private void clearLine(final IntArray rowList) {
         switch (rowList.size) {
             case 1:
                 score += 100 * level;
@@ -409,7 +409,7 @@ public final class GameScreen implements Screen {
         }
     }
 
-    private void dropAfterClear(IntArray rowList) {
+    private void dropAfterClear(final IntArray rowList) {
         rowList.sort();
         for (int row : rowList.items) {
             for (int i = row; i > 0; i--) {
@@ -444,7 +444,7 @@ public final class GameScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(final int width, final int height) {
 
     }
 

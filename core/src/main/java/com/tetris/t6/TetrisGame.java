@@ -29,6 +29,7 @@ public final class TetrisGame extends Game {
     Pixmap pixmap;
 
 
+    @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         batch = new PolygonSpriteBatch();
@@ -52,10 +53,12 @@ public final class TetrisGame extends Game {
         this.setScreen(new MenuScreen(this));
     }
 
+    @Override
     public void render() {
         super.render();
     }
 
+    @Override
     public void dispose() {
         batch.dispose();
         font.dispose();

@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public final class LossScreen implements Screen {
 
     private final TetrisGame game;
-    private GameScreen gameScreen;
     private GlyphLayout gl = new GlyphLayout();
     private String menuText1 = "You've lost!!";
     private String menuText2 = "Click anywhere to return to the main menu";

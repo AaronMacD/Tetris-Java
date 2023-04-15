@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 
-public class SoundController extends ApplicationAdapter {
+public final class SoundController extends ApplicationAdapter {
     Sound sound;
     String soundName;
 
@@ -19,8 +19,9 @@ public class SoundController extends ApplicationAdapter {
 
     }
 
+    @Override
     public void dispose() {
-    this.sound.dispose();
+        this.sound.dispose();
     }
 
 
