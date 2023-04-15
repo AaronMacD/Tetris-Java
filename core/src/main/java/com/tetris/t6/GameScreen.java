@@ -121,12 +121,10 @@ public final class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             rotate(1);
-            rotate.play(1.0f);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             rotate(-1);
-            rotate.play(1.0f);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
@@ -294,6 +292,7 @@ public final class GameScreen implements Screen {
         if (rotationPossible(rotationNum)) {
             drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
+            rotate.play(1.0f);
         }
     }
 
