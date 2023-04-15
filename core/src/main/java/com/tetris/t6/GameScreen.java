@@ -27,11 +27,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     /**
      * Number of rows in the board.
      */
-    private final static int ROWS = 22;
+    private static final int ROWS = 22;
     /**
      * Number of columns in the board.
      */
-    private final static int COLS = 10;
+    private static final int COLS = 10;
     /**
      * The piece that is currently falling.
      */
@@ -49,27 +49,64 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
     private float timeControls;
     private float timeMovement;
+    /**
+     * Player's current score.
+     */
     private int score;
+    /**
+     * Number of lines cleared.
+     */
     private int linesCleared;
-    private final static int LINESTOLEVELUP = 10;
+    /**
+     * Number of lines cleared needed to level up.
+     */
+    private static final int LINESTOLEVELUP = 10;
+    /**
+     * The highest level in the game.
+     */
+    private static final int MAX_LEVEL = 10;
+    /**
+     * Block that the player holds for later use.
+     */
     private final HeldBlock heldBlock;
+    /**
+     * Block in the "next" slot that will spawn after current block locks.
+     */
     private final NextBlock nextBlock;
     //Sounds
+    /**
+     * Lock sound effect.
+     */
     private final Sound lock_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    /**
+     * Rotate sound effect.
+     */
     private final Sound rotate_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    /**
+     * Line clear sound effect.
+     */
     private final Sound lineClear_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    /**
+     * Tetris (four lines cleared) sound effect.
+     */
     private final Sound tetris_SE; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
+    /**
+     * Game music.
+     */
     private final Music victory1_M; //NOPMD - suppressed FieldNamingConventions - TODO explain reason for suppression
     private boolean timersEnabled = true;
 
+    /**
+     * Texture for the background.
+     */
     private final Texture background;
 
-    private LossScreen ls;
+    private LossScreen lossScreen;
 
     /**
      * Instantiates a new Game screen.
      *
-     * @param aGame the a game
+     * @param aGame the game
      */
     public GameScreen(final TetrisGame aGame) {
         this.game = aGame;
@@ -89,7 +126,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
             }
         }
         //Load screens
-        ls = new LossScreen(game);
+        lossScreen = new LossScreen(game);
 
         //Load graphical assets
         background = new Texture(Gdx.files.internal("bg_gamescreen.png"));
@@ -104,9 +141,13 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         victory1_M = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
         victory1_M.setLooping(true);
         victory1_M.play();
-        victory1_M.setVolume(0.50f);
+        victory1_M.setVolume(0.40f);
     }
 
+    /**
+     * Renders the game screen every "delta" seconds. Handles player input.
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render(final float delta) { //NOPMD - suppressed CognitiveComplexity - TODO explain reason for suppression //NOPMD - suppressed CyclomaticComplexity - TODO explain reason for suppression
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
@@ -159,7 +200,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         }
 
         drawPiece(currentPiece.getColor());
-        if (level < 10){
+        if (level < MAX_LEVEL) {
             levelUp();
         }
 
@@ -171,15 +212,15 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         String linesClearedText = String.format("Lines Cleared: %d", this.linesCleared);
         String heldText = "Held Block";
         String nextText = "Next Block";
-        String controlsText = "Controls : \n" +
-            "Move Left: Left Arrow\n" +
-            "Move Right: Right Arrow\n" +
-            "Soft Drop: Down Arrow\n" +
-            "Hard Drop: Up Arrow\n" +
-            "Rotate Clockwise: F Key\n" +
-            "Rotate C-Clockwise: D Key\n" +
-            "Hold Block: S Key\n" +
-            "Pause Menu: Escape Key";
+        String controlsText = "Controls : \n"
+            + "Move Left: Left Arrow\n"
+            + "Move Right: Right Arrow\n"
+            + "Soft Drop: Down Arrow\n"
+            + "Hard Drop: Up Arrow\n"
+            + "Rotate Clockwise: F Key\n"
+            + "Rotate C-Clockwise: D Key\n"
+            + "Hold Block: S Key\n"
+            + "Pause Menu: Escape Key";
 
         game.batch.begin();
         //draw bg first
@@ -215,7 +256,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     }
 
     /**
-     * Draw piece.
+     * Draw the four Squares of a piece based on current state.
      *
      * @param color the color
      */
@@ -235,7 +276,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
 
 
     /**
-     * Move down logically.
+     * Checks if it's possible to move currentPiece down.
+     * If so, calls drawPiece and updates coordinates. If not, calls
+     * lockSquares and generates a new piece.
      */
     public void moveDownLogically() {
         if (timersEnabled) {
@@ -256,6 +299,12 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     }
 
     //TODO prevent pieces from overlapping at spawn
+
+    /**
+     * Checks if the four squares directly below the currentPiece's position are
+     * available and returns a boolean.
+     * @return true if all four squares below the piece are available
+     */
     private boolean moveDownPossible() {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
@@ -281,6 +330,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         return availableCount == 4;
     }
 
+    /**
+     * Drops piece as far down the board as possible.
+     */
     private void hardDrop() {
         while (moveDownPossible()) {
             moveDownLogically();
@@ -288,11 +340,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     }
 
     /**
-     * Move left right.
+     * Move left or right depending on parameter.
      *
-     * @param leftRight the left right
+     * @param leftRight -1 to move left, 1 for right.
      */
-    public void moveLeftRight(final int leftRight) {
+    private void moveLeftRight(final int leftRight) {
         if (moveLeftRightPossible(leftRight)) {
             if (leftRight == -1) {
                 //set current squares to black
@@ -306,7 +358,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         }
     }
 
-    //-1 for left, 1 for right
+    /**
+     * Checks if possible to move all four squares of currentPiece left/right.
+     * @param leftRight -1 for left, 1 for right
+     * @return true or false depending on availability of all four squares.
+     */
     private boolean moveLeftRightPossible(final int leftRight) {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
@@ -333,9 +389,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     }
 
     /**
-     * Rotate.
+     * Rotates the current piece.
      *
-     * @param direction the direction
+     * @param direction -1 for counterclockwise, 1 for clockwise.
      */
     public void rotate(final int direction) {
         int rotationNum = currentPiece.getRotationNum();
@@ -350,6 +406,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         }
     }
 
+    /**
+     * Checks if all four squares are available to rotate into.
+     * @param rotationNum To access appropriate rotation state from 2D array.
+     * @return true if all four squares are available to rotate into.
+     */
     private boolean rotationPossible(final int rotationNum) {
         Point[][] dimensions = currentPiece.getDimensions();
         int row = currentPiece.getRow();
@@ -373,6 +434,10 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         return availableCount == 4;
     }
 
+    /**
+     * Makes all four squares of currentPiece unavailable.
+     * Calls checkFullRow in case a line needs to be cleared.
+     */
     private void lockSquares() {
         IntArray rowsToCheck = new IntArray(4);
 
@@ -395,6 +460,11 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         checkFullRow(rowsToCheck);
     }
 
+    /**
+     * Checks each row in a list to see if they are full.
+     * If so, calls clearLine() for those rows. Otherwise calls checkLoss().
+     * @param rowList List of rows to check.
+     */
     private void checkFullRow(final IntArray rowList) {
 
         IntArray fullRows = new IntArray();
@@ -419,13 +489,15 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         }
     }
 
+    /**
+     * Increases the level if a certain number of lines have been cleared.
+     */
     private void levelUp() {
         if (linesCleared >= LINESTOLEVELUP) {
             level++;
             linesCleared = 0;
         }
     }
-
 
     private void clearLine(final IntArray rowList) {
         switch (rowList.size) {
@@ -481,7 +553,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
                     victory1_M.stop();
                     this.pause();
                     this.hide();
-                    game.setScreen(ls);
+                    game.setScreen(lossScreen);
                     this.dispose();
                     return;
                 }

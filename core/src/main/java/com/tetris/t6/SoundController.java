@@ -14,6 +14,7 @@ public final class SoundController extends ApplicationAdapter {
         this.soundName = s;
     }
 
+    @Override
     public void create() {
         this.sound = Gdx.audio.newSound(Gdx.files.internal(soundName));
         this.sound.play(0.5f);
