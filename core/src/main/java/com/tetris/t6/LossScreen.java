@@ -7,8 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+/**
+ * Screen that appears when the player loses.
+ */
 public final class LossScreen implements Screen {
 
+    /**
+     * Instance of the game.
+     */
     private final TetrisGame game;
     private GlyphLayout gl = new GlyphLayout();
     private String menuText1 = "Press escape to quit";

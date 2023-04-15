@@ -9,8 +9,14 @@ import java.awt.Point;
  * Represents the block in the hold slot.
  */
 public class HeldBlock {
-    private static int col = 11;
-    private static int row = 8;
+    /**
+     * The starting column of displayArea to draw the piece.
+     */
+    private static final int COL = 11;
+    /**
+     * The starting row of displayArea to draw the piece.
+     */
+    private static final int ROW = 8;
 
     /**
      * Width of the piece grid in squares.
@@ -21,27 +27,46 @@ public class HeldBlock {
      * Height of the piece grid in squares.
      */
     private static final int HEIGHTSQUARES = 4;
+    /**
+     * The piece being held.
+     */
     private Piece heldPiece;
+    /**
+     * 2D array of Squares to display held block.
+     */
     private Square[][] displayArea;
 
-    //Constructor
+    /**
+     * Constructor for held block. Instantiates displayArea with black Squares.
+     */
     public HeldBlock() {
         heldPiece = null;
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {
-                displayArea[i][j] = new Square(i + row, j + col, Color.BLACK);
+                displayArea[i][j] = new Square(i + ROW, j + COL, Color.BLACK);
             }
         }
     }
 
+    /**
+     * Sets the held piece and calls updateGrid to change colors.
+     * @param newPiece the newly-held piece.
+     */
     public void setHeldPiece(Piece newPiece) {
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
     }
+
+    /**
+     * Gets the held piece.
+     * @return heldPiece.
+     */
     public Piece getHeldPiece() {
         return heldPiece;
     }
+
+
     public Piece swapPiece(Piece newPiece) {
         updateGrid(Color.BLACK);
         Piece temp = heldPiece;
