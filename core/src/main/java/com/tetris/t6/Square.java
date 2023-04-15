@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 /**
- * Square Class
+ * Square Class.
  */
 public final class Square {
     /**
