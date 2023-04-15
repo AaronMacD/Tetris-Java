@@ -171,6 +171,15 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         String linesClearedText = String.format("Lines Cleared: %d", this.linesCleared);
         String heldText = "Held Block";
         String nextText = "Next Block";
+        String controlsText = "Controls : \n" +
+            "Move Left: Left Arrow\n" +
+            "Move Right: Right Arrow\n" +
+            "Soft Drop: Down Arrow\n" +
+            "Hard Drop: Up Arrow\n" +
+            "Rotate Clockwise: F Key\n" +
+            "Rotate C-Clockwise: D Key\n" +
+            "Hold Block: S Key\n" +
+            "Pause Menu: Escape Key";
 
         game.batch.begin();
         //draw bg first
@@ -191,6 +200,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
         game.font.draw(game.batch, linesClearedText, 300, 825);
         game.font.draw(game.batch, heldText, 495, 460);
         game.font.draw(game.batch, nextText, 495, 700);
+        game.font.draw(game.batch, controlsText, 450, 300);
         game.batch.end();
 
 

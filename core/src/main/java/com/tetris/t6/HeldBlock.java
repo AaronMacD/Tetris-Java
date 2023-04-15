@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class HeldBlock {
     private static int col = 11;
-    private static int row = 10;
+    private static int row = 8;
 
     /**
      * Width of the piece in squares.

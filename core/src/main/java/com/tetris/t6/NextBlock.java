@@ -8,7 +8,7 @@ import java.awt.Point;
 public final class NextBlock {
 
     private static int col = 11;
-    private static int row = 4;
+    private static int row = 2;
     private final static int WIDTHSQUARES = 4;
     private final static int HEIGHTSQUARES = 4;
     private Piece nextPiece;
