@@ -100,11 +100,15 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      * Tetris (four lines cleared) sound effect.
      */
     private final Sound tetrisSFX;
+    /**
+     * Hold piece sound effect.
+     */
     private final Sound holdSFX;
     /**
      * Game music.
      */
     private final Music victory1Music;
+
     private boolean timersEnabled = true;
 
     /**
@@ -112,6 +116,9 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      */
     private final Texture background;
 
+    /**
+     * The loss screen.
+     */
     private LossScreen lossScreen;
 
     /**

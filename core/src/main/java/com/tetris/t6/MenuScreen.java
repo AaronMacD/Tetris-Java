@@ -20,7 +20,7 @@ public final class MenuScreen implements Screen {
     /**
      * Instantiates a new Menu screen.
      *
-     * @param aGame the a game
+     * @param aGame the game
      */
     public MenuScreen(final TetrisGame aGame) {
         this.game = aGame;

@@ -5,6 +5,9 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.awt.Point;
 
+/**
+ * Represents the block in the hold slot.
+ */
 public class HeldBlock {
     private static int col = 11;
     private static int row = 8;
@@ -20,9 +23,6 @@ public class HeldBlock {
     private static final int HEIGHTSQUARES = 4;
     private Piece heldPiece;
     private Square[][] displayArea;
-
-
-
 
     //Constructor
     public HeldBlock() {

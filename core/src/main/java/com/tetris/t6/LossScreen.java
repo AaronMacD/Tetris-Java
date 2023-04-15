@@ -11,9 +11,8 @@ public final class LossScreen implements Screen {
 
     private final TetrisGame game;
     private GlyphLayout gl = new GlyphLayout();
-    //private String menuText1 = "You've lost!!";
-    private String menuText2 = "Press escape to quit";
-    private String menuText3 = "Or press any other key to return to the main menu";
+    private String menuText1 = "Press escape to quit";
+    private String menuText2 = "Or press any other key to return to the main menu";
     private Texture background;
 
     public LossScreen(final TetrisGame aGame) {
@@ -24,22 +23,20 @@ public final class LossScreen implements Screen {
     @Override
     public void render(final float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-        //gl.setText(game.font, menuText1);
+        gl.setText(game.font, menuText1);
         float w1 = gl.width;
         gl.setText(game.font, menuText2);
         float w2 = gl.width;
-        gl.setText(game.font, menuText3);
-        float w3 = gl.width;
 
 
         game.batch.begin();
         game.batch.draw(background, 0, 0);
         //game.font.draw(game.batch, menuText1,
         //    (Gdx.graphics.getWidth() - w1) / 2, 750);
+        game.font.draw(game.batch, menuText1,
+            (Gdx.graphics.getWidth() - w1) / 2, 150);
         game.font.draw(game.batch, menuText2,
-            (Gdx.graphics.getWidth() - w2) / 2, 150);
-        game.font.draw(game.batch, menuText3,
-            (Gdx.graphics.getWidth() - w3) / 2, 135);
+            (Gdx.graphics.getWidth() - w2) / 2, 135);
         game.batch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
