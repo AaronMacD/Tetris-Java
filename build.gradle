@@ -1,4 +1,5 @@
 buildscript {
+
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -10,13 +11,13 @@ buildscript {
   }
   dependencies {
 
-
   }
 }
 
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
+  apply plugin: "java"
   ext {
     shapedrawerVersion = '2.5.0'
   }
@@ -25,8 +26,25 @@ allprojects {
   }
 }
 
+//Configuration for the :core project
+project(":core") {
+  //Uses the java gradle plugin
+  apply plugin: "java"
+
+  dependencies {
+    //Defines dependencies for the :core project, in this example the gdx dependency
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+  }
+
+  test {
+    useJUnitPlatform()
+  }
+}
+
 configure(subprojects) {
   apply plugin: 'java-library'
+
   sourceCompatibility = 1.8
   compileJava {
     options.incremental = true
