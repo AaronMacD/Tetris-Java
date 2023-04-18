@@ -123,34 +123,34 @@ public final class GameScreen implements Screen {
         ////////////////////////////////Player 1 Functions//////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
         p1.timeControls += delta;
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             hardDrop(p1);
             p1.timeMovement = 100f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             p1.timeMovement = 100f;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && p1.timeControls > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && p1.timeControls > 0.15f) {
             moveLeftRight(p1,-1);
             p1.timeControls = 0f;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && p1.timeControls > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && p1.timeControls > 0.15f) {
             moveLeftRight(p1,1);
             p1.timeControls = 0f;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             rotate(p1,1);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             rotate(p1,-1);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             drawPiece(p1,Color.BLACK);
             if (p1.heldBlock.getHeldPiece() == null) {
                 p1.heldBlock.setHeldPiece(p1.currentPiece);
@@ -179,13 +179,13 @@ public final class GameScreen implements Screen {
         String heldText = "Held Block";
         String nextText = "Next Block";
         String controlsText = "Controls : \n"
-            + "Move Left: Left Arrow\n"
-            + "Move Right: Right Arrow\n"
-            + "Soft Drop: Down Arrow\n"
-            + "Hard Drop: Up Arrow\n"
-            + "Rotate Clockwise: F Key\n"
-            + "Rotate C-Clockwise: D Key\n"
-            + "Hold Block: S Key\n"
+            + "Move Left: A Key\n"
+            + "Move Right: D Key\n"
+            + "Soft Drop: S Key\n"
+            + "Hard Drop: W Key\n"
+            + "Rotate Clockwise: E Key\n"
+            + "Rotate C-Clockwise: Q Key\n"
+            + "Hold Block: Space Key\n"
             + "Pause Menu: Escape Key";
 
         ////////////////////////////////////////////////////////////////////////////////////////////
