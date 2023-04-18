@@ -29,8 +29,8 @@ public final class GameScreen implements Screen {
      * Speeds for pieces to fall for different levels.
      * Cells per frame is 1/speed.
      */
-    private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
-        0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
+    private final float[] levelSpeeds = {0.016_67f, 0.021_017f, 0.026_977f,
+        0.035_256f, 0.046_93f, 0.063_61f, 0.087_9f, 0.123_6f, 0.177_5f, 0.259_8f};
     /**
      * Max level the game can get up to. Only 10, as there are only 10 speeds.
      */

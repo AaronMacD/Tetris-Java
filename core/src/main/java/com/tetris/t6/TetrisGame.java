@@ -56,7 +56,7 @@ public final class TetrisGame extends Game {
         pixmap.drawPixel(0, 0);
 
         texture = new Texture(pixmap); //remember to dispose of later
-        TextureRegion region = new TextureRegion(texture, 0, 0, 1, 1);
+        final TextureRegion region = new TextureRegion(texture, 0, 0, 1, 1);
         drawer = new ShapeDrawer(batch, region);
 
         this.setScreen(new MenuScreen(this));

@@ -42,7 +42,6 @@ public class HeldBlock {
      * @param horizontalOffset the horizontal offset
      */
     public HeldBlock(final int horizontalOffset) {
-        heldPiece = null;
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {
