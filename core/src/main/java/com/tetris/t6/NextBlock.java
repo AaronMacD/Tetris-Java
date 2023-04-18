@@ -9,17 +9,19 @@ public final class NextBlock {
 
     private static int col = 11;
     private static int row = 2;
+    private int horizontalOffset;
     private final static int WIDTHSQUARES = 4;
     private final static int HEIGHTSQUARES = 4;
     private Piece nextPiece;
     private Square[][] displayArea;
 
     //Constructor
-    public NextBlock() {
+    public NextBlock(int horizontalOffset) {
+        this.horizontalOffset = horizontalOffset;
         displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
         for (int i = 0; i < WIDTHSQUARES; i++) {
             for (int j = 0; j < HEIGHTSQUARES; j++) {
-                displayArea[i][j] = new Square(i + row, j + col,
+                displayArea[i][j] = new Square(i + row, j + col + horizontalOffset,
                     Color.BLACK);
             }
         }

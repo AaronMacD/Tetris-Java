@@ -18,6 +18,8 @@ public class HeldBlock {
      */
     private static final int ROW = 8;
 
+    private int horizontalOffset;
+
     /**
      * Width of the piece grid in squares.
      */
@@ -39,12 +41,14 @@ public class HeldBlock {
     /**
      * Constructor for held block. Instantiates displayArea with black Squares.
      */
-    public HeldBlock() {
+    public HeldBlock(int horizontalOffset) {
+        this.horizontalOffset = horizontalOffset;
+
         heldPiece = null;
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {
-                displayArea[i][j] = new Square(i + ROW, j + COL, Color.BLACK);
+                displayArea[i][j] = new Square(i + ROW, j + COL + horizontalOffset, Color.BLACK);
             }
         }
     }

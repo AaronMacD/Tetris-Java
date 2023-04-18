@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -33,7 +34,7 @@ public final class TetrisGame extends Game { //NOPMD - suppressed AtLeastOneCons
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        viewport = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+        viewport = new ScreenViewport(camera);
 
         pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);

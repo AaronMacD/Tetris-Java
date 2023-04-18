@@ -16,12 +16,13 @@ public final class PauseScreen implements Screen {
     private String menuText2 = "Click anywhere to resume game";
     private String menuText3 = "or press escape to quit";
     private Texture background;
+    int numPlayers;
 
     public PauseScreen(final TetrisGame aGame, final GameScreen aGameScreen) {
+        this.numPlayers = numPlayers;
         this.game = aGame;
         this.gameScreen = aGameScreen;
         background = new Texture(Gdx.files.internal("bg_pause.png"));
-
 
     }
 
@@ -55,6 +56,7 @@ public final class PauseScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
+
     }
 
     @Override
@@ -74,7 +76,10 @@ public final class PauseScreen implements Screen {
 
     @Override
     public void show() {
-        //Main menu music can go here
+            Gdx.graphics.setWindowedMode(650, Gdx.graphics.getHeight());
+            game.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            game.camera.update();
+            game.batch.setProjectionMatrix(game.camera.combined);
     }
 
     @Override

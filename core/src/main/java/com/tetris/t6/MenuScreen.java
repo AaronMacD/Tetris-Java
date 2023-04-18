@@ -1,6 +1,7 @@
 package com.tetris.t6;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -13,7 +14,7 @@ public final class MenuScreen implements Screen {
 
     private final TetrisGame game;
     private GlyphLayout gl = new GlyphLayout();
-    private String menuText2 = "Click anywhere to start the game";
+    private String menuText2 = "Press 1 for Single Player or 2 for Versus!";
     private Texture logo;
     private Texture background;
 
@@ -50,8 +51,10 @@ public final class MenuScreen implements Screen {
             (Gdx.graphics.getWidth() - w2) / 2, 440);
         game.batch.end();
 
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            game.setScreen(new GameScreen(game, 1));
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            game.setScreen(new GameScreen(game, 2));
         }
     }
 
