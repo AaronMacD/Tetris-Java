@@ -9,19 +9,36 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
+/**
+ * The type Tetris game.
+ */
 public final class TetrisGame extends Game { //NOPMD - suppressed AtLeastOneConstructor - TODO explain reason for suppression
 
+    /**
+     * The Batch.
+     */
     public PolygonSpriteBatch batch;
     private TextureRegion region;
     private Texture texture;
+    /**
+     * The Font.
+     */
     public BitmapFont font;
+    /**
+     * The Camera.
+     */
     public OrthographicCamera camera;
+    /**
+     * The Viewport.
+     */
     public Viewport viewport;
+    /**
+     * The Drawer.
+     */
     public ShapeDrawer drawer;
     private Pixmap pixmap;
 

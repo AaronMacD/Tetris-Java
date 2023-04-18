@@ -18,8 +18,6 @@ public class HeldBlock {
      */
     private static final int ROW = 8;
 
-    private int horizontalOffset;
-
     /**
      * Width of the piece grid in squares.
      */
@@ -40,10 +38,10 @@ public class HeldBlock {
 
     /**
      * Constructor for held block. Instantiates displayArea with black Squares.
+     *
+     * @param horizontalOffset the horizontal offset
      */
     public HeldBlock(int horizontalOffset) {
-        this.horizontalOffset = horizontalOffset;
-
         heldPiece = null;
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
@@ -55,6 +53,7 @@ public class HeldBlock {
 
     /**
      * Sets the held piece and calls updateGrid to change colors.
+     *
      * @param newPiece the newly-held piece.
      */
     public void setHeldPiece(Piece newPiece) {
@@ -64,13 +63,20 @@ public class HeldBlock {
 
     /**
      * Gets the held piece.
-     * @return heldPiece.
+     *
+     * @return heldPiece. held piece
      */
     public Piece getHeldPiece() {
         return heldPiece;
     }
 
 
+    /**
+     * Swap piece piece.
+     *
+     * @param newPiece the new piece
+     * @return the piece
+     */
     public Piece swapPiece(Piece newPiece) {
         updateGrid(Color.BLACK);
         Piece temp = heldPiece;
@@ -90,6 +96,12 @@ public class HeldBlock {
             displayArea[squareRow][squareCol].setColor(color);
         }
     }
+
+    /**
+     * Draw next.
+     *
+     * @param draw the draw
+     */
     public void drawNext(ShapeDrawer draw) {
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {

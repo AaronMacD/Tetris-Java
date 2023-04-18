@@ -45,6 +45,8 @@ public final class Piece {
     }
 
     /**
+     * Gets row.
+     *
      * @return the current row of the piece.
      */
     public int getRow() {
@@ -52,6 +54,8 @@ public final class Piece {
     }
 
     /**
+     * Gets col.
+     *
      * @return the current col of the piece.
      */
     public int getCol() {
@@ -59,6 +63,8 @@ public final class Piece {
     }
 
     /**
+     * Gets color.
+     *
      * @return the current color of piece.
      */
     public Color getColor() {
@@ -66,6 +72,8 @@ public final class Piece {
     }
 
     /**
+     * Get dimensions point [ ] [ ].
+     *
      * @return the dimensions of piece.
      */
     public Point[][] getDimensions() {
@@ -73,6 +81,8 @@ public final class Piece {
     }
 
     /**
+     * Gets rotation num.
+     *
      * @return the current rotation of the piece.
      */
     public int getRotationNum() {
@@ -80,12 +90,17 @@ public final class Piece {
     }
 
     /**
+     * Sets row.
+     *
      * @param aRow sets the row of the piece.
      */
     public void setRow(final int aRow) {
         this.row = aRow;
     }
+
     /**
+     * Sets col.
+     *
      * @param aCol sets the col of the piece.
      */
     public void setCol(final int aCol) {
@@ -93,6 +108,8 @@ public final class Piece {
     }
 
     /**
+     * Sets rotation num.
+     *
      * @param rNum sets the rotationNum of the piece.
      */
     public void setRotationNum(final int rNum) {

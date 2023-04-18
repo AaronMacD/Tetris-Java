@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+/**
+ * The type Pause screen.
+ */
 public final class PauseScreen implements Screen {
 
     private final TetrisGame game;
@@ -16,8 +19,17 @@ public final class PauseScreen implements Screen {
     private String menuText2 = "Click anywhere to resume game";
     private String menuText3 = "or press escape to quit";
     private Texture background;
+    /**
+     * The Num players.
+     */
     int numPlayers;
 
+    /**
+     * Instantiates a new Pause screen.
+     *
+     * @param aGame       the a game
+     * @param aGameScreen the a game screen
+     */
     public PauseScreen(final TetrisGame aGame, final GameScreen aGameScreen) {
         this.numPlayers = numPlayers;
         this.game = aGame;

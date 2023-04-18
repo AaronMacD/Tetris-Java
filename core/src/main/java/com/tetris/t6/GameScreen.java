@@ -15,120 +15,23 @@ import java.awt.Point;
 /**
  * The type Game screen.
  */
-public final class GameScreen implements Screen { //NOPMD - suppressed GodClass - TODO explain reason for suppression
+public final class GameScreen implements Screen {
+    //NOPMD - suppressed GodClass - TODO explain reason for suppression
     /**
      * Instance of the game.
      */
     private final TetrisGame game;
-    //todo comments
+
     private int numPlayers;
-    /**
-     * 2D array of squares to represent the game board.
-     */
-    //private final Square[][] board_p1;
-
-    /**
-     * 2D array of squares to represent the game board.
-     */
-    //private final Square[][] board_p2;
-
-    //private final int p2HorizontalOffset = 16;
-    /**
-     * Number of p1.ROWS in the board.
-     */
-    //private static final int p1.ROWS = 22;
-    /**
-     * Number of columns in the board.
-     */
-    //private static final int COLS = 10;
-    /**
-     * The piece that is currently falling.
-     */
-    //private Piece p1.currentPiece;
-    /**
-     * The piece that is currently falling.
-     */
-    //private Piece currentPiece_p2;
-    /**
-     * Level counter.
-     */
-    //private int p1.level;
-    /**
-     * Level counter.
-     */
-    //private int level_p2;
-
     /**
      * Speeds for pieces to fall for different levels.
      * Cells per frame is 1/speed.
      */
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
         0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
-    /**
-     * Timer for left/right inputs.
-     */
-    //private float p1.timeControls;
-    /**
-     * Timer for falling speeds.
-     */
-    //private float p1.timeMovement;
-    /**
-     * Player's current score.
-     */
-    //private int p1.score;
-    /**
-     * Number of lines cleared.
-     */
-    //private int p1.linesCleared;
-    /**
-     * Timer for left/right inputs.
-     */
-    //private float timeControls_p2;
-    /**
-     * Timer for falling speeds.
-     */
-    //private float timeMovement_p2;
-    /**
-     * Player's current score.
-     */
-    //private int score_p2;
-    /**
-     * Number of lines cleared.
-     */
-    //private int linesCleared_p2;
-    /**
-     * Number of lines cleared needed to level up.
-     */
-    private static final int LINESTOLEVELUP = 10;
-    /**
-     * The highest level in the game.
-     */
-    private static final int MAX_LEVEL = 10;
-    /**
-     * Block that the player holds for later use.
-     */
-    //private final HeldBlock p1.heldBlock;
-    /**
-     * Boolean for whether swap was used to get the current piece.
-     */
-    //private boolean p1.swapUsed;
-    /**
-     * Block in the "next" slot that will spawn after current block locks.
-     */
-    //private final NextBlock p1.nextBlock;
-    /**
-     * Block that the player holds for later use.
-     */
-    //private final HeldBlock heldBlock_p2;
-    /**
-     * Boolean for whether swap was used to get the current piece.
-     */
-    //private boolean swapUsed_p2;
-    /**
-     * Block in the "next" slot that will spawn after current block locks.
-     */
-    //private final NextBlock nextBlock_p2;
 
+    private static final int MAX_LEVEL = 10;
+    private static final int LINESTOLEVELUP = 10;
     //Sounds
     /**
      * Lock sound effect.
@@ -164,11 +67,6 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     private final Texture background2;
 
     /**
-     * The loss screen.
-     */
-    private LossScreen lossScreen;
-
-    /**
      * Instantiates a new Game screen.
      *
      * @param aGame the game
@@ -177,6 +75,12 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     private PlayerData p1;
     private PlayerData p2;
 
+    /**
+     * Instantiates a new Game screen.
+     *
+     * @param aGame     the main game containing cameras, batching, texture drawing, and other objects used by all screens.
+     * @param playerNum the number of players
+     */
     public GameScreen(final TetrisGame aGame, int playerNum) {
         this.numPlayers = playerNum;
         this.game = aGame;
@@ -433,7 +337,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     /**
      * Draw the four Squares of a piece based on current state.
      *
-     * @param color the color
+     * @param player the player
+     * @param color  the color
      */
     public void drawPiece(PlayerData player, Color color) {
         //row and column for the top-left corner
@@ -454,6 +359,8 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
      * Checks if it's possible to move currentPiece down.
      * If so, calls drawPiece and updates coordinates. If not, calls
      * lockSquares and generates a new piece.
+     *
+     * @param player the player
      */
     public void moveDownLogically(PlayerData player) {
         if (timersEnabled) {
@@ -566,6 +473,7 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     /**
      * Rotates the current piece.
      *
+     * @param player    the player
      * @param direction -1 for counterclockwise, 1 for clockwise.
      */
     public void rotate(PlayerData player, final int direction) {
@@ -776,26 +684,76 @@ public final class GameScreen implements Screen { //NOPMD - suppressed GodClass 
     }
 }
 
- class PlayerData{
+/**
+ * The type Player data.
+ */
+class PlayerData{
+    /**
+     * The Score.
+     */
     int score;
+    /**
+     * The Level.
+     */
     int level;
+    /**
+     * The Lines cleared.
+     */
     int linesCleared;
+    /**
+     * The Board.
+     */
     Square[][] board;
+    /**
+     * The Current piece.
+     */
     Piece currentPiece;
+    /**
+     * The Time controls.
+     */
     float timeControls;
+    /**
+     * The Time movement.
+     */
     float timeMovement;
+    /**
+     * The Held block.
+     */
     HeldBlock heldBlock;
+    /**
+     * The Next block.
+     */
     NextBlock nextBlock;
+    /**
+     * The Swap used.
+     */
     boolean swapUsed;
+    /**
+     * The Lost.
+     */
     boolean lost;
+    /**
+     * The Player number.
+     */
     int playerNumber;
 
 
+    /**
+     * The Rows.
+     */
     static final int ROWS = 22;
+    /**
+     * The Cols.
+     */
     static final int COLS = 10;
 
     private int horizontalOffset;
 
+    /**
+     * Instantiates a new Player data.
+     *
+     * @param playerNum the player num
+     */
     public PlayerData(int playerNum){
         playerNumber = playerNum;
         score = 0;

@@ -22,6 +22,12 @@ public final class LossScreen implements Screen {
     private String menuText2 = "Or press any other key to return to the main menu";
     private Texture background;
 
+    /**
+     * Instantiates a new Loss screen.
+     *
+     * @param aGame  the a game
+     * @param player the player
+     */
     public LossScreen(final TetrisGame aGame, PlayerData player) {
         this.game = aGame;
         background = new Texture(Gdx.files.internal("bg_loss.png"));

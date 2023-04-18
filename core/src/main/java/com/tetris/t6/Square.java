@@ -42,8 +42,9 @@ public final class Square {
 
     /**
      * Creates a square object, that is used to fill the board.
-     * @param aRow sets the square's row.
-     * @param aCol sets the square's col.
+     *
+     * @param aRow   sets the square's row.
+     * @param aCol   sets the square's col.
      * @param aColor sets the square's color.
      */
     public Square(final int aRow, final int aCol, final Color aColor) {
@@ -58,7 +59,10 @@ public final class Square {
         y = 805 - (row * HEIGHT);
 
     }
+
     /**
+     * Gets row.
+     *
      * @return the current row of the square.
      */
     public int getRow() {
@@ -66,6 +70,8 @@ public final class Square {
     }
 
     /**
+     * Gets col.
+     *
      * @return the current col of the square.
      */
     public int getCol() {
@@ -73,6 +79,8 @@ public final class Square {
     }
 
     /**
+     * Gets color.
+     *
      * @return the current color of sqaure.
      */
     public Color getColor() {
@@ -80,13 +88,17 @@ public final class Square {
     }
 
     /**
+     * Sets color.
+     *
      * @param aColor sets the color of the square.
      */
-
     public void setColor(final Color aColor) {
         this.color = aColor;
     }
+
     /**
+     * Is available boolean.
+     *
      * @return if the square is availability or not.
      */
 
@@ -95,6 +107,8 @@ public final class Square {
     }
 
     /**
+     * Sets availability.
+     *
      * @param anAvailability sets the availability of the square.
      */
     public void setAvailability(final boolean anAvailability) {
@@ -102,6 +116,8 @@ public final class Square {
     }
 
     /**
+     * Draw square.
+     *
      * @param shape draws the shape onto the board.
      */
     public void drawSquare(final ShapeDrawer shape) {
