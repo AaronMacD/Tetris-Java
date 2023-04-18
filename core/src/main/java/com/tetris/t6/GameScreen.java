@@ -109,14 +109,13 @@ public final class GameScreen implements Screen {
 
     /**
      * Renders the game screen every "delta" seconds. Handles player input.
+     *
      * @param delta The time in seconds since the last render.
      */
     @Override
     public void render(final float delta) { //NOPMD - suppressed CognitiveComplexity - TODO explain reason for suppression //NOPMD - suppressed CyclomaticComplexity - TODO explain reason for suppression
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,25 +132,25 @@ public final class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A) && p1.timeControls > 0.15f) {
-            moveLeftRight(p1,-1);
+            moveLeftRight(p1, -1);
             p1.timeControls = 0f;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) && p1.timeControls > 0.15f) {
-            moveLeftRight(p1,1);
+            moveLeftRight(p1, 1);
             p1.timeControls = 0f;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            rotate(p1,1);
+            rotate(p1, 1);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            rotate(p1,-1);
+            rotate(p1, -1);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            drawPiece(p1,Color.BLACK);
+            drawPiece(p1, Color.BLACK);
             if (p1.heldBlock.getHeldPiece() == null) {
                 p1.heldBlock.setHeldPiece(p1.currentPiece);
                 p1.currentPiece = p1.nextBlock.getNextPiece();
@@ -191,7 +190,7 @@ public final class GameScreen implements Screen {
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////Player 2 Functions//////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
-        if (numPlayers == 2){
+        if (numPlayers == 2) {
             p2.timeControls += delta;
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)) {
                 hardDrop(p2);
@@ -203,25 +202,25 @@ public final class GameScreen implements Screen {
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && p2.timeControls > 0.15f) {
-                moveLeftRight(p2,-1);
+                moveLeftRight(p2, -1);
                 p2.timeControls = 0f;
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && p2.timeControls > 0.15f) {
-                moveLeftRight(p2,1);
+                moveLeftRight(p2, 1);
                 p2.timeControls = 0f;
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_9)) {
-                rotate(p2,1);
+                rotate(p2, 1);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_7)) {
-                rotate(p2,-1);
+                rotate(p2, -1);
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_0)) {
-                drawPiece(p2,Color.BLACK);
+                drawPiece(p2, Color.BLACK);
                 if (p2.heldBlock.getHeldPiece() == null) {
                     p2.heldBlock.setHeldPiece(p2.currentPiece);
                     p2.currentPiece = p2.nextBlock.getNextPiece();
@@ -259,7 +258,6 @@ public final class GameScreen implements Screen {
             + "Pause Menu: Escape Key";
 
 
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.pause();
             this.hide();
@@ -267,15 +265,12 @@ public final class GameScreen implements Screen {
         }
 
 
-
-
-
         /////////////////////////////Drawing//////////////////////////////
         game.batch.begin();
         //draw bg first
         game.batch.draw(background, 0, 0);
-        if (numPlayers == 2){
-            game.batch.draw(background2, 650,0);
+        if (numPlayers == 2) {
+            game.batch.draw(background2, 650, 0);
         }
 
 
@@ -293,12 +288,11 @@ public final class GameScreen implements Screen {
         p1.nextBlock.drawNext(game.drawer);
 
         game.font.draw(game.batch, scoreText, 30, 825);
-        game.font.draw(game.batch, levelText,  175, 825);
+        game.font.draw(game.batch, levelText, 175, 825);
         game.font.draw(game.batch, linesClearedText, 300, 825);
         game.font.draw(game.batch, heldText, 495, 540);
         game.font.draw(game.batch, nextText, 495, 780);
         game.font.draw(game.batch, controlsText, 420, 300);
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -314,13 +308,12 @@ public final class GameScreen implements Screen {
         p2.heldBlock.drawNext(game.drawer);
         p2.nextBlock.drawNext(game.drawer);
 
-        game.font.draw(game.batch, scoreText2, 30+650, 825);
-        game.font.draw(game.batch, levelText2,  175+650, 825);
-        game.font.draw(game.batch, linesClearedText2, 300+650, 825);
-        game.font.draw(game.batch, heldText2, 495+650, 540);
-        game.font.draw(game.batch, nextText2, 495+650, 780);
-        game.font.draw(game.batch, controlsText2, 420+650, 300);
-
+        game.font.draw(game.batch, scoreText2, 30 + 650, 825);
+        game.font.draw(game.batch, levelText2, 175 + 650, 825);
+        game.font.draw(game.batch, linesClearedText2, 300 + 650, 825);
+        game.font.draw(game.batch, heldText2, 495 + 650, 540);
+        game.font.draw(game.batch, nextText2, 495 + 650, 780);
+        game.font.draw(game.batch, controlsText2, 420 + 650, 300);
 
 
         game.batch.end();
@@ -385,6 +378,7 @@ public final class GameScreen implements Screen {
     /**
      * Checks if the four squares directly below the currentPiece's position are
      * available and returns a boolean.
+     *
      * @return true if all four squares below the piece are available
      */
     private boolean moveDownPossible(PlayerData player) {
@@ -442,6 +436,7 @@ public final class GameScreen implements Screen {
 
     /**
      * Checks if possible to move all four squares of currentPiece left/right.
+     *
      * @param leftRight -1 for left, 1 for right
      * @return true or false depending on availability of all four squares.
      */
@@ -491,6 +486,7 @@ public final class GameScreen implements Screen {
 
     /**
      * Checks if all four squares are available to rotate into.
+     *
      * @param rotationNum To access appropriate rotation state from 2D array.
      * @return true if all four squares are available to rotate into.
      */
@@ -549,9 +545,10 @@ public final class GameScreen implements Screen {
     /**
      * Checks each row in a list to see if they are full.
      * If so, calls clearLine() for those p1.ROWS. Otherwise calls checkLoss().
+     *
      * @param rowList List of p1.ROWS to check.
      */
-    private void checkFullRow(PlayerData player,final IntArray rowList) {
+    private void checkFullRow(PlayerData player, final IntArray rowList) {
         IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
             int squareCount = 0;
@@ -639,7 +636,7 @@ public final class GameScreen implements Screen {
                     victory1Music.stop();
                     this.pause();
                     this.hide();
-                    game.setScreen(new LossScreen(this.game, player));
+                    game.setScreen(new LossScreen(this.game, player.playerNumber));
                     this.dispose();
                     return;
                 }
@@ -651,7 +648,7 @@ public final class GameScreen implements Screen {
     @Override
     public void show() {
         if (numPlayers == 2) {
-            Gdx.graphics.setWindowedMode(650*2, Gdx.graphics.getHeight());
+            Gdx.graphics.setWindowedMode(650 * 2, Gdx.graphics.getHeight());
             game.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             game.camera.update();
             game.batch.setProjectionMatrix(game.camera.combined);
@@ -682,100 +679,101 @@ public final class GameScreen implements Screen {
     public void dispose() {
 
     }
-}
-
-/**
- * The type Player data.
- */
-class PlayerData{
-    /**
-     * The Score.
-     */
-    int score;
-    /**
-     * The Level.
-     */
-    int level;
-    /**
-     * The Lines cleared.
-     */
-    int linesCleared;
-    /**
-     * The Board.
-     */
-    Square[][] board;
-    /**
-     * The Current piece.
-     */
-    Piece currentPiece;
-    /**
-     * The Time controls.
-     */
-    float timeControls;
-    /**
-     * The Time movement.
-     */
-    float timeMovement;
-    /**
-     * The Held block.
-     */
-    HeldBlock heldBlock;
-    /**
-     * The Next block.
-     */
-    NextBlock nextBlock;
-    /**
-     * The Swap used.
-     */
-    boolean swapUsed;
-    /**
-     * The Lost.
-     */
-    boolean lost;
-    /**
-     * The Player number.
-     */
-    int playerNumber;
 
 
     /**
-     * The Rows.
+     * The type Player data.
      */
-    static final int ROWS = 22;
-    /**
-     * The Cols.
-     */
-    static final int COLS = 10;
+    private class PlayerData {
+        /**
+         * The Score.
+         */
+        public int score;
+        /**
+         * The Level.
+         */
+        public int level;
+        /**
+         * The Lines cleared.
+         */
+        public int linesCleared;
+        /**
+         * The Board.
+         */
+        public Square[][] board;
+        /**
+         * The Current piece.
+         */
+        public Piece currentPiece;
+        /**
+         * The Time controls.
+         */
+        float timeControls;
+        /**
+         * The Time movement.
+         */
+        float timeMovement;
+        /**
+         * The Held block.
+         */
+        HeldBlock heldBlock;
+        /**
+         * The Next block.
+         */
+        NextBlock nextBlock;
+        /**
+         * The Swap used.
+         */
+        boolean swapUsed;
+        /**
+         * The Lost.
+         */
+        boolean lost;
+        /**
+         * The Player number.
+         */
+        int playerNumber;
 
-    private int horizontalOffset;
 
-    /**
-     * Instantiates a new Player data.
-     *
-     * @param playerNum the player num
-     */
-    public PlayerData(int playerNum){
-        playerNumber = playerNum;
-        score = 0;
-        level = 1;
-        linesCleared = 0;
-        board = new Square[ROWS][COLS];
-        if(playerNumber == 1){
-            horizontalOffset = 0;
-        }
-        if(playerNumber == 2){
-            horizontalOffset = 16;
-        }
-        //initialize board
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                board[i][j] = new Square(i, j + horizontalOffset, Color.BLACK);
+        /**
+         * The Rows.
+         */
+        static final int ROWS = 22;
+        /**
+         * The Cols.
+         */
+        static final int COLS = 10;
+
+        private int horizontalOffset;
+
+        /**
+         * Instantiates a new Player data.
+         *
+         * @param playerNum the player num
+         */
+        public PlayerData(int playerNum) {
+            playerNumber = playerNum;
+            score = 0;
+            level = 1;
+            linesCleared = 0;
+            board = new Square[ROWS][COLS];
+            if (playerNumber == 1) {
+                horizontalOffset = 0;
             }
-        }
+            if (playerNumber == 2) {
+                horizontalOffset = 16;
+            }
+            //initialize board
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                    board[i][j] = new Square(i, j + horizontalOffset, Color.BLACK);
+                }
+            }
 
-        currentPiece = new Piece();
-        heldBlock = new HeldBlock(horizontalOffset);
-        nextBlock = new NextBlock(horizontalOffset);
-        swapUsed = false;
+            currentPiece = new Piece();
+            heldBlock = new HeldBlock(horizontalOffset);
+            nextBlock = new NextBlock(horizontalOffset);
+            swapUsed = false;
+        }
     }
 }

@@ -28,10 +28,10 @@ public final class LossScreen implements Screen {
      * @param aGame  the a game
      * @param player the player
      */
-    public LossScreen(final TetrisGame aGame, PlayerData player) {
+    public LossScreen(final TetrisGame aGame, int loser) {
         this.game = aGame;
         background = new Texture(Gdx.files.internal("bg_loss.png"));
-        loserText = String.format("Player %d has lost!!!!", player.playerNumber);
+        loserText = String.format("Player %d has lost!!!!", loser);
     }
 
     @Override
