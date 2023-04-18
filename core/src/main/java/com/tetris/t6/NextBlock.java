@@ -10,8 +10,8 @@ import java.awt.Point;
  */
 public final class NextBlock {
 
-    private static int col = 11;
-    private static int row = 2;
+    private static final int COL = 11;
+    private static final int ROW = 2;
 
     private static final int WIDTHSQUARES = 4;
     private static final int HEIGHTSQUARES = 4;
@@ -33,8 +33,8 @@ public final class NextBlock {
         displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
         for (int i = 0; i < WIDTHSQUARES; i++) {
             for (int j = 0; j < HEIGHTSQUARES; j++) {
-                displayArea[i][j] = new Square(i + row,
-                    j + col + horizontalOffset, Color.BLACK);
+                displayArea[i][j] = new Square(i + ROW,
+                    j + COL + horizontalOffset, Color.BLACK);
             }
         }
         generateNextPiece();
@@ -46,8 +46,6 @@ public final class NextBlock {
      * @return the next piece
      */
     public Piece getNextPiece() {
-        nextPiece.setCol(0);
-        nextPiece.setRow(1);
         updateGrid(Color.BLACK);
         return nextPiece;
     }
@@ -62,7 +60,7 @@ public final class NextBlock {
 
     private void updateGrid(final Color color) {
         final Point[][] dimensions = nextPiece.getDimensions();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < WIDTHSQUARES; i++) {
             final int squareRow = dimensions[0][i].x;
             final int squareCol = dimensions[0][i].y;
             displayArea[squareRow][squareCol].setColor(color);
@@ -72,7 +70,7 @@ public final class NextBlock {
     /**
      * Draw next piece.
      *
-     * @param draw the draw
+     * @param draw ShapeDrawer object
      */
     public void drawNext(final ShapeDrawer draw) {
         for (int i = 0; i < WIDTHSQUARES; i++) {
