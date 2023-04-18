@@ -42,10 +42,16 @@ public class HeldBlock {
      * @param horizontalOffset the horizontal offset
      */
     public HeldBlock(final int horizontalOffset) {
+        if (!(horizontalOffset == 0 || horizontalOffset == 16)) {
+            throw new IllegalArgumentException("Horizontal offset must be "
+                + "0 or 16");
+        }
+
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {
-                displayArea[i][j] = new Square(i + ROW, j + COL + horizontalOffset, Color.BLACK);
+                displayArea[i][j] = new Square(i + ROW,
+                    j + COL + horizontalOffset, Color.BLACK);
             }
         }
     }

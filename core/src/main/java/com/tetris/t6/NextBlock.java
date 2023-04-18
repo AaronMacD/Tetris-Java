@@ -13,8 +13,8 @@ public final class NextBlock {
     private static int col = 11;
     private static int row = 2;
 
-    private final static int WIDTHSQUARES = 4;
-    private final static int HEIGHTSQUARES = 4;
+    private static final int WIDTHSQUARES = 4;
+    private static final int HEIGHTSQUARES = 4;
     private Piece nextPiece;
     private Square[][] displayArea;
 
@@ -25,11 +25,16 @@ public final class NextBlock {
      */
 //Constructor
     public NextBlock(final int horizontalOffset) {
+        if (!(horizontalOffset == 0 || horizontalOffset == 16)) {
+            throw new IllegalArgumentException("Horizontal offset must be "
+                + "0 or 16");
+        }
+
         displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
         for (int i = 0; i < WIDTHSQUARES; i++) {
             for (int j = 0; j < HEIGHTSQUARES; j++) {
-                displayArea[i][j] = new Square(i + row, j + col + horizontalOffset,
-                    Color.BLACK);
+                displayArea[i][j] = new Square(i + row,
+                    j + col + horizontalOffset, Color.BLACK);
             }
         }
         generateNextPiece();
@@ -52,8 +57,6 @@ public final class NextBlock {
      */
     public void generateNextPiece() {
         nextPiece = new Piece();
-        nextPiece.setCol(col);
-        nextPiece.setRow(row);
         updateGrid(nextPiece.getColor());
     }
 
@@ -67,7 +70,7 @@ public final class NextBlock {
     }
 
     /**
-     * Draw next.
+     * Draw next piece.
      *
      * @param draw the draw
      */
