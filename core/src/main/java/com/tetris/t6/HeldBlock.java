@@ -62,6 +62,11 @@ public class HeldBlock {
      * @param newPiece the newly-held piece.
      */
     public void setHeldPiece(final Piece newPiece) {
+        if (newPiece == null) {
+            throw new IllegalArgumentException("newPiece parameter must "
+                + "not be null");
+        }
+
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
     }
@@ -83,6 +88,11 @@ public class HeldBlock {
      * @return the piece
      */
     public Piece swapPiece(final Piece newPiece) {
+        if (newPiece == null) {
+            throw new IllegalArgumentException("newPiece parameter must "
+                + "not be null");
+        }
+
         updateGrid(Color.BLACK);
         final Piece temp = heldPiece;
         temp.setRow(1);
