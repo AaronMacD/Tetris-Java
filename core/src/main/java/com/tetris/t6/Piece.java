@@ -15,9 +15,10 @@ public final class Piece {
     /**
      * Random Number Generator.
      */
-    private Random rand = new Random();
+    private final Random rand = new Random();
     /**
-     *  Rotation of Piece; can be 0, 1, 2, or 3 (Numbers are used to know how they are rotated).
+     *  Rotation of Piece; can be 0, 1, 2, or 3
+     *  (Numbers are used to know how they are rotated).
      */
     private int rotationNum;
     /**
@@ -37,7 +38,7 @@ public final class Piece {
     /**
      * Constructor for Piece.
      */
-    Piece() {
+    public Piece() {
         row = 1;
         col = 0;
         rotationNum = 0;
@@ -142,7 +143,7 @@ public final class Piece {
      * direction 1 if clockwise, -1 if counterclockwise
      */
     private void generatePieceType() {
-        int num = rand.nextInt(7);
+        final int num = rand.nextInt(7);
 
         //create new piece based on random number
         switch (num) {

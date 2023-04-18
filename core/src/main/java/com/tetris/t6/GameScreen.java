@@ -21,16 +21,23 @@ public final class GameScreen implements Screen {
      * Instance of the game.
      */
     private final TetrisGame game;
-
-    private int numPlayers;
+    /**
+     * Number of players selected from the main menu. 1 or 2 always.
+     */
+    private final int numPlayers;
     /**
      * Speeds for pieces to fall for different levels.
      * Cells per frame is 1/speed.
      */
     private final float[] levelSpeeds = {0.01667f, 0.021017f, 0.026977f,
         0.035256f, 0.04693f, 0.06361f, 0.0879f, 0.1236f, 0.1775f, 0.2598f};
-
+    /**
+     * Max level the game can get up to. Only 10, as there are only 10 speeds.
+     */
     private static final int MAX_LEVEL = 10;
+    /**
+     * Number of lines required to be cleared in order to level up.
+     */
     private static final int LINESTOLEVELUP = 10;
     //Sounds
     /**
@@ -57,31 +64,26 @@ public final class GameScreen implements Screen {
      * Game music.
      */
     private final Music victory1Music;
-
-    private boolean timersEnabled = true;
+    /**
+     * Textures for the background.
+     */
+    private static Texture background;
+    private static Texture background2;
 
     /**
-     * Texture for the background.
+     * player data objects to hold multiple players scores, levels, etc.
      */
-    private final Texture background;
-    private final Texture background2;
-
-    /**
-     * Instantiates a new Game screen.
-     *
-     * @param aGame the game
-     */
-
     private PlayerData p1;
     private PlayerData p2;
 
     /**
      * Instantiates a new Game screen.
      *
-     * @param aGame     the main game containing cameras, batching, texture drawing, and other objects used by all screens.
+     * @param aGame     the main game containing cameras, batching, texture drawing,
+     *                  and other objects used by all screens.
      * @param playerNum the number of players
      */
-    public GameScreen(final TetrisGame aGame, int playerNum) {
+    public GameScreen(final TetrisGame aGame, final int playerNum) {
         this.numPlayers = playerNum;
         this.game = aGame;
         p1 = new PlayerData(1);
@@ -113,14 +115,14 @@ public final class GameScreen implements Screen {
      * @param delta The time in seconds since the last render.
      */
     @Override
-    public void render(final float delta) { //NOPMD - suppressed CognitiveComplexity - TODO explain reason for suppression //NOPMD - suppressed CyclomaticComplexity - TODO explain reason for suppression
+    public void render(final float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 1 Functions//////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 1 Functions///////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         p1.timeControls += delta;
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             hardDrop(p1);
@@ -171,13 +173,13 @@ public final class GameScreen implements Screen {
         }
         moveDownLogically(p1);
 
-        String scoreText = String.format("Score: %d", this.p1.score);
-        String levelText = String.format("Level: %d", this.p1.level);
-        String linesClearedText = String.format("Lines Cleared: %d",
+        final String scoreText = String.format("Score: %d", this.p1.score);
+        final String levelText = String.format("Level: %d", this.p1.level);
+        final String linesClearedText = String.format("Lines Cleared: %d",
             this.p1.linesCleared);
-        String heldText = "Held Block";
-        String nextText = "Next Block";
-        String controlsText = "Controls : \n"
+        final String heldText = "Held Block";
+        final String nextText = "Next Block";
+        final String controlsText = "Controls : \n"
             + "Move Left: A Key\n"
             + "Move Right: D Key\n"
             + "Soft Drop: S Key\n"
@@ -187,9 +189,9 @@ public final class GameScreen implements Screen {
             + "Hold Block: Space Key\n"
             + "Pause Menu: Escape Key";
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 2 Functions//////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 2 Functions///////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         if (numPlayers == 2) {
             p2.timeControls += delta;
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)) {
@@ -241,13 +243,13 @@ public final class GameScreen implements Screen {
             }
             moveDownLogically(p2);
         }
-        String scoreText2 = String.format("Score: %d", this.p2.score);
-        String levelText2 = String.format("Level: %d", this.p2.level);
-        String linesClearedText2 = String.format("Lines Cleared: %d",
+        final String scoreText2 = String.format("Score: %d", this.p2.score);
+        final String levelText2 = String.format("Level: %d", this.p2.level);
+        final String linesClearedText2 = String.format("Lines Cleared: %d",
             this.p2.linesCleared);
-        String heldText2 = "Held Block";
-        String nextText2 = "Next Block";
-        String controlsText2 = "Controls : \n"
+        final String heldText2 = "Held Block";
+        final String nextText2 = "Next Block";
+        final String controlsText2 = "Controls : \n"
             + "Move Left: Numpad 4\n"
             + "Move Right: Numpad 6\n"
             + "Soft Drop: Numpad 2\n"
@@ -274,9 +276,9 @@ public final class GameScreen implements Screen {
         }
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 1 Drawing////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 1 Drawing/////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         for (int i = 1; i < p1.ROWS; i++) {
             for (int j = 0; j < p1.COLS; j++) {
                 p1.board[i][j].drawSquare(game.drawer);
@@ -295,9 +297,9 @@ public final class GameScreen implements Screen {
         game.font.draw(game.batch, controlsText, 420, 300);
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 2 Drawing////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 2 Drawing/////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         for (int i = 1; i < p2.ROWS; i++) {
             for (int j = 0; j < p2.COLS; j++) {
                 p2.board[i][j].drawSquare(game.drawer);
@@ -333,16 +335,16 @@ public final class GameScreen implements Screen {
      * @param player the player
      * @param color  the color
      */
-    public void drawPiece(PlayerData player, Color color) {
+    public void drawPiece(final PlayerData player, final Color color) {
         //row and column for the top-left corner
-        int row = player.currentPiece.getRow();
-        int col = player.currentPiece.getCol();
-        int rNum = player.currentPiece.getRotationNum();
-        Point[][] dimensions = player.currentPiece.getDimensions();
+        final int row = player.currentPiece.getRow();
+        final int col = player.currentPiece.getCol();
+        final int rNum = player.currentPiece.getRotationNum();
+        final Point[][] dimensions = player.currentPiece.getDimensions();
 
         for (int i = 0; i < 4; i++) {
-            int squareRow = row + dimensions[rNum][i].x;
-            int squareCol = col + dimensions[rNum][i].y;
+            final int squareRow = row + dimensions[rNum][i].x;
+            final int squareCol = col + dimensions[rNum][i].y;
             player.board[squareRow][squareCol].setColor(color);
         }
     }
@@ -356,9 +358,7 @@ public final class GameScreen implements Screen {
      * @param player the player
      */
     public void moveDownLogically(PlayerData player) {
-        if (timersEnabled) {
-            player.timeMovement += levelSpeeds[player.level];
-        }
+        player.timeMovement += levelSpeeds[player.level];
         //>=1 is default, but can be adjusted to reduce difficulty. 1 seems pretty fast.
         while (player.timeMovement >= 2.5) {
             if (moveDownPossible(player)) {
@@ -381,11 +381,11 @@ public final class GameScreen implements Screen {
      *
      * @return true if all four squares below the piece are available
      */
-    private boolean moveDownPossible(PlayerData player) {
-        Point[][] dimensions = player.currentPiece.getDimensions();
-        int row = player.currentPiece.getRow();
-        int col = player.currentPiece.getCol();
-        int rotationNum = player.currentPiece.getRotationNum();
+    private boolean moveDownPossible(final PlayerData player) {
+        final Point[][] dimensions = player.currentPiece.getDimensions();
+        final int row = player.currentPiece.getRow();
+        final int col = player.currentPiece.getCol();
+        final int rotationNum = player.currentPiece.getRotationNum();
         int squareRow;
         int squareCol;
         int availableCount = 0;
@@ -409,7 +409,7 @@ public final class GameScreen implements Screen {
     /**
      * Drops piece as far down the board as possible.
      */
-    private void hardDrop(PlayerData player) {
+    private void hardDrop(final PlayerData player) {
         while (moveDownPossible(player)) {
             moveDownLogically(player);
         }
@@ -420,7 +420,7 @@ public final class GameScreen implements Screen {
      *
      * @param leftRight -1 to move left, 1 for right.
      */
-    private void moveLeftRight(PlayerData player, int leftRight) {
+    private void moveLeftRight(final PlayerData player, final int leftRight) {
         if (moveLeftRightPossible(player, leftRight)) {
             if (leftRight == -1) {
                 //set current squares to black
@@ -440,11 +440,11 @@ public final class GameScreen implements Screen {
      * @param leftRight -1 for left, 1 for right
      * @return true or false depending on availability of all four squares.
      */
-    private boolean moveLeftRightPossible(PlayerData player, final int leftRight) {
-        Point[][] dimensions = player.currentPiece.getDimensions();
-        int row = player.currentPiece.getRow();
-        int col = player.currentPiece.getCol();
-        int rotationNum = player.currentPiece.getRotationNum();
+    private boolean moveLeftRightPossible(final PlayerData player, final int leftRight) {
+        final Point[][] dimensions = player.currentPiece.getDimensions();
+        final int row = player.currentPiece.getRow();
+        final int col = player.currentPiece.getCol();
+        final int rotationNum = player.currentPiece.getRotationNum();
         int squareRow;
         int squareCol;
         int availableCount = 0;
@@ -471,7 +471,7 @@ public final class GameScreen implements Screen {
      * @param player    the player
      * @param direction -1 for counterclockwise, 1 for clockwise.
      */
-    public void rotate(PlayerData player, final int direction) {
+    public void rotate(final PlayerData player, final int direction) {
         int rotationNum = player.currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
         //or counterclockwise (-1)
@@ -490,10 +490,10 @@ public final class GameScreen implements Screen {
      * @param rotationNum To access appropriate rotation state from 2D array.
      * @return true if all four squares are available to rotate into.
      */
-    private boolean rotationPossible(PlayerData player, final int rotationNum) {
-        Point[][] dimensions = player.currentPiece.getDimensions();
-        int row = player.currentPiece.getRow();
-        int col = player.currentPiece.getCol();
+    private boolean rotationPossible(final PlayerData player, final int rotationNum) {
+        final Point[][] dimensions = player.currentPiece.getDimensions();
+        final int row = player.currentPiece.getRow();
+        final int col = player.currentPiece.getCol();
         int squareRow;
         int squareCol;
         int availableCount = 0;
@@ -517,13 +517,13 @@ public final class GameScreen implements Screen {
      * Makes all four squares of currentPiece unavailable.
      * Calls checkFullRow in case a line needs to be cleared.
      */
-    private void lockSquares(PlayerData player) {
-        IntArray rowsToCheck = new IntArray(4);
+    private void lockSquares(final PlayerData player) {
+        final IntArray rowsToCheck = new IntArray(4);
 
-        Point[][] dimensions = player.currentPiece.getDimensions();
-        int row = player.currentPiece.getRow();
-        int col = player.currentPiece.getCol();
-        int rotationNum = player.currentPiece.getRotationNum();
+        final Point[][] dimensions = player.currentPiece.getDimensions();
+        final int row = player.currentPiece.getRow();
+        final int col = player.currentPiece.getCol();
+        final int rotationNum = player.currentPiece.getRotationNum();
         int squareRow;
         int squareCol;
 
@@ -548,8 +548,8 @@ public final class GameScreen implements Screen {
      *
      * @param rowList List of p1.ROWS to check.
      */
-    private void checkFullRow(PlayerData player, final IntArray rowList) {
-        IntArray fullRows = new IntArray();
+    private void checkFullRow(final PlayerData player, final IntArray rowList) {
+        final IntArray fullRows = new IntArray();
         for (int i = 0; i < rowList.size; i++) {
             int squareCount = 0;
             for (int j = 0; j < p1.COLS; j++) {
@@ -581,7 +581,7 @@ public final class GameScreen implements Screen {
         }
     }
 
-    private void clearLine(PlayerData player, IntArray rowList) {
+    private void clearLine(PlayerData player, final IntArray rowList) {
         switch (rowList.size) {
             case 1:
                 player.score += 100 * player.level;
@@ -607,7 +607,7 @@ public final class GameScreen implements Screen {
                 return;
         }
 
-        for (int row : rowList.items) {
+        for (final int row : rowList.items) {
             for (int x = 0; x < p1.COLS; x++) {
                 player.board[row][x].setColor(Color.BLACK);
                 player.board[row][x].setAvailability(true);
@@ -615,9 +615,9 @@ public final class GameScreen implements Screen {
         }
     }
 
-    private void dropAfterClear(PlayerData player, final IntArray rowList) {
+    private void dropAfterClear(final PlayerData player, final IntArray rowList) {
         rowList.sort();
-        for (int row : rowList.items) {
+        for (final int row : rowList.items) {
             for (int i = row; i > 0; i--) {
                 for (int j = 0; j < player.COLS; j++) {
                     player.board[i][j].setColor(player.board[i - 1][j].getColor());
@@ -628,7 +628,7 @@ public final class GameScreen implements Screen {
         checkLoss(player);
     }
 
-    private void checkLoss(PlayerData player) {
+    private void checkLoss(final PlayerData player) {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < player.COLS; j++) {
                 if (!player.board[i][j].isAvailable()) {
@@ -688,61 +688,61 @@ public final class GameScreen implements Screen {
         /**
          * The Score.
          */
-        public int score;
+        private int score;
         /**
          * The Level.
          */
-        public int level;
+        private int level;
         /**
          * The Lines cleared.
          */
-        public int linesCleared;
+        private int linesCleared;
         /**
          * The Board.
          */
-        public Square[][] board;
+        private Square[][] board;
         /**
          * The Current piece.
          */
-        public Piece currentPiece;
+        private Piece currentPiece;
         /**
          * The Time controls.
          */
-        float timeControls;
+        private float timeControls;
         /**
          * The Time movement.
          */
-        float timeMovement;
+        private float timeMovement;
         /**
          * The Held block.
          */
-        HeldBlock heldBlock;
+        private final HeldBlock heldBlock;
         /**
          * The Next block.
          */
-        NextBlock nextBlock;
+        private final NextBlock nextBlock;
         /**
          * The Swap used.
          */
-        boolean swapUsed;
+        private boolean swapUsed;
         /**
          * The Lost.
          */
-        boolean lost;
+        private boolean lost;
         /**
          * The Player number.
          */
-        int playerNumber;
+        private final int playerNumber;
 
 
         /**
          * The Rows.
          */
-        static final int ROWS = 22;
+        private static final int ROWS = 22;
         /**
          * The Cols.
          */
-        static final int COLS = 10;
+        private static final int COLS = 10;
 
         private int horizontalOffset;
 
@@ -751,7 +751,7 @@ public final class GameScreen implements Screen {
          *
          * @param playerNum the player num
          */
-        public PlayerData(int playerNum) {
+        public PlayerData(final int playerNum) {
             playerNumber = playerNum;
             score = 0;
             level = 1;

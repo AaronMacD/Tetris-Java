@@ -16,19 +16,28 @@ public final class LossScreen implements Screen {
      * Instance of the game.
      */
     private final TetrisGame game;
-    private GlyphLayout gl = new GlyphLayout();
-    private String loserText;
-    private String menuText1 = "Press escape to quit";
-    private String menuText2 = "Or press any other key to return to the main menu";
-    private Texture background;
+    /**
+     * Glyphlayout allows us to get the width of whatever text we pass to it.
+     */
+    private final GlyphLayout gl = new GlyphLayout();
+    /**
+     * Various strings to hold the text displayed on screen
+     */
+    private final String loserText;
+    private static String menuText1 = "Press escape to quit";
+    private static String menuText2 = "Or press any other key to return to the main menu";
+    /**
+     * Background image for the loss screen
+     */
+    private final Texture background;
 
     /**
      * Instantiates a new Loss screen.
      *
      * @param aGame  the a game
-     * @param player the player
+     * @param loser the player number that lost (1 or 2)
      */
-    public LossScreen(final TetrisGame aGame, int loser) {
+    public LossScreen(final TetrisGame aGame, final int loser) {
         this.game = aGame;
         background = new Texture(Gdx.files.internal("bg_loss.png"));
         loserText = String.format("Player %d has lost!!!!", loser);
@@ -38,11 +47,11 @@ public final class LossScreen implements Screen {
     public void render(final float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         gl.setText(game.font, loserText);
-        float w0 = gl.width;
+        final float w0 = gl.width;
         gl.setText(game.font, menuText1);
-        float w1 = gl.width;
+        final float w1 = gl.width;
         gl.setText(game.font, menuText2);
-        float w2 = gl.width;
+        final float w2 = gl.width;
 
 
         game.batch.begin();

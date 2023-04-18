@@ -41,7 +41,7 @@ public class HeldBlock {
      *
      * @param horizontalOffset the horizontal offset
      */
-    public HeldBlock(int horizontalOffset) {
+    public HeldBlock(final int horizontalOffset) {
         heldPiece = null;
         displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];
         for (int i = 0; i < HEIGHTSQUARES; i++) {
@@ -56,7 +56,7 @@ public class HeldBlock {
      *
      * @param newPiece the newly-held piece.
      */
-    public void setHeldPiece(Piece newPiece) {
+    public void setHeldPiece(final Piece newPiece) {
         heldPiece = newPiece;
         updateGrid(heldPiece.getColor());
     }
@@ -77,9 +77,9 @@ public class HeldBlock {
      * @param newPiece the new piece
      * @return the piece
      */
-    public Piece swapPiece(Piece newPiece) {
+    public Piece swapPiece(final Piece newPiece) {
         updateGrid(Color.BLACK);
-        Piece temp = heldPiece;
+        final Piece temp = heldPiece;
         temp.setRow(1);
         temp.setCol(0);
         heldPiece = newPiece;
@@ -88,11 +88,11 @@ public class HeldBlock {
     }
 
 
-    private void updateGrid(Color color) {
-        Point[][] dimensions = heldPiece.getDimensions();
+    private void updateGrid(final Color color) {
+        final Point[][] dimensions = heldPiece.getDimensions();
         for (int i = 0; i < 4; i++) {
-            int squareRow = dimensions[heldPiece.getRotationNum()][i].x;
-            int squareCol = dimensions[heldPiece.getRotationNum()][i].y;
+            final int squareRow = dimensions[heldPiece.getRotationNum()][i].x;
+            final int squareCol = dimensions[heldPiece.getRotationNum()][i].y;
             displayArea[squareRow][squareCol].setColor(color);
         }
     }
@@ -102,7 +102,7 @@ public class HeldBlock {
      *
      * @param draw the draw
      */
-    public void drawNext(ShapeDrawer draw) {
+    public void drawNext(final ShapeDrawer draw) {
         for (int i = 0; i < HEIGHTSQUARES; i++) {
             for (int j = 0; j < WIDTHSQUARES; j++) {
                 displayArea[i][j].drawSquare(draw);

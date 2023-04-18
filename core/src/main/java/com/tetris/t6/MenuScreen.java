@@ -11,12 +11,26 @@ import com.badlogic.gdx.utils.ScreenUtils;
  * The type Menu screen.
  */
 public final class MenuScreen implements Screen {
-
+    /**
+     * Instance of the game.
+     */
     private final TetrisGame game;
-    private GlyphLayout gl = new GlyphLayout();
-    private String menuText2 = "Press 1 for Single Player or 2 for Versus!";
-    private Texture logo;
-    private Texture background;
+    /**
+     * Glyphlayout allows us to get the width of whatever text we pass to it.
+     */
+    private final GlyphLayout gl = new GlyphLayout();
+    /**
+     * Various strings to hold the text displayed on screen
+     */
+    private static String menuText2 = "Press 1 for Single Player or 2 for Versus!";
+    /**
+     * Darryl's custom made logo for our game
+     */
+    private final Texture logo;
+    /**
+     * Background image for the loss screen
+     */
+    private final Texture background;
 
     /**
      * Instantiates a new Menu screen.
@@ -37,10 +51,10 @@ public final class MenuScreen implements Screen {
         game.camera.update();
         game.batch.setProjectionMatrix(game.camera.combined);
 
-        float w1 = logo.getWidth();
+        final float w1 = logo.getWidth();
 
         gl.setText(game.font, menuText2);
-        float w2 = gl.width;
+        final float w2 = gl.width;
 
 
         game.batch.begin();

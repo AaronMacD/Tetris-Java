@@ -16,13 +16,11 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 /**
  * The type Tetris game.
  */
-public final class TetrisGame extends Game { //NOPMD - suppressed AtLeastOneConstructor - TODO explain reason for suppression
-
+public final class TetrisGame extends Game {
     /**
      * The Batch.
      */
     public PolygonSpriteBatch batch;
-    private TextureRegion region;
     private Texture texture;
     /**
      * The Font.
@@ -58,14 +56,14 @@ public final class TetrisGame extends Game { //NOPMD - suppressed AtLeastOneCons
         pixmap.drawPixel(0, 0);
 
         texture = new Texture(pixmap); //remember to dispose of later
-        region = new TextureRegion(texture, 0, 0, 1, 1);
+        TextureRegion region = new TextureRegion(texture, 0, 0, 1, 1);
         drawer = new ShapeDrawer(batch, region);
 
         this.setScreen(new MenuScreen(this));
     }
 
     @Override
-    public void render() { //NOPMD - suppressed UselessOverridingMethod - TODO explain reason for suppression
+    public void render() {
         super.render();
     }
 

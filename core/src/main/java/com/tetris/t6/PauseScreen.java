@@ -13,16 +13,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public final class PauseScreen implements Screen {
 
     private final TetrisGame game;
-    private GameScreen gameScreen;
-    private GlyphLayout gl = new GlyphLayout();
-    private String menuText1 = "Pause Menu";
-    private String menuText2 = "Click anywhere to resume game";
-    private String menuText3 = "or press escape to quit";
-    private Texture background;
-    /**
-     * The Num players.
-     */
-    int numPlayers;
+    private final GameScreen gameScreen;
+    private final GlyphLayout gl = new GlyphLayout();
+    private static String menuText1 = "Pause Menu";
+    private static String menuText2 = "Click anywhere to resume game";
+    private static String menuText3 = "or press escape to quit";
+    private final Texture background;
 
     /**
      * Instantiates a new Pause screen.
@@ -31,7 +27,6 @@ public final class PauseScreen implements Screen {
      * @param aGameScreen the a game screen
      */
     public PauseScreen(final TetrisGame aGame, final GameScreen aGameScreen) {
-        this.numPlayers = numPlayers;
         this.game = aGame;
         this.gameScreen = aGameScreen;
         background = new Texture(Gdx.files.internal("bg_pause.png"));
@@ -42,11 +37,11 @@ public final class PauseScreen implements Screen {
     public void render(final float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         gl.setText(game.font, menuText1);
-        float w1 = gl.width;
+        final float w1 = gl.width;
         gl.setText(game.font, menuText2);
-        float w2 = gl.width;
+        final float w2 = gl.width;
         gl.setText(game.font, menuText3);
-        float w3 = gl.width;
+        final float w3 = gl.width;
 
 
         game.batch.begin();

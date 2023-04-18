@@ -10,11 +10,11 @@ public final class Square {
     /**
      * Row(s) of Square.
      */
-    private int row;
+    private final int row;
     /**
      * Col(s) of Square.
      */
-    private int col;
+    private final int col;
     /**
      * Color of Square.
      */
@@ -34,11 +34,11 @@ public final class Square {
     /**
      * x coordinates.
      */
-    private int x;
+    private final int x;
     /**
      * y coordinates.
      */
-    private int y;
+    private final int y;
 
     /**
      * Creates a square object, that is used to fill the board.

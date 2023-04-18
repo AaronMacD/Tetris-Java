@@ -24,7 +24,7 @@ public final class NextBlock {
      * @param horizontalOffset the horizontal offset
      */
 //Constructor
-    public NextBlock(int horizontalOffset) {
+    public NextBlock(final int horizontalOffset) {
         displayArea = new Square[WIDTHSQUARES][HEIGHTSQUARES];
         for (int i = 0; i < WIDTHSQUARES; i++) {
             for (int j = 0; j < HEIGHTSQUARES; j++) {
@@ -58,10 +58,10 @@ public final class NextBlock {
     }
 
     private void updateGrid(final Color color) {
-        Point[][] dimensions = nextPiece.getDimensions();
+        final Point[][] dimensions = nextPiece.getDimensions();
         for (int i = 0; i < 4; i++) {
-            int squareRow = dimensions[0][i].x;
-            int squareCol = dimensions[0][i].y;
+            final int squareRow = dimensions[0][i].x;
+            final int squareCol = dimensions[0][i].y;
             displayArea[squareRow][squareCol].setColor(color);
         }
     }
