@@ -4,17 +4,17 @@ import com.badlogic.gdx.graphics.Color;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 /**
- * Square Class.
+ * Represents a single square on the board.
  */
 public final class Square {
     /**
-     * Row(s) of Square.
+     * Row of Square.
      */
-    private final int row;
+    private int row;
     /**
-     * Col(s) of Square.
+     * Column of Square.
      */
-    private final int col;
+    private int col;
     /**
      * Color of Square.
      */
@@ -24,21 +24,21 @@ public final class Square {
      */
     private boolean availability;
     /**
-     * Width in pixels.
+     * Width of a Square in pixels.
      */
     private static final int WIDTH = 40;
     /**
-     * Height in pixels.
+     * Height of a Square in pixels.
      */
     private static final int HEIGHT = 40;
     /**
      * x coordinates.
      */
-    private final int x;
+    private int x;
     /**
      * y coordinates.
      */
-    private final int y;
+    private int y;
 
     /**
      * Creates a square object, that is used to fill the board.
@@ -48,6 +48,9 @@ public final class Square {
      * @param aColor sets the square's color.
      */
     public Square(final int aRow, final int aCol, final Color aColor) {
+        if (aRow < 0 || aRow > 22 || aCol < 0 || aCol > 10) {
+            throw new IllegalArgumentException("Invalid row or column");
+        }
         this.row = aRow;
         this.col = aCol;
         this.color = aColor;
@@ -57,25 +60,6 @@ public final class Square {
 
         //converts to y-down coordinates
         y = 805 - (row * HEIGHT);
-
-    }
-
-    /**
-     * Gets row.
-     *
-     * @return the current row of the square.
-     */
-    public int getRow() {
-        return row;
-    }
-
-    /**
-     * Gets col.
-     *
-     * @return the current col of the square.
-     */
-    public int getCol() {
-        return col;
     }
 
     /**
