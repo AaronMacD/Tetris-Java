@@ -119,10 +119,9 @@ public final class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-
-        /////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 1 Functions///////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 1 Functions/////////////////////
+        ///////////////////////////////////////////////////////////////////////
         p1.timeControls += delta;
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             hardDrop(p1);
@@ -189,9 +188,9 @@ public final class GameScreen implements Screen {
             + "Hold Block: Space Key\n"
             + "Pause Menu: Escape Key";
 
-        /////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 2 Functions///////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 2 Functions/////////////////////
+        ///////////////////////////////////////////////////////////////////////
         if (numPlayers == 2) {
             p2.timeControls += delta;
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)) {
@@ -276,9 +275,9 @@ public final class GameScreen implements Screen {
         }
 
 
-        /////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////Player 1 Drawing/////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////Player 1 Drawing////////////////////////
+        ////////////////////////////////////////////////////////////////////////
         for (int i = 1; i < p1.ROWS; i++) {
             for (int j = 0; j < p1.COLS; j++) {
                 p1.board[i][j].drawSquare(game.drawer);
@@ -632,7 +631,6 @@ public final class GameScreen implements Screen {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < player.COLS; j++) {
                 if (!player.board[i][j].isAvailable()) {
-                    player.lost = true;
                     victory1Music.stop();
                     this.pause();
                     this.hide();
@@ -726,15 +724,9 @@ public final class GameScreen implements Screen {
          */
         private boolean swapUsed;
         /**
-         * The Lost.
-         */
-        private boolean lost;
-        /**
          * The Player number.
          */
         private final int playerNumber;
-
-
         /**
          * The Rows.
          */
@@ -751,7 +743,7 @@ public final class GameScreen implements Screen {
          *
          * @param playerNum the player num
          */
-        public PlayerData(final int playerNum) {
+        PlayerData(final int playerNum) {
             playerNumber = playerNum;
             score = 0;
             level = 1;

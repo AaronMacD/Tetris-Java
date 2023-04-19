@@ -48,7 +48,7 @@ public final class Square {
      * @param aColor sets the square's color.
      */
     public Square(final int aRow, final int aCol, final Color aColor) {
-        if (aRow < 0 || aRow > 22 || aCol < 0 || aCol > 10) {
+        if (aRow < 0 || aRow > 22) {
             throw new IllegalArgumentException("Invalid row or column");
         }
         this.row = aRow;
