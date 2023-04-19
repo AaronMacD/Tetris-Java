@@ -22,12 +22,11 @@ public final class Piece {
      */
     private int rotationNum;
     /**
-     * Row(s) of Piece.
+     * Row of top-left Square of a Piece.
      */
-    //x-coordinate of the top-left corner of a piece
     private int row;
     /**
-     * Col(s) of Piece.
+     * Column of top-left Square of a Piece.
      */
     private int col;
     /**
@@ -39,9 +38,9 @@ public final class Piece {
      * Constructor for Piece.
      */
     public Piece() {
-        row = 1;
-        col = 0;
-        rotationNum = 0;
+        setRow(1);
+        setCol(0);
+        setRotationNum(0);
         generatePieceType();
     }
 
@@ -96,6 +95,9 @@ public final class Piece {
      * @param aRow sets the row of the piece.
      */
     public void setRow(final int aRow) {
+        if (aRow < 0 || aRow > 22) {
+            throw new IllegalArgumentException("Row must be >= 0 and <= 22");
+        }
         this.row = aRow;
     }
 
@@ -105,6 +107,9 @@ public final class Piece {
      * @param aCol sets the col of the piece.
      */
     public void setCol(final int aCol) {
+        if (aCol < 0 || aCol > 10) {
+            throw new IllegalArgumentException("Col must be >= 0 and <= 10");
+        }
         this.col = aCol;
     }
 
@@ -114,6 +119,11 @@ public final class Piece {
      * @param rNum sets the rotationNum of the piece.
      */
     public void setRotationNum(final int rNum) {
+        if (!(rNum == 0 || rNum == 1 || rNum == 2 || rNum == 3)) {
+            throw new IllegalArgumentException("rotationNum must be "
+                + "0, 1, 2, or 3");
+        }
+
         this.rotationNum = rNum;
     }
 
@@ -171,13 +181,13 @@ public final class Piece {
         //Point values are row, col for individual square of a piece
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+           {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
             //rotation 1
-            {new Point(0, 1), new Point(0, 2), new Point(1, 1), new Point(2, 1)},
+           {new Point(0, 1), new Point(0, 2), new Point(1, 1), new Point(2, 1)},
             //rotation 2
-            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
+           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
             //rotation 3
-            {new Point(0, 1), new Point(1, 1), new Point(2, 0), new Point(2, 1)}
+           {new Point(0, 1), new Point(1, 1), new Point(2, 0), new Point(2, 1)}
         };
 
         color = new Color(Color.BLUE);
@@ -189,13 +199,13 @@ public final class Piece {
     private void makeL() {
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 2), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+           {new Point(0, 2), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
             //rotation 1
-            {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
+           {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
             //rotation 2
-            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 0)},
+           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 0)},
             //rotation 3
-            {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(2, 1)}
+           {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(2, 1)}
         };
 
         color = new Color(Color.ORANGE);
@@ -207,13 +217,13 @@ public final class Piece {
     private void makeLine() {
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3)},
+           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3)},
             //rotation 1
-            {new Point(0, 2), new Point(1, 2), new Point(2, 2), new Point(3, 2)},
+           {new Point(0, 2), new Point(1, 2), new Point(2, 2), new Point(3, 2)},
             //rotation 2
-            {new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(2, 3)},
+           {new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(2, 3)},
             //rotation 3
-            {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(3, 1)}
+           {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(3, 1)}
         };
 
         color = new Color(Color.CYAN);
@@ -225,13 +235,13 @@ public final class Piece {
     private void makeS() {
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 1), new Point(0, 2), new Point(1, 0), new Point(1, 1)},
+           {new Point(0, 1), new Point(0, 2), new Point(1, 0), new Point(1, 1)},
             //rotation 1
-            {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
+           {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
             //rotation 2
-            {new Point(1, 1), new Point(1, 2), new Point(2, 0), new Point(2, 1)},
+           {new Point(1, 1), new Point(1, 2), new Point(2, 0), new Point(2, 1)},
             //rotation 3
-            {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
+           {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
         };
 
         color = new Color(Color.GREEN);
@@ -241,16 +251,16 @@ public final class Piece {
      * Makes the Square piece.
      */
     private void makeSquare() {
-        //still represented as 2D array for convenience
+        //still represented as 4x4 2D array for convenience
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
             //rotation 1
-            {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
             //rotation 2
-            {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
             //rotation 3
-            {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)}
+           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)}
         };
 
         color = new Color(Color.YELLOW);
@@ -262,13 +272,13 @@ public final class Piece {
     private void makeT() {
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
             //rotation 1
-            {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+           {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
             //rotation 2
-            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
             //rotation 3
-            {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
+           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
         };
 
         color = new Color(Color.PURPLE);
@@ -280,13 +290,13 @@ public final class Piece {
     private void makeZ() {
         dimensions = new Point[][] {
             //rotation 0
-            {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2)},
+           {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2)},
             //rotation 1
-            {new Point(0, 2), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+           {new Point(0, 2), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
             //rotation 2
-            {new Point(1, 0), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
+           {new Point(1, 0), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
             //rotation 3
-            {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 0)}
+           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 0)}
         };
 
         color = new Color(Color.RED);
