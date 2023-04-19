@@ -17,7 +17,7 @@ public final class PauseScreen implements Screen {
     private final GlyphLayout gl = new GlyphLayout();
     private static String menuText1 = "Pause Menu";
     private static String menuText2 = "Click anywhere to resume game";
-    private static String menuText3 = "or press escape to quit";
+    private static String menuText3 = "Press escape to quit or Q to return to the main menu";
     private final Texture background;
 
     /**
@@ -62,6 +62,9 @@ public final class PauseScreen implements Screen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)){
+            game.setScreen(new MenuScreen(this.game));
         }
 
     }

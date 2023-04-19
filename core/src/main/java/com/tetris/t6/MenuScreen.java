@@ -22,7 +22,7 @@ public final class MenuScreen implements Screen {
     /**
      * Various strings to hold the text displayed on screen
      */
-    private static String menuText2 = "Press 1 for Single Player or 2 for Versus!";
+    private static String menuText2 = "Press 1 for Single Player or 2 for Versus! Or press Escape to quit";
     /**
      * Darryl's custom made logo for our game
      */
@@ -69,6 +69,9 @@ public final class MenuScreen implements Screen {
             game.setScreen(new GameScreen(game, 1));
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
             game.setScreen(new GameScreen(game, 2));
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            Gdx.app.exit();
         }
     }
 
