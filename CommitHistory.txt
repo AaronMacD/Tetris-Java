@@ -1,0 +1,583 @@
+commit 30bb695f90d9aca107debc714ccfd0a9dab9a724
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 12:36:03 2023 -0400
+
+    Change exception to only be thrown for bad row
+
+commit 1c9aa9185a07284d39b95e5135c497bb2c5f7882
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Wed Apr 19 12:34:44 2023 -0400
+
+    Added option to return to main menu from pause screen and quit from the main menu.
+
+commit bdcb5e5f31fba32e4f6932f370f36ecc6a1d09fb
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 21:09:18 2023 -0400
+
+    Test for exceptions given invalid rows/cols
+
+commit 61b5c7fe91a555bf94d0a387ccbf0336a793b837
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 20:18:32 2023 -0400
+
+    Throw exception for invalid row/col
+
+commit 1048d7488809bda90b96881455a52ba35d16bd2b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 19:56:20 2023 -0400
+
+    Write constructor test
+
+commit 1ec250a69941bca28db2a77df1a683f248af9128
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 18:46:16 2023 -0400
+
+    Add HeldBlock JUnit tests
+
+commit d69e39a789b6cb0f9d1c8dfc36e43244df4405d0
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 18:03:42 2023 -0400
+
+    Throw exception if invalid offset is passed
+
+commit c4d450db957ed9287e9bd0667db6c5693304410f
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 17:40:42 2023 -0400
+
+    PMD changes.
+
+commit 262d3d6c951fbf129efdea295cb7379ea4939620
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 17:21:15 2023 -0400
+
+    Create test classes
+
+commit bce31de9a7de5ce1d04a96ab84659db1e0b2f1c0
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 17:09:04 2023 -0400
+
+    PMD changes.
+
+commit 3a27fb840b2e1fe10ab5ee3404a33a1e838f4a49
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 16:21:57 2023 -0400
+
+    fixed playerdata class so it's actually inside the gamescreen class as an inner class now.
+
+commit e158aa0eeb380116330a89dd4d961f39887f3cb3
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 15:10:57 2023 -0400
+
+    Create test class
+
+commit cee31f9d98781a7b127cbb119ce6d6655aa33750
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Apr 18 15:10:36 2023 -0400
+
+    Add test dependencies
+
+commit 1db8b65453e165cf32b1e7e3df738151c72f1e63
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 13:36:01 2023 -0400
+
+    Changed player1 controls to better fit the keyboard
+
+commit c68da7efada406c4facbeeb93b8aa77ad8db5c76
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 13:07:36 2023 -0400
+
+    Comments, cleaning
+
+commit 56b318d7836b75086ecc0b2bb8dd5fbb14765f2f
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 18 11:53:07 2023 -0400
+
+    Local multiplayer added. Moved player data into a new private inner class for the GameScreen.
+
+commit 704eb12acc12e3d7f3d4ed36172e05472c803cc9
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 17:54:45 2023 -0400
+
+    Add Javadocs
+
+commit 669bf42e33864dfd081bac6324df96e2923aab11
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 17:31:42 2023 -0400
+
+    PMD fixes
+
+commit c41387e433553cae94081ed47eaeaa4449572a3b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 17:19:17 2023 -0400
+
+    Add holdSFX, restrict swap to once per piece
+
+commit adb8c6263e6af722c6a13a24d743d721eda3feb5
+Author: d <geeda@mail.gvsu.edu>
+Date:   Sat Apr 15 14:03:48 2023 -0400
+
+    Added JavaDocs to Square.java & Piece.java.
+
+commit 09340c8bac2b3c6f76b576e5dd253cf14c6e699c
+Author: d <geeda@mail.gvsu.edu>
+Date:   Sat Apr 15 13:35:51 2023 -0400
+
+    Added JavaDocs to Square.java.
+
+commit c10720f83e8bf66f7068c882ac4d0dc92c3d40df
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 11:54:21 2023 -0400
+
+    Add javadocs
+
+commit 12e71ad0cab1a197337b334e7ac2dd420b504d59
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sat Apr 15 11:33:52 2023 -0400
+
+    Added controls to the game screen. Moved Held and Next block locations to facilitate.
+
+commit 170a13a3a28886197ed2ba3fe3d5f5bee59edfc7
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sat Apr 15 09:44:58 2023 -0400
+
+    Added background images for the main menu, game screen, pause menu, and loss menu. Plus added functionality for quitting from pause and loss screens.
+
+commit f7c379f2845d44b09572a84616c157764a16fd53
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sat Apr 15 09:10:23 2023 -0400
+
+    Cleaned up more stuff. Reduced the resolution of the screen, tightened and adjusted where the held and next block are, added text to show what they are, added the logo to the main menu, fixed the loss screen by changing it to press a key rather than click.
+
+commit 94113a92f307a0633ba45b11a504f49737299d4e
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sat Apr 15 08:43:00 2023 -0400
+
+    Cleaned up a few things. Also fixed the level up system and added speeds for up to 10 levels. Moved the game text a bit.
+
+commit 8727b472a19cee4b3324afdb74a0689263b9a7fd
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 00:42:23 2023 -0400
+
+    move call for rotation sfx
+
+commit 1df7ee1305b7135fe17c0e2e816593967abb1ff3
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 00:30:24 2023 -0400
+
+    PMD and checkStyle fixes
+
+commit 721805b185c47076d9d5f84530e91442026c524e
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sat Apr 15 00:18:39 2023 -0400
+
+    checkStyle fixes
+
+commit a74f013245fbfc63defa867c169d851f8a455c96
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 14 11:51:29 2023 -0400
+
+    checkStyle fixes
+
+commit bc99ae162ca4e713857e8aad1dd364f220a0668c
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 14 07:47:25 2023 -0400
+
+    checkStyle fixes
+
+commit 4a07520047ececc99a5478f08c46952277839add
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 13 23:01:42 2023 -0400
+
+    Loop music and stop if game over
+
+commit 53c53600bebebb630913093fef7dca0f351b0e28
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 13 23:01:17 2023 -0400
+
+    Change swap method to reset row and column to 0
+
+commit daa864825070e54529423b2c335404adb38bc12d
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 13 00:00:15 2023 -0400
+
+    Add music
+
+commit a8927badc9ab70e0f9f772ef61440c32fb2fcdfb
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 12 23:47:05 2023 -0400
+
+    Added sound effects
+
+commit 410bbb97c1582494a55e26a11e8289f25c5b59d8
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 12 23:46:33 2023 -0400
+
+    Added sound effects
+
+commit 6ec1380e4c40628376c21da86b4d4eba031b6c68
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 11 16:39:38 2023 -0400
+
+    Adjusted loss condition, added a loss screen, currently not working exactly right, as clicking on the loss screen seems to also count as a click on the main menu for some reason...
+
+commit 98f65569106072e6c05896e684a07b046a76130f
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 11 16:39:38 2023 -0400
+
+    Added basic pause menu, main menu, plus clearing the screen on each render.
+
+commit 2eef6d2e319ab26a125be44533e442680a59be2d
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Apr 11 16:13:48 2023 -0400
+
+    Fixed the diabolical bug by moving the color for the shape drawerer before drawing the shapes. Also added next block preview and held block functionality.
+
+commit 5fda303d8263e939181831f59b22790a74cc841f
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Apr 10 00:01:29 2023 -0400
+
+    Remove BlockShape variables
+
+commit 04df8123ce5ef4fd40fad4ac2ec000f379dec04c
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Apr 10 00:00:11 2023 -0400
+
+    add loss conditions
+
+commit ed772188c06cce98742e144a649333309336f5e3
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Apr 9 21:59:19 2023 -0400
+
+    Add hardDrop method
+
+commit ce2eacfd9be2fec4c445a4fce7565976bd8c91d5
+Author: d <geeda@mail.gvsu.edu>
+Date:   Sat Apr 1 14:13:46 2023 -0400
+
+    Added to SoundController to be able to take a "sound name" as a string to reference the asset name, and play it.
+
+commit f4824c684947ad5e5645265c7c9dd5cd3109fa17
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 21 21:10:57 2023 -0400
+
+    made some PMD fixes
+
+commit a52bb7f5fbb46bfe7ad59e3e0cde9b581efd7c11
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 21 20:32:32 2023 -0400
+
+    Merged class changes into main, cleaned up a few things.
+
+commit 1398f0811eb3f72582c3a5691d7bb09d579eebb2
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 21 20:25:30 2023 -0400
+
+    Scoring, clearing lines, dropping after clear, all working as intended. Thorough testing not done though.
+
+commit 3e1d0fba1d5af5c93f98370c6e22954b8746c0b5
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 21 19:53:39 2023 -0400
+
+    Added shapedrawer
+
+commit 9419c5824024cb6acb1adc1b3a9f007f5dc6ac4e
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 21 19:29:35 2023 -0400
+
+    Line Clear, Score increase, and dropping after clearing lines functions implemented. dropAfterClear method has some issues though.
+
+commit 1d44369eee0c3d4efa98ef49eb5ce8b31de50b82
+Merge: 0373725 d3ca70b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 19:25:24 2023 -0400
+
+    Merge remote-tracking branch 'origin/class_restructure' into class_restructure
+
+commit 0373725c0c1502ca5623d93f2b300cc44543fce9
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 19:25:12 2023 -0400
+
+    add ShapeDrawer
+
+commit d3ca70b8c8d5d9c4fbf1eb72f2fc8235cce1c5f3
+Merge: 09bf3f1 39022af
+Author: d <geeda@mail.gvsu.edu>
+Date:   Tue Mar 21 17:05:06 2023 -0400
+
+    Merge remote-tracking branch 'origin/class_restructure' into class_restructure
+
+commit 09bf3f16ca62fa4c2ed5e14543d7877961b338e3
+Author: d <geeda@mail.gvsu.edu>
+Date:   Tue Mar 21 17:03:44 2023 -0400
+
+    Add changeSpeed function to allow for easier access to the speed array.
+
+commit 39022afe2092ce3eca4e37b63cf39f1c43306f31
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 16:59:34 2023 -0400
+
+    Add checkFullRow method
+
+commit 3dccf32d7b77393d452474fe8254afeba6a78e2c
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 16:14:06 2023 -0400
+
+    Lock squares when they reach the bottom
+
+commit fa3211574380127fa365c9f62ed10254141b0b28
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 14:01:00 2023 -0400
+
+    Change column calculation
+
+commit 50b97f8b613aa23bb624d5f72e6980ead3d1238f
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 14:00:41 2023 -0400
+
+    Changes by Aaron
+
+commit a520af28a9e7d5903c5b386849632003d084e39e
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 13:15:29 2023 -0400
+
+    Add bounds checking for rotations
+
+commit ab6617aab28555f165a3509d2a1865fad370e56b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 13:03:25 2023 -0400
+
+    Add bounds checking for rotations
+
+commit 15d293ea04d55d312b481efca0cc3cef06fe73dd
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 12:51:49 2023 -0400
+
+    Fix timer so pieces drop every 1 second
+
+commit 55484e0a671091766c1f824ff1c218bdd804c63d
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 12:25:46 2023 -0400
+
+    Add input listener for rotating
+
+commit 5437637c62846fb8996d836f17e9016ed246bc68
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 00:34:20 2023 -0400
+
+    Remove print statement
+
+commit 128c9ccd911e15b4b136eaee7e0c13fe8c4fd512
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 21 00:22:42 2023 -0400
+
+    Add left and right movement capabilities
+
+commit 2bd47114eff318b6c517e2a698029464eb0b8ae8
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Mar 20 22:32:22 2023 -0400
+
+    Restructure classes
+
+commit 325636bd5290ad595365a725abade16d4c22a7dc
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Mar 20 18:27:49 2023 -0400
+
+    Fix drawPiece() for Point piece representation
+
+commit b685777785abfa6eee895a3517a612adb2ac7ab5
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Mar 20 18:27:07 2023 -0400
+
+    Add "availability" boolean
+
+commit 1948e39cd75782888718ca1290d69381610d6c37
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Mon Mar 20 18:26:46 2023 -0400
+
+    Add move and rotate methods
+
+commit 1f1c4bda2e841f0f750880666eac36e87c5c4113
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:11:38 2023 -0400
+
+    Add methods from Aaron's branch
+
+commit b99858ee4dd8a32b6b5cf98fa157fe29e9c97a62
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:10:54 2023 -0400
+
+    Make board static
+
+commit beed9f9d5b6e9d17d294673c4b979f3ac78e6c53
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:10:03 2023 -0400
+
+    change setScreen parameter
+
+commit 4b7e7fbae843c9adc573000b04fe02635177b94c
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:09:04 2023 -0400
+
+    Reorder enums
+
+commit 62e53db5b2c981c5c2825cfed050803a0abb9359
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:08:45 2023 -0400
+
+    Change getDimensions to type Point
+
+commit 3c8588ddfaec04a44b0557efb5184ed555e6ffa2
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 23:07:57 2023 -0400
+
+    Change Piece arrays to type Point
+
+commit 71f3bb7f73785984f436fd40242eaf09dd959ae7
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 18:01:32 2023 -0400
+
+    Convert screen coordinates to y-down
+
+commit 1d9625473a804029a62dc943498531035a280061
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 17:32:03 2023 -0400
+
+    Change variables from x,y to row,col
+
+commit d280ca12c57e9b50a889e6d863c714d33d40dda5
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 15:56:58 2023 -0400
+
+    Update board drawing methods
+
+commit c35554e862667941a5d3ae0fd0788e0a08930932
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:57:14 2023 -0400
+
+    Remove unused imports
+
+commit bd2885e6d2cad1248cd69ecc81bead736ff9e3f0
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:55:14 2023 -0400
+
+    Add getters
+
+commit 27b8dac5063625a334b50f62fa43545a8b86edec
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:53:25 2023 -0400
+
+    Create Square class
+
+commit b702e559c62a06e1560259849d95e78960f65f46
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:52:55 2023 -0400
+
+    Add GameScreen parameter to constructor
+
+commit 6d2d0ad520da396df3da5ab83a0d224df0f529cc
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:52:10 2023 -0400
+
+    Add shapeRenderer
+
+commit 478dbe26677cea0fec7dd8d4ea5de3ecde1047f7
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:50:10 2023 -0400
+
+    Renamed GameBoard to GameScreen
+
+commit d7a47db48a111c2112a91654bef484643a571cac
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Sun Mar 19 00:45:33 2023 -0400
+
+    Add methods for drawing pieces
+
+commit c5d6b4032be1d05d6a97a6825f17380d13c661fd
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Thu Mar 16 14:37:47 2023 -0400
+
+    Added viewports, set up mainmenu screen to properly display text.
+
+commit e352eda2c1979669ab7aa4353bcbb3a717e3f36d
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Thu Mar 16 14:15:15 2023 -0400
+
+    Added Held Block and Next Block methods. Both classes now inherit from Piece so they can access the drawPiece method. They contain both contain a swapBlock method. Both also use the BlockShape enum for determing things.
+    
+    Made adjustments to Piece methods. Changed the drawPiece method to include 3 parameters: coordinates, which existed before, blockshape, and orientation.
+    
+    Cleaned up UserInterface and Gameboard  tiny bit.
+    
+    Added 'Empty' to blockshape enum for held block being empty at the start of the game.
+
+commit 58e3e80d206709325e19651da07d05fd1725a239
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 21:54:55 2023 -0400
+
+    Add colors for pieces
+
+commit bd3efd0c5dd8a8682fe91b24a6f317b461137c86
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Mar 14 16:28:58 2023 -0400
+
+    Adjusted classes, added the user interface classes, modified the GameController class to be the Main Class running the game, added a main menu class to start the game with
+
+commit db53fd23f4655a082deaea6397450133c068a505
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 15:46:13 2023 -0400
+
+    Create rotate method
+
+commit d2844ef2a2e30b7619d0f9dbb4b83afc71592072
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 14:49:35 2023 -0400
+
+    Make piece arrays 4x4x4
+
+commit 3fbfb49d98f8677c2eb584bbafe045f7457105a1
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 14:25:12 2023 -0400
+
+    Remove pieceMaker method
+
+commit d99b1fc0dd28f8109c87830398a53d0cc7800a6d
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 14:24:33 2023 -0400
+
+    Delete piece subclasses
+
+commit a49587038c44e1c48cb672dc82df926f84e4d780
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Tue Mar 14 14:17:10 2023 -0400
+
+    Create piece arrays and make Piece class concrete
+
+commit 10d28d3c5b20d553e7445ea6225cd329105c2f99
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sun Mar 12 16:31:11 2023 -0400
+
+    Minor fixes to gameboard and menu, added method stubs.
+
+commit 75331f1547c68e72a167ee18faa7134cfbf9ce1a
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sun Mar 12 11:09:59 2023 -0400
+
+    Added method stubs and fixed a few headers on some of the classes.
+
+commit 387f63cc0098c4bdeb5a59b1266659a472aec486
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sun Mar 12 10:38:14 2023 -0400
+
+    Setting up some of the classes. Also configuring the desktop project resolution and adding in our graphics.
+
+commit c7445fc88328c293ae0829d045ec945250e3783b
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Sun Mar 12 10:07:03 2023 -0400
+
+    Added classes from UML class diagram.
+
+commit 992599849521a80e180e40615efa999f7296d441
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Tue Feb 28 10:31:30 2023 -0500
+
+    Initial Commit for project. Includes basic graphical assets.
