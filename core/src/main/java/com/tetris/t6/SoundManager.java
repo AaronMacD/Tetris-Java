@@ -3,7 +3,7 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
-public class SoundManager {
+public final class SoundManager {
     /**
      * Hold piece sound effect.
      */
@@ -25,6 +25,9 @@ public class SoundManager {
      */
     private final Sound tetris;
 
+    /**
+     * Initializes the sound effects.
+     */
     public SoundManager() {
         hold = Gdx.audio.newSound(Gdx.files.internal("hold.wav"));
         lock = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
@@ -33,22 +36,37 @@ public class SoundManager {
         tetris = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
     }
 
+    /**
+     * Plays the hold sound effect.
+     */
     public void playHold() {
         hold.play(1.0f);
     }
 
+    /**
+     * Plays the lock sound effect.
+     */
     public void playLock() {
         lock.play(1.0f);
     }
 
+    /**
+     * Plays the rotate sound effect.
+     */
     public void playRotate() {
         rotate.play(1.0f);
     }
 
+    /**
+     * Plays the lineClear sound effect.
+     */
     public void playLineClear() {
         lineClear.play(1.0f);
     }
 
+    /**
+     * Plays the tetris sound effect.
+     */
     public void playTetris() {
         tetris.play(1.0f);
     }

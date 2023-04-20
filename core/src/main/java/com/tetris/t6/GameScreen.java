@@ -26,33 +26,44 @@ public final class GameScreen implements Screen {
      * Max level the game can get up to. Only 10, as there are only 10 speeds.
      */
     private static final int MAX_LEVEL = 10;
-
+    /**
+     * Board for player 1.
+     */
     private Square[][] p1Board;
+    /**
+     * Board for player2.
+     */
     private Square[][] p2Board;
-
-    SoundManager sfx;
-
+    /**
+     * Accesses sound effects.
+     */
+    private SoundManager sfx;
     /**
      * Game music.
      */
     private final Music victory1Music;
     /**
-     * Textures for the background.
+     * Texture 1 for the background.
      */
     private static Texture background;
-    private static Texture background2;
-
     /**
-     * player data objects to hold multiple players scores, levels, etc.
+     * Texture 2 for the background.
+     */
+    private static Texture background2;
+    /**
+     * Player 1 object.
      */
     private PlayerLogic p1;
+    /**
+     * Player 2 object.
+     */
     private PlayerLogic p2;
 
     /**
      * Instantiates a new Game screen.
      *
-     * @param aGame     the main game containing cameras, batching, texture drawing,
-     *                  and other objects used by all screens.
+     * @param aGame     the main game containing cameras, batching,
+     *                  texture drawing, and other objects used by all screens.
      * @param playerNum the number of players
      */
     public GameScreen(final TetrisGame aGame, final int playerNum) {
@@ -100,12 +111,14 @@ public final class GameScreen implements Screen {
             p1.setTimeMovement(100f);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && p1.getTimeControls() > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)
+            && p1.getTimeControls() > 0.15f) {
             p1.moveLeftRight(-1);
             p1.setTimeControls(0f);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && p1.getTimeControls() > 0.15f) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)
+            && p1.getTimeControls() > 0.15f) {
             p1.moveLeftRight(1);
             p1.setTimeControls(0f);
         }
@@ -127,7 +140,8 @@ public final class GameScreen implements Screen {
                 sfx.playHold();
             } else {
                 if (!p1.getSwapUsed()) {
-                    p1.setCurrentPiece(p1.getHeldBlock().swapPiece(p1.getCurrentPiece()));
+                    p1.setCurrentPiece(p1.getHeldBlock()
+                        .swapPiece(p1.getCurrentPiece()));
                     sfx.playHold();
                 }
             }
@@ -170,12 +184,14 @@ public final class GameScreen implements Screen {
                 p2.setTimeMovement(100f);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && p2.getTimeControls() > 0.15f) {
+            if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)
+                && p2.getTimeControls() > 0.15f) {
                 p2.moveLeftRight(-1);
                 p2.setTimeControls(0f);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && p2.getTimeControls() > 0.15f) {
+            if (Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)
+                && p2.getTimeControls() > 0.15f) {
                 p2.moveLeftRight(1);
                 p2.setTimeControls(0f);
             }
@@ -197,7 +213,8 @@ public final class GameScreen implements Screen {
                     sfx.playHold();
                 } else {
                     if (!p2.getSwapUsed()) {
-                        p2.setCurrentPiece(p2.getHeldBlock().swapPiece(p2.getCurrentPiece()));
+                        p2.setCurrentPiece(p2.getHeldBlock()
+                            .swapPiece(p2.getCurrentPiece()));
                         sfx.playHold();
                     }
                 }
@@ -225,39 +242,26 @@ public final class GameScreen implements Screen {
             + "Rotate C-Clockwise: Numpad 7\n"
             + "Hold Block: Numpad 0\n"
             + "Pause Menu: Escape Key";
-
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.pause();
             this.hide();
             game.setScreen(new PauseScreen(game, this));
         }
-
-        //TODO: should checkLoss go here or after drawing?
         if (p1.checkLoss()) {
-            victory1Music.stop();
-            this.pause();
-            this.hide();
-            game.setScreen(new LossScreen(this.game, 1));
-            this.dispose();
+            loseGame(1);
         }
-
         if (p2.checkLoss()) {
-            victory1Music.stop();
-            this.pause();
-            this.hide();
-            game.setScreen(new LossScreen(this.game, 2));
-            this.dispose();
+            loseGame(2);
         }
 
         /////////////////////////////Drawing//////////////////////////////
         game.batch.begin();
         //draw bg first
         game.batch.draw(background, 0, 0);
+
         if (numPlayers == 2) {
             game.batch.draw(background2, 650, 0);
         }
-
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////Player 1 Drawing////////////////////////
@@ -269,7 +273,6 @@ public final class GameScreen implements Screen {
             }
         }
 
-
         p1.getHeldBlock().drawNext(game.drawer);
         p1.getNextBlock().drawNext(game.drawer);
 
@@ -280,7 +283,6 @@ public final class GameScreen implements Screen {
         game.font.draw(game.batch, nextText, 495, 780);
         game.font.draw(game.batch, controlsText, 420, 300);
 
-
         ///////////////////////////////////////////////////////////////////////
         ////////////////////////////////Player 2 Drawing///////////////////////
         ///////////////////////////////////////////////////////////////////////
@@ -290,7 +292,6 @@ public final class GameScreen implements Screen {
                 p2Board[i][j].drawSquare(game.drawer);
             }
         }
-
 
         p2.getHeldBlock().drawNext(game.drawer);
         p2.getNextBlock().drawNext(game.drawer);
@@ -305,11 +306,20 @@ public final class GameScreen implements Screen {
         game.batch.end();
     }
 
+    private void loseGame(final int playerNum) {
+        victory1Music.stop();
+        this.pause();
+        this.hide();
+        game.setScreen(new LossScreen(this.game, playerNum));
+        this.dispose();
+    }
+
     @Override
     public void show() {
         if (numPlayers == 2) {
             Gdx.graphics.setWindowedMode(650 * 2, Gdx.graphics.getHeight());
-            game.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            game.camera.setToOrtho(false, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
             game.camera.update();
             game.batch.setProjectionMatrix(game.camera.combined);
         }

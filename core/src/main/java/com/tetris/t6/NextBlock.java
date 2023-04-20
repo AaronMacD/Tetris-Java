@@ -9,13 +9,30 @@ import java.awt.Point;
  * The type Next block.
  */
 public final class NextBlock {
-
+    /**
+     * Column of the screen the NextBlock grid starts in.
+     */
     private static final int COL = 11;
+    /**
+     * Row of the screen the NextBlock grid starts in.
+     */
     private static final int ROW = 2;
 
+    /**
+     * Width in squares of the NextBlock grid.
+     */
     private static final int WIDTHSQUARES = 4;
+    /**
+     * Height in squares of the NextBlock grid.
+     */
     private static final int HEIGHTSQUARES = 4;
+    /**
+     * The piece stored in the NextBlock grid.
+     */
     private Piece nextPiece;
+    /**
+     * The array of Squares representing the NextBlock grid.
+     */
     private Square[][] displayArea;
 
     /**

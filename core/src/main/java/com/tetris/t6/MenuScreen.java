@@ -20,15 +20,16 @@ public final class MenuScreen implements Screen {
      */
     private final GlyphLayout gl = new GlyphLayout();
     /**
-     * Various strings to hold the text displayed on screen
+     * String to hold the text displayed on screen.
      */
-    private static String menuText2 = "Press 1 for Single Player or 2 for Versus! Or press Escape to quit";
+    private static String menuText1 = "Press 1 for Single Player or 2 for "
+                                    + "Versus! Or press Escape to quit";
     /**
-     * Darryl's custom made logo for our game
+     * Darryl's custom made logo for our game.
      */
     private final Texture logo;
     /**
-     * Background image for the loss screen
+     * Background image for the loss screen.
      */
     private final Texture background;
 
@@ -53,15 +54,15 @@ public final class MenuScreen implements Screen {
 
         final float w1 = logo.getWidth();
 
-        gl.setText(game.font, menuText2);
+        gl.setText(game.font, menuText1);
         final float w2 = gl.width;
 
 
         game.batch.begin();
         game.batch.draw(background, 0, 0);
 
-        game.batch.draw(logo, (Gdx.graphics.getWidth() -w1) / 2, 600);
-        game.font.draw(game.batch, menuText2,
+        game.batch.draw(logo, (Gdx.graphics.getWidth() - w1) / 2, 600);
+        game.font.draw(game.batch, menuText1,
             (Gdx.graphics.getWidth() - w2) / 2, 440);
         game.batch.end();
 
@@ -70,7 +71,7 @@ public final class MenuScreen implements Screen {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
             game.setScreen(new GameScreen(game, 2));
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
     }

@@ -21,13 +21,20 @@ public final class LossScreen implements Screen {
      */
     private final GlyphLayout gl = new GlyphLayout();
     /**
-     * Various strings to hold the text displayed on screen
+     * String for which player lost.
      */
     private final String loserText;
-    private static String menuText1 = "Press escape to quit";
-    private static String menuText2 = "Or press any other key to return to the main menu";
     /**
-     * Background image for the loss screen
+     * Instructions for quitting.
+     */
+    private static String menuText1 = "Press escape to quit";
+    /**
+     * Instructions for returning to main menu.
+     */
+    private static String menuText2 = "Or press any other key to return to"
+                                    + " the main menu";
+    /**
+     * Background image for the loss screen.
      */
     private final Texture background;
 
@@ -90,7 +97,8 @@ public final class LossScreen implements Screen {
     @Override
     public void show() {
             Gdx.graphics.setWindowedMode(650, Gdx.graphics.getHeight());
-            game.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            game.camera.setToOrtho(false, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
             game.camera.update();
             game.batch.setProjectionMatrix(game.camera.combined);
 

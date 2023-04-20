@@ -82,7 +82,7 @@ public class HeldBlock {
 
 
     /**
-     * Swap piece piece.
+     * Swap current piece with held piece.
      *
      * @param newPiece the new piece
      * @return the piece

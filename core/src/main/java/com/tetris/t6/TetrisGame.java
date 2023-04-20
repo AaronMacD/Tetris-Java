@@ -48,7 +48,8 @@ public final class TetrisGame extends Game {
         font = new BitmapFont();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, Gdx.graphics.getWidth(),
+            Gdx.graphics.getHeight());
         viewport = new ScreenViewport(camera);
 
         pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

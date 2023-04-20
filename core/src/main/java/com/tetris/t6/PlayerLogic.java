@@ -3,12 +3,12 @@ package com.tetris.t6;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.IntArray;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * The type Player data.
  */
-public class PlayerLogic {
+public final class PlayerLogic {
     /**
      * The Score.
      */
@@ -21,8 +21,9 @@ public class PlayerLogic {
      * Speeds for pieces to fall for different levels.
      * Cells per frame is 1/speed.
      */
-    private final float[] levelSpeeds = {0.016_67f, 0.021_017f, 0.026_977f,
-        0.035_256f, 0.046_93f, 0.063_61f, 0.087_9f, 0.123_6f, 0.177_5f, 0.259_8f};
+    private final float[] levelSpeeds =
+        {0.016_67f, 0.021_017f, 0.026_977f, 0.035_256f, 0.046_93f, 0.063_61f,
+            0.087_9f, 0.123_6f, 0.177_5f, 0.259_8f};
     /**
      * Number of lines required to be cleared in order to level up.
      */
@@ -64,17 +65,21 @@ public class PlayerLogic {
      */
     private final int playerNumber;
     /**
-     * The Rows.
+     * Number of rows in the board.
      */
     public static final int ROWS = 22;
     /**
-     * The Cols.
+     * Number of columns on the board.
      */
     public static final int COLS = 10;
-
+    /**
+     * Columns to shift over player 2 graphics in multiplayer.
+     */
     private int horizontalOffset;
-
-    SoundManager sfx;
+    /**
+     * Object for accessing sound effects.
+     */
+    private SoundManager sfx;
 
     /**
      * Instantiates a new Player.
@@ -101,6 +106,7 @@ public class PlayerLogic {
         }
 
         //comment out for running PlayerLogicTest
+        //TODO: uncomment when finished with testing
         sfx = new SoundManager();
         currentPiece = new Piece();
         heldBlock = new HeldBlock(horizontalOffset);
@@ -116,7 +122,7 @@ public class PlayerLogic {
      */
     public void moveDownLogically() {
         timeMovement += levelSpeeds[level];
-        //>=1 is default, but can be adjusted to reduce difficulty. 1 seems pretty fast.
+        //>=1 is default, but can be adjusted to reduce difficulty.
         while (timeMovement >= 2.5) {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
@@ -325,11 +331,7 @@ public class PlayerLogic {
             clearLine(fullRows);
             dropAfterClear(fullRows);
         } else {
-            //TODO: why do my tests always hate sfx?
-            if (sfx != null) {
-                sfx.playLock();
-            }
-            checkLoss();
+            sfx.playLock();
         }
     }
 
@@ -389,6 +391,10 @@ public class PlayerLogic {
         }
     }
 
+    /**
+     * Checks to see if the player has lost.
+     * @return boolean indicating if the player has lost.
+     */
     public boolean checkLoss() {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < COLS; j++) {
@@ -419,54 +425,101 @@ public class PlayerLogic {
         }
     }
 
-    public HeldBlock getHeldBlock() {
-        return heldBlock;
-    }
-
-    public Piece getCurrentPiece() {
-        return currentPiece;
-    }
-
-    public NextBlock getNextBlock() {
-        return nextBlock;
-    }
-
-    public void setCurrentPiece(final Piece p) {
-        currentPiece = p;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getLinesCleared() {
-        return linesCleared;
-    }
-    public void setSwapUsed(boolean b) {
-        swapUsed = b;
-    }
-
-    public boolean getSwapUsed() {
-        return swapUsed;
-    }
-
+    /**
+     * Gets the board 2D array.
+     * @return the board.
+     */
     public Square[][] getBoard() {
         return board;
     }
 
+    /**
+     * Gets the current piece.
+     * @return the current piece.
+     */
+    public Piece getCurrentPiece() {
+        return currentPiece;
+    }
+    /**
+     * Gets the held block.
+     * @return the held block.
+     */
+    public HeldBlock getHeldBlock() {
+        return heldBlock;
+    }
+    /**
+     * Gets the player's level.
+     * @return the player's level.
+     */
+    public int getLevel() {
+        return level;
+    }
+    /**
+     * Gets the number of lines cleared.
+     * @return the number of lines cleared.
+     */
+    public int getLinesCleared() {
+        return linesCleared;
+    }
+    /**
+     * Gets the block that is in the "next" slot.
+     * @return the block that is in the "next" slot.
+     */
+    public NextBlock getNextBlock() {
+        return nextBlock;
+    }
+    /**
+     * Gets the player's score.
+     * @return the player's score.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Gets the "swapUsed" boolean.
+     * @return the "swapUsed" boolean.
+     */
+    public boolean getSwapUsed() {
+        return swapUsed;
+    }
+
+    /**
+     * Gets the "timeControls" variable.
+     * @return the "timeControls" variable.
+     */
     public float getTimeControls() {
         return timeControls;
     }
 
-    public void setTimeControls(float t) {
+    /**
+     * Sets the current piece.
+     * @param p the new currentPiece.
+     */
+    public void setCurrentPiece(final Piece p) {
+        currentPiece = p;
+    }
+    /**
+     * Sets the swapUsed boolean.
+     * @param b the true or false value.
+     */
+    public void setSwapUsed(final boolean b) {
+        swapUsed = b;
+    }
+
+    /**
+     * Sets the timeControls variable.
+     * @param t the time value.
+     */
+    public void setTimeControls(final float t) {
         timeControls = t;
     }
 
-    public void setTimeMovement(float t) {
+    /**
+     * Sets the timeMovement variable.
+     * @param t the time value.
+     */
+    public void setTimeMovement(final float t) {
         timeMovement = t;
     }
 }

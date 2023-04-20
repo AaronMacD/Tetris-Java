@@ -11,20 +11,41 @@ import com.badlogic.gdx.utils.ScreenUtils;
  * The type Pause screen.
  */
 public final class PauseScreen implements Screen {
-
+    /**
+     * The game object created by the launcher.
+     */
     private final TetrisGame game;
+    /**
+     * The game screen.
+     */
     private final GameScreen gameScreen;
+    /**
+     * The layout format.
+     */
     private final GlyphLayout gl = new GlyphLayout();
+    /**
+     * Text that appears on the menu.
+     */
     private static String menuText1 = "Pause Menu";
+    /**
+     * Text that appears on the menu.
+     */
     private static String menuText2 = "Click anywhere to resume game";
-    private static String menuText3 = "Press escape to quit or Q to return to the main menu";
+    /**
+     * Text that appears on the menu.
+     */
+    private static String menuText3 = "Press escape to quit or Q to return"
+                                    + " to the main menu";
+    /**
+     * Texture for the background.
+     */
     private final Texture background;
 
     /**
      * Instantiates a new Pause screen.
      *
-     * @param aGame       the a game
-     * @param aGameScreen the a game screen
+     * @param aGame       instance of the TetrisGame
+     * @param aGameScreen instance of the GameScreen
      */
     public PauseScreen(final TetrisGame aGame, final GameScreen aGameScreen) {
         this.game = aGame;
@@ -60,10 +81,10 @@ public final class PauseScreen implements Screen {
             gameScreen.show();
             dispose();
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             game.setScreen(new MenuScreen(this.game));
         }
 
@@ -87,7 +108,8 @@ public final class PauseScreen implements Screen {
     @Override
     public void show() {
             Gdx.graphics.setWindowedMode(650, Gdx.graphics.getHeight());
-            game.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            game.camera.setToOrtho(false, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
             game.camera.update();
             game.batch.setProjectionMatrix(game.camera.combined);
     }

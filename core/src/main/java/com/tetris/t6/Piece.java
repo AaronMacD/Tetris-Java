@@ -45,6 +45,33 @@ public final class Piece {
     }
 
     /**
+     * Parameterized constructor for Piece.
+     * @param pieceType the type of the piece being created.
+     */
+    public Piece(final String pieceType) {
+        setRow(1);
+        setCol(0);
+        setRotationNum(0);
+
+        switch (pieceType) {
+            case "J": makeJ();
+                break;
+            case "L": makeL();
+                break;
+            case "Line": makeLine();
+                break;
+            case "S": makeS();
+                break;
+            case "Square": makeSquare();
+                break;
+            case "T": makeT();
+                break;
+            default: makeZ();
+                break;
+        }
+    }
+
+    /**
      * Gets row.
      *
      * @return the current row of the piece.
@@ -95,8 +122,8 @@ public final class Piece {
      * @param aRow sets the row of the piece.
      */
     public void setRow(final int aRow) {
-        if (aRow < 0 || aRow > 22) {
-            throw new IllegalArgumentException("Row must be >= 0 and <= 22");
+        if (aRow < 0 || aRow > 21) {
+            throw new IllegalArgumentException("Row must be >= 0 and <= 21");
         }
         this.row = aRow;
     }
@@ -107,8 +134,8 @@ public final class Piece {
      * @param aCol sets the col of the piece.
      */
     public void setCol(final int aCol) {
-        if (aCol < 0 || aCol > 10) {
-            throw new IllegalArgumentException("Col must be >= 0 and <= 10");
+        if (aCol < 0 || aCol > 9) {
+            throw new IllegalArgumentException("Col must be >= 0 and <= 9");
         }
         this.col = aCol;
     }
@@ -178,7 +205,7 @@ public final class Piece {
      * Makes the J piece. Point values are (rows from top-left square,
      * cols from top-left square)
      */
-    public void makeJ() {
+    private void makeJ() {
         //Point values are row, col for individual square of a piece
         dimensions = new Point[][] {
             //rotation 0
@@ -198,7 +225,7 @@ public final class Piece {
      * Makes the L piece. Point values are (rows from top-left square,
      * cols from top-left square)
      */
-    public void makeL() {
+    private void makeL() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(0, 2), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
@@ -216,7 +243,7 @@ public final class Piece {
      * Makes the Line piece. Point values are (rows from top-left square,
      * cols from top-left square)
      */
-    public void makeLine() {
+    private void makeLine() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3)},
@@ -235,7 +262,7 @@ public final class Piece {
      * Makes the S piece. Point values are (rows from top-left square,
      * cols from top-left square)
      */
-    public void makeS() {
+    private void makeS() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(0, 1), new Point(0, 2), new Point(1, 0), new Point(1, 1)},
@@ -254,7 +281,7 @@ public final class Piece {
      * Makes the Square piece. Point values are (rows from top-left square,
      * cols from top-left square)
      */
-    public void makeSquare() {
+    private void makeSquare() {
         //still represented as 4x4 2D array for convenience
         dimensions = new Point[][] {
             //rotation 0
