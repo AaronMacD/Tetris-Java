@@ -45,11 +45,11 @@ public final class GameScreen implements Screen {
     /**
      * Texture 1 for the background.
      */
-    private static Texture background;
+    private Texture background;
     /**
      * Texture 2 for the background.
      */
-    private static Texture background2;
+    private Texture background2;
     /**
      * Player 1 object.
      */
@@ -76,7 +76,6 @@ public final class GameScreen implements Screen {
         background = new Texture(Gdx.files.internal("bg_gamescreen.png"));
         background2 = new Texture(Gdx.files.internal("bg2_gamescreen.png"));
 
-
         sfx = new SoundManager();
 
         //Loading Music
@@ -84,7 +83,6 @@ public final class GameScreen implements Screen {
         victory1Music.setLooping(true);
         victory1Music.play();
         victory1Music.setVolume(0.30f);
-
     }
 
     /**
@@ -154,13 +152,13 @@ public final class GameScreen implements Screen {
         }
         p1.moveDownLogically();
 
-        final String scoreText = String.format("Score: %d", p1.getScore());
-        final String levelText = String.format("Level: %d", p1.getLevel());
-        final String linesClearedText = String.format("Lines Cleared: %d",
+        String scoreText = String.format("Score: %d", p1.getScore());
+        String levelText = String.format("Level: %d", p1.getLevel());
+        String linesClearedText = String.format("Lines Cleared: %d",
             p1.getLinesCleared());
-        final String heldText = "Held Block";
-        final String nextText = "Next Block";
-        final String controlsText = "Controls : \n"
+        String heldText = "Held Block";
+        String nextText = "Next Block";
+        String controlsText = "Controls : \n"
             + "Move Left: A Key\n"
             + "Move Right: D Key\n"
             + "Soft Drop: S Key\n"
@@ -227,13 +225,13 @@ public final class GameScreen implements Screen {
             }
             p2.moveDownLogically();
         }
-        final String scoreText2 = String.format("Score: %d", p2.getScore());
-        final String levelText2 = String.format("Level: %d", p2.getLevel());
-        final String linesClearedText2 = String.format("Lines Cleared: %d",
+        String scoreText2 = String.format("Score: %d", p2.getScore());
+        String levelText2 = String.format("Level: %d", p2.getLevel());
+        String linesClearedText2 = String.format("Lines Cleared: %d",
             p2.getLinesCleared());
-        final String heldText2 = "Held Block";
-        final String nextText2 = "Next Block";
-        final String controlsText2 = "Controls : \n"
+        String heldText2 = "Held Block";
+        String nextText2 = "Next Block";
+        String controlsText2 = "Controls : \n"
             + "Move Left: Numpad 4\n"
             + "Move Right: Numpad 6\n"
             + "Soft Drop: Numpad 2\n"

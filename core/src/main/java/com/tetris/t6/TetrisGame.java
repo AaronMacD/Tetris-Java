@@ -18,7 +18,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
  */
 public final class TetrisGame extends Game {
     /**
-     * The Batch.
+     * Batch used by ShapeDrawer.
      */
     public PolygonSpriteBatch batch;
     private Texture texture;
@@ -35,7 +35,7 @@ public final class TetrisGame extends Game {
      */
     public Viewport viewport;
     /**
-     * The Drawer.
+     * The object used to draw the board and pieces.
      */
     public ShapeDrawer drawer;
     private Pixmap pixmap;
@@ -56,7 +56,7 @@ public final class TetrisGame extends Game {
         pixmap.setColor(Color.WHITE);
         pixmap.drawPixel(0, 0);
 
-        texture = new Texture(pixmap); //remember to dispose of later
+        texture = new Texture(pixmap);
         final TextureRegion region = new TextureRegion(texture, 0, 0, 1, 1);
         drawer = new ShapeDrawer(batch, region);
 

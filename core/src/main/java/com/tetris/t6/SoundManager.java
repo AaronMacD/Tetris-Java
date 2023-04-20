@@ -3,6 +3,9 @@ package com.tetris.t6;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
+/**
+ * Holds sound effects and allows other classes to access them.
+ */
 public final class SoundManager {
     /**
      * Hold piece sound effect.

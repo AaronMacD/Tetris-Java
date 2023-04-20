@@ -86,7 +86,7 @@ public final class PlayerLogic {
      *
      * @param playerNum 1 for player 1, 2 for player 2
      */
-    PlayerLogic(final int playerNum) {
+    public PlayerLogic(final int playerNum) {
         playerNumber = playerNum;
         score = 0;
         level = 1;
