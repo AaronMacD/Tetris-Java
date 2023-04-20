@@ -1,7 +1,5 @@
 package com.tetris.t6;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.IntArray;
 
@@ -76,27 +74,12 @@ public class PlayerLogic {
 
     private int horizontalOffset;
 
-    /**
-     * Lock sound effect.
-     */
-    private final Sound lockSFX;
-    /**
-     * Rotate sound effect.
-     */
-    private final Sound rotateSFX;
-    /**
-     * Line clear sound effect.
-     */
-    private final Sound lineClearSFX;
-    /**
-     * Tetris (four lines cleared) sound effect.
-     */
-    private final Sound tetrisSFX;
+    SoundManager sfx;
 
     /**
-     * Instantiates a new Player data.
+     * Instantiates a new Player.
      *
-     * @param playerNum the player num
+     * @param playerNum 1 for player 1, 2 for player 2
      */
     PlayerLogic(final int playerNum) {
         playerNumber = playerNum;
@@ -117,16 +100,12 @@ public class PlayerLogic {
             }
         }
 
+        //comment out for running PlayerLogicTest
+        sfx = new SoundManager();
         currentPiece = new Piece();
         heldBlock = new HeldBlock(horizontalOffset);
         nextBlock = new NextBlock(horizontalOffset);
         swapUsed = false;
-
-        //Loading Sounds
-        lockSFX = Gdx.audio.newSound(Gdx.files.internal("lock.wav"));
-        rotateSFX = Gdx.audio.newSound(Gdx.files.internal("rotate.wav"));
-        lineClearSFX = Gdx.audio.newSound(Gdx.files.internal("line_clear.wav"));
-        tetrisSFX = Gdx.audio.newSound(Gdx.files.internal("tetris.wav"));
     }
 
     /**
@@ -199,6 +178,10 @@ public class PlayerLogic {
      * @param leftRight -1 to move left, 1 for right.
      */
     public void moveLeftRight(final int leftRight) {
+        if (!(leftRight == -1 || leftRight == 1)) {
+            throw new IllegalArgumentException("Parameter must be -1 or 1");
+        }
+
         if (moveLeftRightPossible(leftRight)) {
             if (leftRight == -1) {
                 //set current squares to black
@@ -256,7 +239,7 @@ public class PlayerLogic {
         if (rotationPossible(rotationNum)) {
             drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
-            rotateSFX.play(1.0f);
+            sfx.playRotate();
         }
     }
 
@@ -322,7 +305,7 @@ public class PlayerLogic {
      * Checks each row in a list to see if they are full.
      * If so, calls clearLine() for those p1.ROWS. Otherwise calls checkLoss().
      *
-     * @param rowList List of p1.ROWS to check.
+     * @param rowList List of ROWS to check.
      */
     private void checkFullRow(final IntArray rowList) {
         final IntArray fullRows = new IntArray();
@@ -342,7 +325,10 @@ public class PlayerLogic {
             clearLine(fullRows);
             dropAfterClear(fullRows);
         } else {
-            lockSFX.play(1.0f);
+            //TODO: why do my tests always hate sfx?
+            if (sfx != null) {
+                sfx.playLock();
+            }
             checkLoss();
         }
     }
@@ -361,22 +347,22 @@ public class PlayerLogic {
         switch (rowList.size) {
             case 1:
                 score += 100 * level;
-                lineClearSFX.play(1.0f);
+                sfx.playLineClear();
                 linesCleared += 1;
                 break;
             case 2:
                 score += 300 * level;
-                lineClearSFX.play(1.0f);
+                sfx.playLineClear();
                 linesCleared += 2;
                 break;
             case 3:
                 score += 500 * level;
-                lineClearSFX.play(1.0f);
+                sfx.playLineClear();
                 linesCleared += 3;
                 break;
             case 4:
                 score += 800 * level;
-                tetrisSFX.play(1.0f);
+                sfx.playTetris();
                 linesCleared += 4;
                 break;
             default:
