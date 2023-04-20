@@ -175,9 +175,10 @@ public final class Piece {
     }
 
     /**
-     * Makes the J piece.
+     * Makes the J piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
-    private void makeJ() {
+    public void makeJ() {
         //Point values are row, col for individual square of a piece
         dimensions = new Point[][] {
             //rotation 0
@@ -194,9 +195,10 @@ public final class Piece {
 
     }
     /**
-     * Makes the L piece.
+     * Makes the L piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
-    private void makeL() {
+    public void makeL() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(0, 2), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
@@ -211,10 +213,10 @@ public final class Piece {
         color = new Color(Color.ORANGE);
     }
     /**
-     * Makes the Line piece.
+     * Makes the Line piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
-    // X = row, Y = col
-    private void makeLine() {
+    public void makeLine() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3)},
@@ -230,9 +232,10 @@ public final class Piece {
     }
 
     /**
-     * Makes the S piece.
+     * Makes the S piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
-    private void makeS() {
+    public void makeS() {
         dimensions = new Point[][] {
             //rotation 0
            {new Point(0, 1), new Point(0, 2), new Point(1, 0), new Point(1, 1)},
@@ -248,9 +251,10 @@ public final class Piece {
     }
 
     /**
-     * Makes the Square piece.
+     * Makes the Square piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
-    private void makeSquare() {
+    public void makeSquare() {
         //still represented as 4x4 2D array for convenience
         dimensions = new Point[][] {
             //rotation 0
@@ -267,7 +271,8 @@ public final class Piece {
     }
 
     /**
-     * Makes the T piece.
+     * Makes the T piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
     private void makeT() {
         dimensions = new Point[][] {
@@ -285,7 +290,8 @@ public final class Piece {
     }
 
     /**
-     * Makes the Z piece.
+     * Makes the Z piece. Point values are (rows from top-left square,
+     * cols from top-left square)
      */
     private void makeZ() {
         dimensions = new Point[][] {

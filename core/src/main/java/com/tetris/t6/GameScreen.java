@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
  * The type Game screen.
  */
 public final class GameScreen implements Screen {
-    //NOPMD - suppressed GodClass - TODO explain reason for suppression
     /**
      * Instance of the game.
      */
@@ -32,10 +30,7 @@ public final class GameScreen implements Screen {
     private Square[][] p1Board;
     private Square[][] p2Board;
 
-    /**
-     * Hold piece sound effect.
-     */
-    private final Sound holdSFX;
+    SoundManager sfx;
 
     /**
      * Game music.
@@ -71,7 +66,7 @@ public final class GameScreen implements Screen {
         background2 = new Texture(Gdx.files.internal("bg2_gamescreen.png"));
 
 
-        holdSFX = Gdx.audio.newSound(Gdx.files.internal("hold.wav"));
+        sfx = new SoundManager();
 
         //Loading Music
         victory1Music = Gdx.audio.newMusic(Gdx.files.internal("Victory1.wav"));
@@ -129,11 +124,11 @@ public final class GameScreen implements Screen {
                 p1.getHeldBlock().setHeldPiece(p1.getCurrentPiece());
                 p1.setCurrentPiece(p1.getNextBlock().getNextPiece());
                 p1.getNextBlock().generateNextPiece();
-                holdSFX.play();
+                sfx.playHold();
             } else {
                 if (!p1.getSwapUsed()) {
                     p1.setCurrentPiece(p1.getHeldBlock().swapPiece(p1.getCurrentPiece()));
-                    holdSFX.play();
+                    sfx.playHold();
                 }
             }
 
@@ -199,11 +194,11 @@ public final class GameScreen implements Screen {
                     p2.getHeldBlock().setHeldPiece(p2.getCurrentPiece());
                     p2.setCurrentPiece(p2.getNextBlock().getNextPiece());
                     p2.getNextBlock().generateNextPiece();
-                        holdSFX.play();
+                    sfx.playHold();
                 } else {
                     if (!p2.getSwapUsed()) {
                         p2.setCurrentPiece(p2.getHeldBlock().swapPiece(p2.getCurrentPiece()));
-                        holdSFX.play();
+                        sfx.playHold();
                     }
                 }
 
@@ -327,12 +322,12 @@ public final class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
+        victory1Music.pause();
     }
 
     @Override
     public void resume() {
-
+        victory1Music.play();
     }
 
     @Override
