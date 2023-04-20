@@ -86,12 +86,12 @@ public final class LossScreen implements Screen {
 
     @Override
     public void pause() {
-
+        //unused
     }
 
     @Override
     public void resume() {
-
+        //unused
     }
 
     @Override
@@ -106,11 +106,11 @@ public final class LossScreen implements Screen {
 
     @Override
     public void hide() {
-
+        //unused
     }
 
     @Override
     public void dispose() {
-
+        //unused
     }
 }

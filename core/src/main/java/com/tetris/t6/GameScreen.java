@@ -340,11 +340,11 @@ public final class GameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        //unused
     }
 
     @Override
     public void dispose() {
-
+        //unused
     }
 }

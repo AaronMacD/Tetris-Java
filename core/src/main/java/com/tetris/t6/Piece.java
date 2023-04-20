@@ -122,7 +122,7 @@ public final class Piece {
      * @param aRow sets the row of the piece.
      */
     public void setRow(final int aRow) {
-        if (aRow < 0 || aRow > 21) {
+        if (aRow < 0 || aRow > PlayerLogic.ROWS - 1) {
             throw new IllegalArgumentException("Row must be >= 0 and <= 21");
         }
         this.row = aRow;
@@ -134,7 +134,7 @@ public final class Piece {
      * @param aCol sets the col of the piece.
      */
     public void setCol(final int aCol) {
-        if (aCol < 0 || aCol > 9) {
+        if (aCol < 0 || aCol > PlayerLogic.COLS - 1) {
             throw new IllegalArgumentException("Col must be >= 0 and <= 9");
         }
         this.col = aCol;
