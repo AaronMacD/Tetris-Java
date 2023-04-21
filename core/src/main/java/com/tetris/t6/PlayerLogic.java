@@ -105,7 +105,6 @@ public final class PlayerLogic {
             }
         }
 
-        //comment out for running PlayerLogicTest
         sfx = new SoundManager();
         currentPiece = new Piece();
         heldBlock = new HeldBlock(horizontalOffset);

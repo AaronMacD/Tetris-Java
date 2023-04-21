@@ -170,9 +170,154 @@ class PlayerLogicTest {
     }
 
     @Test
-    void clearLine() {
+    void clearSingleLine() {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece = new Piece("Line");
 
+        p.setCurrentPiece(piece);
+        p.hardDrop();
+        //lock squares in place
+        p.setTimeMovement(2.5f);
+        p.moveDownLogically();
+
+        p.setCurrentPiece(piece);
+        p.getCurrentPiece().setCol(4);
+        p.hardDrop();
+        //lock squares in place
+        p.setTimeMovement(2.5f);
+        p.moveDownLogically();
+
+        p.setCurrentPiece(new Piece("Square"));
+        p.getCurrentPiece().setCol(8);
+
+        p.hardDrop();
+        //lock squares in place
+        p.setTimeMovement(2.5f);
+        p.moveDownLogically();
+
+        Square[][] board = p.getBoard();
+        for (int i = 0; i < 8; i++) {
+            //these squares should be available after clearing the line
+            Assertions.assertTrue(board[20][i].isAvailable());
+        }
+
+        //these squares should not be available after clearing the line
+        Assertions.assertTrue(!board[20][8].isAvailable());
+        Assertions.assertTrue(!board[20][9].isAvailable());
+
+        Assertions.assertEquals(1, p.getLinesCleared());
     }
+
+    @Test
+    void clearTwoLines() {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece = new Piece("Square");
+
+        for (int i = 0; i < 10; i += 2) {
+            p.setCurrentPiece(piece);
+            p.getCurrentPiece().setCol(i);
+            p.hardDrop();
+            //lock squares in place
+            p.setTimeMovement(2.5f);
+            p.moveDownLogically();
+        }
+
+        Assertions.assertEquals(2, p.getLinesCleared());
+    }
+
+    @Test
+    void clearThreeLines() {
+        PlayerLogic p = new PlayerLogic(1);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                p.setCurrentPiece(new Piece("L"));
+                p.getCurrentPiece().setCol(3*i);
+                p.hardDrop();
+                //lock squares in place
+                p.setTimeMovement(2.5f);
+                p.moveDownLogically();
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            p.setCurrentPiece(new Piece("Square"));
+            p.getCurrentPiece().setCol(3 * i);
+            p.hardDrop();
+            //lock squares in place
+            p.setTimeMovement(2.5f);
+            p.moveDownLogically();
+        }
+        Assertions.assertEquals(0, p.getLinesCleared());
+
+        p.setCurrentPiece(new Piece("Line"));
+        p.rotate(1);
+        p.getCurrentPiece().setCol(7);
+        p.hardDrop();
+        //lock squares in place
+        p.setTimeMovement(2.5f);
+        p.moveDownLogically();
+
+        Assertions.assertEquals(3, p.getLinesCleared());
+    }
+
+    @Test
+    void clearFourLines() {
+        PlayerLogic p = new PlayerLogic(1);
+
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 4; j++) {
+                p.setCurrentPiece(new Piece("Line"));
+                p.getCurrentPiece().setCol(4 * i);
+                p.hardDrop();
+                //lock squares in place
+                p.setTimeMovement(2.5f);
+                p.moveDownLogically();
+            }
+        }
+
+        for (int i = 6; i <= 7; i++) {
+            p.setCurrentPiece(new Piece("Line"));
+            p.rotate(1);
+            p.getCurrentPiece().setCol(i);
+            p.hardDrop();
+            //lock squares in place
+            p.setTimeMovement(2.5f);
+            p.moveDownLogically();
+        }
+
+
+        Assertions.assertEquals(4, p.getLinesCleared());
+    }
+
+    @Test
+    void checkLossFalse() {
+        PlayerLogic p = new PlayerLogic(1);
+        p.hardDrop();
+        //lock squares in place
+        p.setTimeMovement(2.5f);
+        p.moveDownLogically();
+
+        Assertions.assertFalse(p.checkLoss());
+    }
+
+    @Test
+    void checkLossTrue() {
+        PlayerLogic p = new PlayerLogic(1);
+
+        for (int i = 0; i < 10; i++) {
+                p.setCurrentPiece(new Piece("Square"));
+                p.hardDrop();
+                //lock squares in place
+                p.setTimeMovement(2.5f);
+                p.moveDownLogically();
+        }
+
+        Assertions.assertTrue(p.checkLoss());
+    }
+
+
 
 
 
