@@ -98,19 +98,82 @@ class PlayerLogicTest {
         p.setCurrentPiece(piece1);
         p.hardDrop();
 
-        Piece piece2 = new Piece("Square");
-        Assertions.assertEquals(1, piece2.getRow());
-        p.setCurrentPiece(piece2);
-        Assertions.assertEquals(1, p.getCurrentPiece().getRow());
+        //lock squares in place
         p.setTimeMovement(2.5f);
         p.moveDownLogically();
-        //this proves currentPiece is correctly set to the new one
-        Assertions.assertEquals(2, p.getCurrentPiece().getRow());
+
+        Piece piece2 = new Piece("Square");
+        p.setCurrentPiece(piece2);
+        Assertions.assertEquals(1, p.getCurrentPiece().getRow());
         p.hardDrop();
 
         //18th row because each square is 2 cells high
         Assertions.assertEquals(18, p.getCurrentPiece().getRow());
     }
+
+    @Test
+    void rotateClockwiseOnce() {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece1 = new Piece("L");
+        p.setCurrentPiece(piece1);
+
+        p.rotate(1);
+        Assertions.assertEquals(1, p.getCurrentPiece().getRotationNum());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 1})
+    void rotateFourTimes(int direction) {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece1 = new Piece("L");
+        p.setCurrentPiece(piece1);
+        //ensures ability to rotate CCW:
+        p.getCurrentPiece().setCol(3);
+
+        p.rotate(direction);
+        p.rotate(direction);
+        p.rotate(direction);
+        p.rotate(direction);
+        Assertions.assertEquals(0, p.getCurrentPiece().getRotationNum());
+    }
+
+    @Test
+    void rotateCounterclockwiseOnce() {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece1 = new Piece("L");
+        p.setCurrentPiece(piece1);
+
+        p.rotate(-1);
+        Assertions.assertEquals(3, p.getCurrentPiece().getRotationNum());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-2, 0, 2})
+    void rotateException(int badVal) {
+        PlayerLogic p = new PlayerLogic(1);
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+            () -> p.rotate(badVal));
+    }
+
+    @Test
+    void rotateNotPossible() {
+        PlayerLogic p = new PlayerLogic(1);
+        Piece piece1 = new Piece("L");
+        p.setCurrentPiece(piece1);
+        //should not be able to rotate CW
+        p.getCurrentPiece().setCol(8);
+
+        Assertions.assertEquals(0, p.getCurrentPiece().getRotationNum());
+        p.rotate(1);
+        Assertions.assertEquals(0, p.getCurrentPiece().getRotationNum());
+    }
+
+    @Test
+    void clearLine() {
+
+    }
+
 
 
 }

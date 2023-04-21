@@ -106,7 +106,6 @@ public final class PlayerLogic {
         }
 
         //comment out for running PlayerLogicTest
-        //TODO: uncomment when finished with testing
         sfx = new SoundManager();
         currentPiece = new Piece();
         heldBlock = new HeldBlock(horizontalOffset);
@@ -123,7 +122,7 @@ public final class PlayerLogic {
     public void moveDownLogically() {
         timeMovement += levelSpeeds[level];
         //>=1 is default, but can be adjusted to reduce difficulty.
-        while (timeMovement >= 2.5) {
+        if (timeMovement >= 2.5) {
             if (moveDownPossible()) {
                 drawPiece(Color.BLACK);
                 currentPiece.moveDown();
@@ -135,8 +134,6 @@ public final class PlayerLogic {
             timeMovement = 0f;
         }
     }
-
-    //TODO prevent pieces from overlapping at spawn
 
     /**
      * Checks if the four squares directly below the currentPiece's position are
@@ -237,6 +234,9 @@ public final class PlayerLogic {
      * @param direction -1 for counterclockwise, 1 for clockwise.
      */
     public void rotate(final int direction) {
+        if (!(direction == -1 || direction == 1)) {
+            throw new IllegalArgumentException("Direction must be -1 or 1");
+        }
         int rotationNum = currentPiece.getRotationNum();
         //determine the rotation state after rotating clockwise (1)
         //or counterclockwise (-1)

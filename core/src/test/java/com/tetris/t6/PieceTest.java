@@ -23,12 +23,13 @@ class PieceTest {
             () -> p.setRow(badRow));
     }
 
-    @Test
-    void setCol() {
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 8, 9})
+    void setCol(int col) {
         Piece p = new Piece();
-        p.setCol(10);
+        p.setCol(col);
 
-        Assertions.assertEquals(p.getCol(), 10);
+        Assertions.assertEquals(p.getCol(), col);
     }
 
     @ParameterizedTest
