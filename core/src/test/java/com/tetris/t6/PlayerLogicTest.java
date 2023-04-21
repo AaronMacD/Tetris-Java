@@ -174,6 +174,20 @@ class PlayerLogicTest {
 
     }
 
+    @Test
+    void checkLossFalse(){
+        PlayerLogic plr1 = new PlayerLogic(1);
+        Piece piece1 = new Piece("Square");
+        plr1.setCurrentPiece(piece1);
+        plr1.hardDrop();
+        Assertions.assertFalse(plr1.checkLoss());
+    }
+
+    @Test
+    void checkLossTrue(){
+
+    }
+
 
 
 }
