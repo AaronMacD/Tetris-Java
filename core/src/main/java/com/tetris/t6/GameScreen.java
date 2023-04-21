@@ -126,7 +126,7 @@ public final class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            p1.rotate(1);
+            p1.rotate(-1);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
