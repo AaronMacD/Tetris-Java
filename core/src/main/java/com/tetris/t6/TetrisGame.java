@@ -21,6 +21,9 @@ public final class TetrisGame extends Game {
      * Batch used by ShapeDrawer.
      */
     public PolygonSpriteBatch batch;
+    /**
+     *  Object used by the shape drawer to render a shape
+     */
     private Texture texture;
     /**
      * The Font.
@@ -38,6 +41,9 @@ public final class TetrisGame extends Game {
      * The object used to draw the board and pieces.
      */
     public ShapeDrawer drawer;
+    /**
+     * Object used by the shape drawer to set a pixel start point
+     */
     private Pixmap pixmap;
 
 
