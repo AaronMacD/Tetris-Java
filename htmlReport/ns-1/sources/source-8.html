@@ -1,0 +1,640 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PlayerLogic</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: PlayerLogic (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayerLogic</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.9%
+  </span>
+  <span class="absValue">
+    (19/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (88/96)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (144/156)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.utils.IntArray;
+&nbsp;
+&nbsp;import java.awt.Point;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Player data.
+&nbsp; */
+&nbsp;public final class PlayerLogic {
+&nbsp;    /**
+&nbsp;     * The Score.
+&nbsp;     */
+&nbsp;    private int score;
+&nbsp;    /**
+&nbsp;     * The Level.
+&nbsp;     */
+&nbsp;    private int level;
+&nbsp;    /**
+&nbsp;     * Speeds for pieces to fall for different levels.
+&nbsp;     * Cells per frame is 1/speed.
+&nbsp;     */
+<b class="fc">&nbsp;    private final float[] levelSpeeds =</b>
+&nbsp;        {0.016_67f, 0.021_017f, 0.026_977f, 0.035_256f, 0.046_93f, 0.063_61f,
+&nbsp;            0.087_9f, 0.123_6f, 0.177_5f, 0.259_8f};
+&nbsp;    /**
+&nbsp;     * Number of lines required to be cleared in order to level up.
+&nbsp;     */
+&nbsp;    private static final int LINESTOLEVELUP = 10;
+&nbsp;    /**
+&nbsp;     * The Lines cleared.
+&nbsp;     */
+&nbsp;    private int linesCleared;
+&nbsp;    /**
+&nbsp;     * The Board.
+&nbsp;     */
+&nbsp;    private Square[][] board;
+&nbsp;    /**
+&nbsp;     * The Current piece.
+&nbsp;     */
+&nbsp;    private Piece currentPiece;
+&nbsp;    /**
+&nbsp;     * The Time controls.
+&nbsp;     */
+&nbsp;    private float timeControls;
+&nbsp;    /**
+&nbsp;     * The Time movement.
+&nbsp;     */
+&nbsp;    private float timeMovement;
+&nbsp;    /**
+&nbsp;     * The Held block.
+&nbsp;     */
+&nbsp;    private final HeldBlock heldBlock;
+&nbsp;    /**
+&nbsp;     * The Next block.
+&nbsp;     */
+&nbsp;    private final NextBlock nextBlock;
+&nbsp;    /**
+&nbsp;     * The Swap used.
+&nbsp;     */
+&nbsp;    private boolean swapUsed;
+&nbsp;    /**
+&nbsp;     * The Player number.
+&nbsp;     */
+&nbsp;    private final int playerNumber;
+&nbsp;    /**
+&nbsp;     * Number of rows in the board.
+&nbsp;     */
+&nbsp;    public static final int ROWS = 22;
+&nbsp;    /**
+&nbsp;     * Number of columns on the board.
+&nbsp;     */
+&nbsp;    public static final int COLS = 10;
+&nbsp;    /**
+&nbsp;     * Columns to shift over player 2 graphics in multiplayer.
+&nbsp;     */
+&nbsp;    private int horizontalOffset;
+&nbsp;    /**
+&nbsp;     * Object for accessing sound effects.
+&nbsp;     */
+&nbsp;    private SoundManager sfx;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Player.
+&nbsp;     *
+&nbsp;     * @param playerNum 1 for player 1, 2 for player 2
+&nbsp;     */
+<b class="fc">&nbsp;    public PlayerLogic(final int playerNum) {</b>
+<b class="fc">&nbsp;        playerNumber = playerNum;</b>
+<b class="fc">&nbsp;        score = 0;</b>
+<b class="fc">&nbsp;        level = 1;</b>
+<b class="fc">&nbsp;        linesCleared = 0;</b>
+<b class="fc">&nbsp;        board = new Square[ROWS][COLS];</b>
+<b class="pc">&nbsp;        if (playerNumber == 1) {</b>
+<b class="fc">&nbsp;            horizontalOffset = 0;</b>
+&nbsp;        }
+<b class="pc">&nbsp;        if (playerNumber == 2) {</b>
+<b class="nc">&nbsp;            horizontalOffset = 16;</b>
+&nbsp;        }
+&nbsp;        //initialize board
+<b class="fc">&nbsp;        for (int i = 0; i &lt; ROWS; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; COLS; j++) {</b>
+<b class="fc">&nbsp;                board[i][j] = new Square(i, j + horizontalOffset, Color.BLACK);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;     //   sfx = new SoundManager();
+<b class="fc">&nbsp;        currentPiece = new Piece();</b>
+<b class="fc">&nbsp;        heldBlock = new HeldBlock(horizontalOffset);</b>
+<b class="fc">&nbsp;        nextBlock = new NextBlock(horizontalOffset);</b>
+<b class="fc">&nbsp;        swapUsed = false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if it&#39;s possible to move currentPiece down.
+&nbsp;     * If so, calls drawPiece and updates coordinates. If not, calls
+&nbsp;     * lockSquares and generates a new piece.
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void moveDownLogically() {
+<b class="fc">&nbsp;        timeMovement += levelSpeeds[level];</b>
+&nbsp;        //&gt;=1 is default, but can be adjusted to reduce difficulty.
+<b class="fc">&nbsp;        if (timeMovement &gt;= 2.5) {</b>
+<b class="fc">&nbsp;            if (moveDownPossible()) {</b>
+<b class="fc">&nbsp;                drawPiece(Color.BLACK);</b>
+<b class="fc">&nbsp;                currentPiece.moveDown();</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                lockSquares();</b>
+<b class="fc">&nbsp;                currentPiece = nextBlock.getNextPiece();</b>
+<b class="fc">&nbsp;                nextBlock.generateNextPiece();</b>
+&nbsp;            }
+<b class="fc">&nbsp;            timeMovement = 0f;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if the four squares directly below the currentPiece&#39;s position are
+&nbsp;     * available and returns a boolean.
+&nbsp;     *
+&nbsp;     * @return true if all four squares below the piece are available
+&nbsp;     */
+&nbsp;    private boolean moveDownPossible() {
+<b class="fc">&nbsp;        final Point[][] dimensions = currentPiece.getDimensions();</b>
+<b class="fc">&nbsp;        final int row = currentPiece.getRow();</b>
+<b class="fc">&nbsp;        final int col = currentPiece.getCol();</b>
+<b class="fc">&nbsp;        final int rotationNum = currentPiece.getRotationNum();</b>
+&nbsp;        int squareRow;
+&nbsp;        int squareCol;
+<b class="fc">&nbsp;        int availableCount = 0;</b>
+&nbsp;
+&nbsp;        //loop through the four squares we are checking
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            squareRow = row + dimensions[rotationNum][i].x;</b>
+<b class="fc">&nbsp;            squareCol = col + dimensions[rotationNum][i].y;</b>
+&nbsp;
+&nbsp;            //first expression prevents index out of bounds
+<b class="fc">&nbsp;            if (squareRow + 1 &lt; ROWS - 1</b>
+<b class="fc">&nbsp;                &amp;&amp; board[squareRow + 1][squareCol].isAvailable()) {</b>
+<b class="fc">&nbsp;                availableCount++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        //returns true or false
+<b class="fc">&nbsp;        return availableCount == 4;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Drops piece as far down the board as possible.
+&nbsp;     */
+&nbsp;    public void hardDrop() {
+<b class="fc">&nbsp;        while (moveDownPossible()) {</b>
+<b class="fc">&nbsp;            moveDownLogically();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Move left or right depending on parameter.
+&nbsp;     *
+&nbsp;     * @param leftRight -1 to move left, 1 for right.
+&nbsp;     */
+&nbsp;    public void moveLeftRight(final int leftRight) {
+<b class="fc">&nbsp;        if (!(leftRight == -1 || leftRight == 1)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Parameter must be -1 or 1&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (moveLeftRightPossible(leftRight)) {</b>
+<b class="fc">&nbsp;            if (leftRight == -1) {</b>
+&nbsp;                //set current squares to black
+<b class="fc">&nbsp;                drawPiece(Color.BLACK);</b>
+&nbsp;                //new squares will be set to appropriate color
+<b class="fc">&nbsp;                currentPiece.moveLeft();</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                drawPiece(Color.BLACK);</b>
+<b class="fc">&nbsp;                currentPiece.moveRight();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if possible to move all four squares of currentPiece left/right.
+&nbsp;     *
+&nbsp;     * @param leftRight -1 for left, 1 for right
+&nbsp;     * @return true or false depending on availability of all four squares.
+&nbsp;     */
+&nbsp;    private boolean moveLeftRightPossible(final int leftRight) {
+<b class="fc">&nbsp;        final Point[][] dimensions = currentPiece.getDimensions();</b>
+<b class="fc">&nbsp;        final int row = currentPiece.getRow();</b>
+<b class="fc">&nbsp;        final int col = currentPiece.getCol();</b>
+<b class="fc">&nbsp;        final int rotationNum = currentPiece.getRotationNum();</b>
+&nbsp;        int squareRow;
+&nbsp;        int squareCol;
+<b class="fc">&nbsp;        int availableCount = 0;</b>
+&nbsp;
+&nbsp;        //loop through the four squares we are checking
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            squareRow = row + dimensions[rotationNum][i].x;</b>
+<b class="fc">&nbsp;            squareCol = col + dimensions[rotationNum][i].y;</b>
+&nbsp;
+&nbsp;            //first two expressions prevent index out of bounds
+<b class="fc">&nbsp;            if (squareCol + leftRight &gt;= 0 &amp;&amp; squareCol + leftRight &lt; COLS</b>
+<b class="pc">&nbsp;                &amp;&amp; board[squareRow][squareCol + leftRight].isAvailable()) {</b>
+<b class="fc">&nbsp;                availableCount++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        //returns true or false
+<b class="fc">&nbsp;        return availableCount == 4;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rotates the current piece.
+&nbsp;     * @param direction -1 for counterclockwise, 1 for clockwise.
+&nbsp;     */
+&nbsp;    public void rotate(final int direction) {
+<b class="fc">&nbsp;        if (!(direction == -1 || direction == 1)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Direction must be -1 or 1&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        int rotationNum = currentPiece.getRotationNum();</b>
+&nbsp;        //determine the rotation state after rotating clockwise (1)
+&nbsp;        //or counterclockwise (-1)
+<b class="fc">&nbsp;        rotationNum = Math.floorMod(rotationNum + direction, 4);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (rotationPossible(rotationNum)) {</b>
+<b class="fc">&nbsp;            drawPiece(Color.BLACK);</b>
+<b class="fc">&nbsp;            currentPiece.setRotationNum(rotationNum);</b>
+&nbsp;        //   sfx.playRotate();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if all four squares are available to rotate into.
+&nbsp;     *
+&nbsp;     * @param rotationNum To access appropriate rotation state from 2D array.
+&nbsp;     * @return true if all four squares are available to rotate into.
+&nbsp;     */
+&nbsp;    private boolean rotationPossible(final int rotationNum) {
+<b class="fc">&nbsp;        final Point[][] dimensions = currentPiece.getDimensions();</b>
+<b class="fc">&nbsp;        final int row = currentPiece.getRow();</b>
+<b class="fc">&nbsp;        final int col = currentPiece.getCol();</b>
+&nbsp;        int squareRow;
+&nbsp;        int squareCol;
+<b class="fc">&nbsp;        int availableCount = 0;</b>
+&nbsp;
+&nbsp;        //loop through the four squares we are checking
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            squareRow = row + dimensions[rotationNum][i].x;</b>
+<b class="fc">&nbsp;            squareCol = col + dimensions[rotationNum][i].y;</b>
+&nbsp;
+<b class="pc">&nbsp;            if (squareRow &lt; ROWS - 1 &amp;&amp; squareCol &gt;= 0 &amp;&amp; squareCol &lt; COLS</b>
+<b class="pc">&nbsp;                &amp;&amp; board[squareRow][squareCol].isAvailable()) {</b>
+<b class="fc">&nbsp;                availableCount++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        //returns true or false
+<b class="fc">&nbsp;        return availableCount == 4;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes all four squares of currentPiece unavailable.
+&nbsp;     * Calls checkFullRow in case a line needs to be cleared.
+&nbsp;     */
+&nbsp;    private void lockSquares() {
+<b class="fc">&nbsp;        final IntArray rowsToCheck = new IntArray(4);</b>
+&nbsp;
+<b class="fc">&nbsp;        final Point[][] dimensions = currentPiece.getDimensions();</b>
+<b class="fc">&nbsp;        final int row = currentPiece.getRow();</b>
+<b class="fc">&nbsp;        final int col = currentPiece.getCol();</b>
+<b class="fc">&nbsp;        final int rotationNum = currentPiece.getRotationNum();</b>
+&nbsp;        int squareRow;
+&nbsp;        int squareCol;
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            squareRow = row + dimensions[rotationNum][i].x;</b>
+<b class="fc">&nbsp;            squareCol = col + dimensions[rotationNum][i].y;</b>
+<b class="fc">&nbsp;            board[squareRow][squareCol].setAvailability(false);</b>
+<b class="fc">&nbsp;            if (!rowsToCheck.contains(squareRow)) {</b>
+<b class="fc">&nbsp;                rowsToCheck.add(squareRow);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        //reset to allow swap for new piece
+<b class="fc">&nbsp;        swapUsed = false;</b>
+&nbsp;
+<b class="fc">&nbsp;        checkFullRow(rowsToCheck);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks each row in a list to see if they are full.
+&nbsp;     * If so, calls clearLine() for those p1.ROWS. Otherwise calls checkLoss().
+&nbsp;     *
+&nbsp;     * @param rowList List of ROWS to check.
+&nbsp;     */
+&nbsp;    private void checkFullRow(final IntArray rowList) {
+<b class="fc">&nbsp;        final IntArray fullRows = new IntArray();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; rowList.size; i++) {</b>
+<b class="fc">&nbsp;            int squareCount = 0;</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; COLS; j++) {</b>
+<b class="fc">&nbsp;                if (!board[rowList.get(i)][j].isAvailable()) {</b>
+<b class="fc">&nbsp;                    squareCount++;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            if (squareCount == COLS) {</b>
+<b class="fc">&nbsp;                fullRows.add(rowList.get(i));</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if (fullRows.notEmpty()) {</b>
+<b class="fc">&nbsp;            clearLine(fullRows);</b>
+<b class="fc">&nbsp;            dropAfterClear(fullRows);</b>
+&nbsp;        } else {
+&nbsp;        //    sfx.playLock();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Increases the level if a certain number of lines have been cleared.
+&nbsp;     */
+&nbsp;    public void levelUp() {
+<b class="nc">&nbsp;        if (linesCleared &gt;= LINESTOLEVELUP) {</b>
+<b class="nc">&nbsp;            level++;</b>
+<b class="nc">&nbsp;            linesCleared = 0;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void clearLine(final IntArray rowList) {
+<b class="pc">&nbsp;        switch (rowList.size) {</b>
+&nbsp;            case 1:
+<b class="fc">&nbsp;                score += 100 * level;</b>
+&nbsp;          //      sfx.playLineClear();
+<b class="fc">&nbsp;                linesCleared += 1;</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            case 2:
+<b class="fc">&nbsp;                score += 300 * level;</b>
+&nbsp;          //      sfx.playLineClear();
+<b class="fc">&nbsp;                linesCleared += 2;</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            case 3:
+<b class="fc">&nbsp;                score += 500 * level;</b>
+&nbsp;         //       sfx.playLineClear();
+<b class="fc">&nbsp;                linesCleared += 3;</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            case 4:
+<b class="fc">&nbsp;                score += 800 * level;</b>
+&nbsp;        //        sfx.playTetris();
+<b class="fc">&nbsp;                linesCleared += 4;</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            default:
+&nbsp;                return;
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        for (final int row : rowList.items) {</b>
+<b class="fc">&nbsp;            for (int x = 0; x &lt; COLS; x++) {</b>
+<b class="fc">&nbsp;                board[row][x].setColor(Color.BLACK);</b>
+<b class="fc">&nbsp;                board[row][x].setAvailability(true);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void dropAfterClear(final IntArray rowList) {
+<b class="fc">&nbsp;        rowList.sort();</b>
+<b class="fc">&nbsp;        for (final int row : rowList.items) {</b>
+<b class="fc">&nbsp;            for (int i = row; i &gt; 0; i--) {</b>
+<b class="fc">&nbsp;                for (int j = 0; j &lt; COLS; j++) {</b>
+<b class="fc">&nbsp;                    board[i][j].setColor(board[i - 1][j].getColor());</b>
+<b class="fc">&nbsp;                    board[i][j].setAvailability(board[i - 1][j].isAvailable());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks to see if the player has lost.
+&nbsp;     * @return boolean indicating if the player has lost.
+&nbsp;     */
+&nbsp;    public boolean checkLoss() {
+<b class="fc">&nbsp;        boolean lost = false;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 2; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; COLS; j++) {</b>
+<b class="fc">&nbsp;                if (!board[i][j].isAvailable()) {</b>
+<b class="fc">&nbsp;                    lost = true;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return lost;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Draw the four Squares of a piece based on current state.
+&nbsp;     * @param color  the color
+&nbsp;     */
+&nbsp;    public void drawPiece(final Color color) {
+&nbsp;        //row and column for the top-left corner
+<b class="fc">&nbsp;        final int row = currentPiece.getRow();</b>
+<b class="fc">&nbsp;        final int col = currentPiece.getCol();</b>
+<b class="fc">&nbsp;        final int rNum = currentPiece.getRotationNum();</b>
+<b class="fc">&nbsp;        final Point[][] dimensions = currentPiece.getDimensions();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            final int squareRow = row + dimensions[rNum][i].x;</b>
+<b class="fc">&nbsp;            final int squareCol = col + dimensions[rNum][i].y;</b>
+<b class="fc">&nbsp;            board[squareRow][squareCol].setColor(color);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the board 2D array.
+&nbsp;     * @return the board.
+&nbsp;     */
+&nbsp;    public Square[][] getBoard() {
+<b class="fc">&nbsp;        return board;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the current piece.
+&nbsp;     * @return the current piece.
+&nbsp;     */
+&nbsp;    public Piece getCurrentPiece() {
+<b class="fc">&nbsp;        return currentPiece;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the held block.
+&nbsp;     * @return the held block.
+&nbsp;     */
+&nbsp;    public HeldBlock getHeldBlock() {
+<b class="nc">&nbsp;        return heldBlock;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the player&#39;s level.
+&nbsp;     * @return the player&#39;s level.
+&nbsp;     */
+&nbsp;    public int getLevel() {
+<b class="nc">&nbsp;        return level;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the number of lines cleared.
+&nbsp;     * @return the number of lines cleared.
+&nbsp;     */
+&nbsp;    public int getLinesCleared() {
+<b class="fc">&nbsp;        return linesCleared;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the block that is in the &quot;next&quot; slot.
+&nbsp;     * @return the block that is in the &quot;next&quot; slot.
+&nbsp;     */
+&nbsp;    public NextBlock getNextBlock() {
+<b class="nc">&nbsp;        return nextBlock;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the player&#39;s score.
+&nbsp;     * @return the player&#39;s score.
+&nbsp;     */
+&nbsp;    public int getScore() {
+<b class="nc">&nbsp;        return score;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the &quot;swapUsed&quot; boolean.
+&nbsp;     * @return the &quot;swapUsed&quot; boolean.
+&nbsp;     */
+&nbsp;    public boolean isSwapUsed() {
+<b class="nc">&nbsp;        return swapUsed;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the &quot;timeControls&quot; variable.
+&nbsp;     * @return the &quot;timeControls&quot; variable.
+&nbsp;     */
+&nbsp;    public float getTimeControls() {
+<b class="nc">&nbsp;        return timeControls;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the current piece.
+&nbsp;     * @param p the new currentPiece.
+&nbsp;     */
+&nbsp;    public void setCurrentPiece(final Piece p) {
+<b class="fc">&nbsp;        currentPiece = p;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Sets the swapUsed boolean.
+&nbsp;     * @param b the true or false value.
+&nbsp;     */
+&nbsp;    public void setSwapUsed(final boolean b) {
+<b class="nc">&nbsp;        swapUsed = b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the timeControls variable.
+&nbsp;     * @param t the time value.
+&nbsp;     */
+&nbsp;    public void setTimeControls(final float t) {
+<b class="nc">&nbsp;        timeControls = t;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the timeMovement variable.
+&nbsp;     * @param t the time value.
+&nbsp;     */
+&nbsp;    public void setTimeMovement(final float t) {
+<b class="fc">&nbsp;        timeMovement = t;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>

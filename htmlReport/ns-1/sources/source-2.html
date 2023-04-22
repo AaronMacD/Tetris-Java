@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HeldBlock</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: HeldBlock (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HeldBlock</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72.2%
+  </span>
+  <span class="absValue">
+    (13/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (26/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import space.earlygrey.shapedrawer.ShapeDrawer;
+&nbsp;
+&nbsp;import java.awt.Point;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the block in the hold slot.
+&nbsp; */
+&nbsp;public class HeldBlock {
+&nbsp;    /**
+&nbsp;     * The starting column of displayArea to draw the piece.
+&nbsp;     */
+&nbsp;    private static final int COL = 11;
+&nbsp;    /**
+&nbsp;     * The starting row of displayArea to draw the piece.
+&nbsp;     */
+&nbsp;    private static final int ROW = 8;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Width of the piece grid in squares.
+&nbsp;     */
+&nbsp;    private static final int WIDTHSQUARES = 4;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Height of the piece grid in squares.
+&nbsp;     */
+&nbsp;    private static final int HEIGHTSQUARES = 4;
+&nbsp;    /**
+&nbsp;     * The piece being held.
+&nbsp;     */
+&nbsp;    private Piece heldPiece;
+&nbsp;    /**
+&nbsp;     * 2D array of Squares to display held block.
+&nbsp;     */
+&nbsp;    private Square[][] displayArea;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for held block. Instantiates displayArea with black Squares.
+&nbsp;     *
+&nbsp;     * @param horizontalOffset the horizontal offset
+&nbsp;     */
+<b class="fc">&nbsp;    public HeldBlock(final int horizontalOffset) {</b>
+<b class="pc">&nbsp;        if (!(horizontalOffset == 0 || horizontalOffset == 16)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Horizontal offset must be &quot;</b>
+&nbsp;                + &quot;0 or 16&quot;);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        displayArea = new Square[HEIGHTSQUARES][WIDTHSQUARES];</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; HEIGHTSQUARES; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; WIDTHSQUARES; j++) {</b>
+<b class="fc">&nbsp;                displayArea[i][j] = new Square(i + ROW,</b>
+&nbsp;                    j + COL + horizontalOffset, Color.BLACK);
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the held piece and calls updateGrid to change colors.
+&nbsp;     *
+&nbsp;     * @param newPiece the newly-held piece.
+&nbsp;     */
+&nbsp;    public void setHeldPiece(final Piece newPiece) {
+<b class="fc">&nbsp;        if (newPiece == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;newPiece parameter must &quot;</b>
+&nbsp;                + &quot;not be null&quot;);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        heldPiece = newPiece;</b>
+<b class="fc">&nbsp;        updateGrid(heldPiece.getColor());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the held piece.
+&nbsp;     *
+&nbsp;     * @return heldPiece. held piece
+&nbsp;     */
+&nbsp;    public Piece getHeldPiece() {
+<b class="fc">&nbsp;        return heldPiece;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Swap current piece with held piece.
+&nbsp;     *
+&nbsp;     * @param newPiece the new piece
+&nbsp;     * @return the piece
+&nbsp;     */
+&nbsp;    public Piece swapPiece(final Piece newPiece) {
+<b class="fc">&nbsp;        if (newPiece == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;newPiece parameter must &quot;</b>
+&nbsp;                + &quot;not be null&quot;);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        updateGrid(Color.BLACK);</b>
+<b class="fc">&nbsp;        final Piece temp = heldPiece;</b>
+<b class="fc">&nbsp;        temp.setRow(1);</b>
+<b class="fc">&nbsp;        temp.setCol(0);</b>
+<b class="fc">&nbsp;        heldPiece = newPiece;</b>
+<b class="fc">&nbsp;        updateGrid(heldPiece.getColor());</b>
+<b class="fc">&nbsp;        return temp;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void updateGrid(final Color color) {
+<b class="fc">&nbsp;        final Point[][] dimensions = heldPiece.getDimensions();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            final int squareRow = dimensions[heldPiece.getRotationNum()][i].x;</b>
+<b class="fc">&nbsp;            final int squareCol = dimensions[heldPiece.getRotationNum()][i].y;</b>
+<b class="fc">&nbsp;            displayArea[squareRow][squareCol].setColor(color);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Draw next.
+&nbsp;     *
+&nbsp;     * @param draw the draw
+&nbsp;     */
+&nbsp;    public void drawNext(final ShapeDrawer draw) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; HEIGHTSQUARES; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; WIDTHSQUARES; j++) {</b>
+<b class="nc">&nbsp;                displayArea[i][j].drawSquare(draw);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>

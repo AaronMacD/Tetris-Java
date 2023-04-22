@@ -1,0 +1,452 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Piece</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: Piece (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Piece</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.4%
+  </span>
+  <span class="absValue">
+    (31/46)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (63/70)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import java.awt.Point;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * Piece Class.
+&nbsp; */
+&nbsp;public final class Piece {
+&nbsp;    /**
+&nbsp;     * Dimensions for Piece(s).
+&nbsp;     */
+&nbsp;    private Point[][] dimensions;
+&nbsp;    /**
+&nbsp;     * Random Number Generator.
+&nbsp;     */
+<b class="fc">&nbsp;    private final Random rand = new Random();</b>
+&nbsp;    /**
+&nbsp;     *  Rotation of Piece; can be 0, 1, 2, or 3
+&nbsp;     *  (Numbers are used to know how they are rotated).
+&nbsp;     */
+&nbsp;    private int rotationNum;
+&nbsp;    /**
+&nbsp;     * Row of top-left Square of a Piece.
+&nbsp;     */
+&nbsp;    private int row;
+&nbsp;    /**
+&nbsp;     * Column of top-left Square of a Piece.
+&nbsp;     */
+&nbsp;    private int col;
+&nbsp;    /**
+&nbsp;     * Color of Piece.
+&nbsp;     */
+&nbsp;    private Color color;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for Piece.
+&nbsp;     */
+<b class="fc">&nbsp;    public Piece() {</b>
+<b class="fc">&nbsp;        setRow(1);</b>
+<b class="fc">&nbsp;        setCol(0);</b>
+<b class="fc">&nbsp;        setRotationNum(0);</b>
+<b class="fc">&nbsp;        generatePieceType();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Parameterized constructor for Piece.
+&nbsp;     * @param pieceType the type of the piece being created.
+&nbsp;     */
+<b class="fc">&nbsp;    public Piece(final String pieceType) {</b>
+<b class="fc">&nbsp;        setRow(1);</b>
+<b class="fc">&nbsp;        setCol(0);</b>
+<b class="fc">&nbsp;        setRotationNum(0);</b>
+&nbsp;
+<b class="pc">&nbsp;        switch (pieceType) {</b>
+<b class="nc">&nbsp;            case &quot;J&quot;: makeJ();</b>
+<b class="nc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case &quot;L&quot;: makeL();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case &quot;Line&quot;: makeLine();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="nc">&nbsp;            case &quot;S&quot;: makeS();</b>
+<b class="nc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case &quot;Square&quot;: makeSquare();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="nc">&nbsp;            case &quot;T&quot;: makeT();</b>
+<b class="nc">&nbsp;                break;</b>
+<b class="nc">&nbsp;            default: makeZ();</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets row.
+&nbsp;     *
+&nbsp;     * @return the current row of the piece.
+&nbsp;     */
+&nbsp;    public int getRow() {
+<b class="fc">&nbsp;        return this.row;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets col.
+&nbsp;     *
+&nbsp;     * @return the current col of the piece.
+&nbsp;     */
+&nbsp;    public int getCol() {
+<b class="fc">&nbsp;        return this.col;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets color.
+&nbsp;     *
+&nbsp;     * @return the current color of piece.
+&nbsp;     */
+&nbsp;    public Color getColor() {
+<b class="fc">&nbsp;        return this.color;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get dimensions point [ ] [ ].
+&nbsp;     *
+&nbsp;     * @return the dimensions of piece.
+&nbsp;     */
+&nbsp;    public Point[][] getDimensions() {
+<b class="fc">&nbsp;        return dimensions.clone();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets rotation num.
+&nbsp;     *
+&nbsp;     * @return the current rotation of the piece.
+&nbsp;     */
+&nbsp;    public int getRotationNum() {
+<b class="fc">&nbsp;        return this.rotationNum;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets row.
+&nbsp;     *
+&nbsp;     * @param aRow sets the row of the piece.
+&nbsp;     */
+&nbsp;    public void setRow(final int aRow) {
+<b class="fc">&nbsp;        if (aRow &lt; 0 || aRow &gt; PlayerLogic.ROWS - 1) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Row must be &gt;= 0 and &lt;= 21&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.row = aRow;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets col.
+&nbsp;     *
+&nbsp;     * @param aCol sets the col of the piece.
+&nbsp;     */
+&nbsp;    public void setCol(final int aCol) {
+<b class="fc">&nbsp;        if (aCol &lt; 0 || aCol &gt; PlayerLogic.COLS - 1) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Col must be &gt;= 0 and &lt;= 9&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.col = aCol;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets rotation num.
+&nbsp;     *
+&nbsp;     * @param rNum sets the rotationNum of the piece.
+&nbsp;     */
+&nbsp;    public void setRotationNum(final int rNum) {
+<b class="fc">&nbsp;        if (!(rNum == 0 || rNum == 1 || rNum == 2 || rNum == 3)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;rotationNum must be &quot;</b>
+&nbsp;                + &quot;0, 1, 2, or 3&quot;);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.rotationNum = rNum;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Moves the piece left.
+&nbsp;     */
+&nbsp;    public void moveLeft() {
+<b class="fc">&nbsp;        col--;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Moves the piece right.
+&nbsp;     */
+&nbsp;    public void moveRight() {
+<b class="fc">&nbsp;        col++;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Moves the piece down.
+&nbsp;     */
+&nbsp;    public void moveDown() {
+<b class="fc">&nbsp;        row++;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * rNum  the current rotation number: 0, 1, 2, or 3.
+&nbsp;     * direction 1 if clockwise, -1 if counterclockwise
+&nbsp;     */
+&nbsp;    private void generatePieceType() {
+<b class="fc">&nbsp;        final int num = rand.nextInt(7);</b>
+&nbsp;
+&nbsp;        //create new piece based on random number
+<b class="fc">&nbsp;        switch (num) {</b>
+<b class="fc">&nbsp;            case 0: makeJ();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case 1: makeL();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case 2: makeLine();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case 3: makeS();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case 4: makeSquare();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            case 5: makeT();</b>
+<b class="fc">&nbsp;                break;</b>
+<b class="fc">&nbsp;            default: makeZ();</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes the J piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeJ() {
+&nbsp;        //Point values are row, col for individual square of a piece
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 1), new Point(0, 2), new Point(1, 1), new Point(2, 1)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 1), new Point(1, 1), new Point(2, 0), new Point(2, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.BLUE);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Makes the L piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeL() {
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 2), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 0)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(2, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.ORANGE);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Makes the Line piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeLine() {
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(1, 3)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 2), new Point(1, 2), new Point(2, 2), new Point(3, 2)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(2, 3)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(3, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.CYAN);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes the S piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeS() {
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 1), new Point(0, 2), new Point(1, 0), new Point(1, 1)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 2)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(1, 1), new Point(1, 2), new Point(2, 0), new Point(2, 1)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.GREEN);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes the Square piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeSquare() {
+&nbsp;        //still represented as 4x4 2D array for convenience
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 0), new Point(1, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.YELLOW);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes the T piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeT() {
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(1, 2)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 1), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 1)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.PURPLE);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes the Z piece. Point values are (rows from top-left square,
+&nbsp;     * cols from top-left square)
+&nbsp;     */
+&nbsp;    private void makeZ() {
+<b class="fc">&nbsp;        dimensions = new Point[][] {</b>
+&nbsp;            //rotation 0
+&nbsp;           {new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2)},
+&nbsp;            //rotation 1
+&nbsp;           {new Point(0, 2), new Point(1, 1), new Point(1, 2), new Point(2, 1)},
+&nbsp;            //rotation 2
+&nbsp;           {new Point(1, 0), new Point(1, 1), new Point(2, 1), new Point(2, 2)},
+&nbsp;            //rotation 3
+&nbsp;           {new Point(0, 1), new Point(1, 0), new Point(1, 1), new Point(2, 0)}
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        color = new Color(Color.RED);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>

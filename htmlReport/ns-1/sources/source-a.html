@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Square</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: Square (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Square</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import space.earlygrey.shapedrawer.ShapeDrawer;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a single square on the board.
+&nbsp; */
+&nbsp;public final class Square {
+&nbsp;    /**
+&nbsp;     * Row of Square.
+&nbsp;     */
+&nbsp;    private int row;
+&nbsp;    /**
+&nbsp;     * Column of Square.
+&nbsp;     */
+&nbsp;    private int col;
+&nbsp;    /**
+&nbsp;     * Color of Square.
+&nbsp;     */
+&nbsp;    private Color color;
+&nbsp;    /**
+&nbsp;     * Boolean for whether the square is available.
+&nbsp;     */
+&nbsp;    private boolean availability;
+&nbsp;    /**
+&nbsp;     * Width of a Square in pixels.
+&nbsp;     */
+&nbsp;    private static final int WIDTH = 40;
+&nbsp;    /**
+&nbsp;     * Height of a Square in pixels.
+&nbsp;     */
+&nbsp;    private static final int HEIGHT = 40;
+&nbsp;    /**
+&nbsp;     * x coordinates.
+&nbsp;     */
+&nbsp;    private int x;
+&nbsp;    /**
+&nbsp;     * y coordinates.
+&nbsp;     */
+&nbsp;    private int y;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a square object, that is used to fill the board.
+&nbsp;     *
+&nbsp;     * @param aRow   sets the square&#39;s row.
+&nbsp;     * @param aCol   sets the square&#39;s col.
+&nbsp;     * @param aColor sets the square&#39;s color.
+&nbsp;     */
+<b class="fc">&nbsp;    public Square(final int aRow, final int aCol, final Color aColor) {</b>
+<b class="fc">&nbsp;        if (aRow &lt; 0 || aRow &gt; 22) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Invalid row or column&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.row = aRow;</b>
+<b class="fc">&nbsp;        this.col = aCol;</b>
+<b class="fc">&nbsp;        this.color = aColor;</b>
+<b class="fc">&nbsp;        availability = true;</b>
+&nbsp;
+<b class="fc">&nbsp;        x = 10 + col * WIDTH;</b>
+&nbsp;
+&nbsp;        //converts to y-down coordinates
+<b class="fc">&nbsp;        y = 805 - (row * HEIGHT);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets color.
+&nbsp;     *
+&nbsp;     * @return the current color of sqaure.
+&nbsp;     */
+&nbsp;    public Color getColor() {
+<b class="fc">&nbsp;        return color;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets color.
+&nbsp;     *
+&nbsp;     * @param aColor sets the color of the square.
+&nbsp;     */
+&nbsp;    public void setColor(final Color aColor) {
+<b class="fc">&nbsp;        this.color = aColor;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Is available boolean.
+&nbsp;     *
+&nbsp;     * @return if the square is availability or not.
+&nbsp;     */
+&nbsp;
+&nbsp;    public boolean isAvailable() {
+<b class="fc">&nbsp;        return availability;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets availability.
+&nbsp;     *
+&nbsp;     * @param anAvailability sets the availability of the square.
+&nbsp;     */
+&nbsp;    public void setAvailability(final boolean anAvailability) {
+<b class="fc">&nbsp;        this.availability = anAvailability;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Draw square.
+&nbsp;     *
+&nbsp;     * @param shape draws the shape onto the board.
+&nbsp;     */
+&nbsp;    public void drawSquare(final ShapeDrawer shape) {
+<b class="nc">&nbsp;        shape.setColor(color);</b>
+<b class="nc">&nbsp;        shape.filledRectangle(x, y, WIDTH - 1, HEIGHT - 1);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>

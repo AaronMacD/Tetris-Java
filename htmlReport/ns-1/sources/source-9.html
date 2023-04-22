@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SoundManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: SoundManager (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SoundManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.audio.Sound;
+&nbsp;
+&nbsp;/**
+&nbsp; * Holds sound effects and allows other classes to access them.
+&nbsp; */
+&nbsp;public final class SoundManager {
+&nbsp;    /**
+&nbsp;     * Hold piece sound effect.
+&nbsp;     */
+&nbsp;    private Sound hold;
+&nbsp;    /**
+&nbsp;     * Lock sound effect.
+&nbsp;     */
+&nbsp;    private final Sound lock;
+&nbsp;    /**
+&nbsp;     * Rotate sound effect.
+&nbsp;     */
+&nbsp;    private final Sound rotate;
+&nbsp;    /**
+&nbsp;     * Line clear sound effect.
+&nbsp;     */
+&nbsp;    private final Sound lineClear;
+&nbsp;    /**
+&nbsp;     * Tetris (four lines cleared) sound effect.
+&nbsp;     */
+&nbsp;    private final Sound tetris;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initializes the sound effects.
+&nbsp;     */
+<b class="nc">&nbsp;    public SoundManager() {</b>
+<b class="nc">&nbsp;        hold = Gdx.audio.newSound(Gdx.files.internal(&quot;hold.wav&quot;));</b>
+<b class="nc">&nbsp;        lock = Gdx.audio.newSound(Gdx.files.internal(&quot;lock.wav&quot;));</b>
+<b class="nc">&nbsp;        rotate = Gdx.audio.newSound(Gdx.files.internal(&quot;rotate.wav&quot;));</b>
+<b class="nc">&nbsp;        lineClear = Gdx.audio.newSound(Gdx.files.internal(&quot;line_clear.wav&quot;));</b>
+<b class="nc">&nbsp;        tetris = Gdx.audio.newSound(Gdx.files.internal(&quot;tetris.wav&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the hold sound effect.
+&nbsp;     */
+&nbsp;    public void playHold() {
+<b class="nc">&nbsp;        hold.play(1.0f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the lock sound effect.
+&nbsp;     */
+&nbsp;    public void playLock() {
+<b class="nc">&nbsp;        lock.play(1.0f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the rotate sound effect.
+&nbsp;     */
+&nbsp;    public void playRotate() {
+<b class="nc">&nbsp;        rotate.play(1.0f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the lineClear sound effect.
+&nbsp;     */
+&nbsp;    public void playLineClear() {
+<b class="nc">&nbsp;        lineClear.play(1.0f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the tetris sound effect.
+&nbsp;     */
+&nbsp;    public void playTetris() {
+<b class="nc">&nbsp;        tetris.play(1.0f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>
