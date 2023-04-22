@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LossScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tetris.t6</a>
+</div>
+
+<h1>Coverage Summary for Class: LossScreen (com.tetris.t6)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LossScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tetris.t6;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+&nbsp;import com.badlogic.gdx.utils.ScreenUtils;
+&nbsp;
+&nbsp;/**
+&nbsp; * Screen that appears when the player loses.
+&nbsp; */
+&nbsp;public final class LossScreen implements Screen {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instance of the game.
+&nbsp;     */
+&nbsp;    private final TetrisGame game;
+&nbsp;    /**
+&nbsp;     * Glyphlayout allows us to get the width of whatever text we pass to it.
+&nbsp;     */
+<b class="nc">&nbsp;    private final GlyphLayout gl = new GlyphLayout();</b>
+&nbsp;    /**
+&nbsp;     * String for which player lost.
+&nbsp;     */
+&nbsp;    private final String loserText;
+&nbsp;    /**
+&nbsp;     * Instructions for quitting.
+&nbsp;     */
+<b class="nc">&nbsp;    private static String menuText1 = &quot;Press escape to quit&quot;;</b>
+&nbsp;    /**
+&nbsp;     * Instructions for returning to main menu.
+&nbsp;     */
+<b class="nc">&nbsp;    private static String menuText2 = &quot;Or press any other key to return to&quot;</b>
+&nbsp;                                    + &quot; the main menu&quot;;
+&nbsp;    /**
+&nbsp;     * Background image for the loss screen.
+&nbsp;     */
+&nbsp;    private final Texture background;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Loss screen.
+&nbsp;     *
+&nbsp;     * @param aGame  the a game
+&nbsp;     * @param loser the player number that lost (1 or 2)
+&nbsp;     */
+<b class="nc">&nbsp;    public LossScreen(final TetrisGame aGame, final int loser) {</b>
+<b class="nc">&nbsp;        this.game = aGame;</b>
+<b class="nc">&nbsp;        background = new Texture(Gdx.files.internal(&quot;bg_loss.png&quot;));</b>
+<b class="nc">&nbsp;        loserText = String.format(&quot;Player %d has lost!!!!&quot;, loser);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void render(final float delta) {
+<b class="nc">&nbsp;        ScreenUtils.clear(0, 0, 0.2f, 1);</b>
+<b class="nc">&nbsp;        gl.setText(game.font, loserText);</b>
+<b class="nc">&nbsp;        final float w0 = gl.width;</b>
+<b class="nc">&nbsp;        gl.setText(game.font, menuText1);</b>
+<b class="nc">&nbsp;        final float w1 = gl.width;</b>
+<b class="nc">&nbsp;        gl.setText(game.font, menuText2);</b>
+<b class="nc">&nbsp;        final float w2 = gl.width;</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        game.batch.begin();</b>
+<b class="nc">&nbsp;        game.batch.draw(background, 0, 0);</b>
+<b class="nc">&nbsp;        game.font.draw(game.batch, loserText,</b>
+<b class="nc">&nbsp;            (Gdx.graphics.getWidth() - w0) / 2, 750);</b>
+<b class="nc">&nbsp;        game.font.draw(game.batch, menuText1,</b>
+<b class="nc">&nbsp;            (Gdx.graphics.getWidth() - w1) / 2, 150);</b>
+<b class="nc">&nbsp;        game.font.draw(game.batch, menuText2,</b>
+<b class="nc">&nbsp;            (Gdx.graphics.getWidth() - w2) / 2, 135);</b>
+<b class="nc">&nbsp;        game.batch.end();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {</b>
+<b class="nc">&nbsp;            Gdx.app.exit();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {</b>
+<b class="nc">&nbsp;            game.setScreen(new MenuScreen(this.game));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void resize(final int width, final int height) {
+&nbsp;        //game.viewport.update(width, height);
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void pause() {
+&nbsp;        //unused
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void resume() {
+&nbsp;        //unused
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void show() {
+<b class="nc">&nbsp;            Gdx.graphics.setWindowedMode(650, Gdx.graphics.getHeight());</b>
+<b class="nc">&nbsp;            game.camera.setToOrtho(false, Gdx.graphics.getWidth(),</b>
+<b class="nc">&nbsp;                Gdx.graphics.getHeight());</b>
+<b class="nc">&nbsp;            game.camera.update();</b>
+<b class="nc">&nbsp;            game.batch.setProjectionMatrix(game.camera.combined);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void hide() {
+&nbsp;        //unused
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void dispose() {
+&nbsp;        //unused
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 21:33</div>
+</div>
+</body>
+</html>
