@@ -244,7 +244,7 @@ public final class PlayerLogic {
         if (rotationPossible(rotationNum)) {
             drawPiece(Color.BLACK);
             currentPiece.setRotationNum(rotationNum);
-            sfx.playRotate();
+           sfx.playRotate();
         }
     }
 
@@ -395,15 +395,16 @@ public final class PlayerLogic {
      * @return boolean indicating if the player has lost.
      */
     public boolean checkLoss() {
+        boolean lost = false;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < COLS; j++) {
                 if (!board[i][j].isAvailable()) {
-                    return true;
+                    lost = true;
                 }
             }
         }
 
-        return false;
+        return lost;
     }
 
     /**
@@ -479,7 +480,7 @@ public final class PlayerLogic {
      * Gets the "swapUsed" boolean.
      * @return the "swapUsed" boolean.
      */
-    public boolean getSwapUsed() {
+    public boolean isSwapUsed() {
         return swapUsed;
     }
 

@@ -73,7 +73,7 @@ class PlayerLogicTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-2, 0, 2})
-    void moveRightLeftException(int badVal) {
+    void moveRightLeftException(final int badVal) {
         PlayerLogic p = new PlayerLogic(1);
 
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -123,7 +123,7 @@ class PlayerLogicTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 1})
-    void rotateFourTimes(int direction) {
+    void rotateFourTimes(final int direction) {
         PlayerLogic p = new PlayerLogic(1);
         Piece piece1 = new Piece("L");
         p.setCurrentPiece(piece1);
@@ -149,7 +149,7 @@ class PlayerLogicTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-2, 0, 2})
-    void rotateException(int badVal) {
+    void rotateException(final int badVal) {
         PlayerLogic p = new PlayerLogic(1);
 
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -202,8 +202,8 @@ class PlayerLogicTest {
         }
 
         //these squares should not be available after clearing the line
-        Assertions.assertTrue(!board[20][8].isAvailable());
-        Assertions.assertTrue(!board[20][9].isAvailable());
+        Assertions.assertFalse(board[20][8].isAvailable());
+        Assertions.assertFalse(board[20][9].isAvailable());
 
         Assertions.assertEquals(1, p.getLinesCleared());
     }

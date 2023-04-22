@@ -9,7 +9,7 @@ class SquareTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 23})
-    void constructorBadRow(int badRow) {
+    void constructorBadRow(final int badRow) {
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> {
                 Square s = new Square(badRow, 0, Color.BLUE);

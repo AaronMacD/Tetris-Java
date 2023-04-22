@@ -137,7 +137,7 @@ public final class GameScreen implements Screen {
                 p1.getNextBlock().generateNextPiece();
                 sfx.playHold();
             } else {
-                if (!p1.getSwapUsed()) {
+                if (!p1.isSwapUsed()) {
                     p1.setCurrentPiece(p1.getHeldBlock()
                         .swapPiece(p1.getCurrentPiece()));
                     sfx.playHold();
@@ -210,7 +210,7 @@ public final class GameScreen implements Screen {
                     p2.getNextBlock().generateNextPiece();
                     sfx.playHold();
                 } else {
-                    if (!p2.getSwapUsed()) {
+                    if (!p2.isSwapUsed()) {
                         p2.setCurrentPiece(p2.getHeldBlock()
                             .swapPiece(p2.getCurrentPiece()));
                         sfx.playHold();

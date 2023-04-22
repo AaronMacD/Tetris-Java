@@ -17,7 +17,7 @@ class PieceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 23})
-    void setRowException(int badRow) {
+    void setRowException(final int badRow) {
         Piece p = new Piece();
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> p.setRow(badRow));
@@ -25,7 +25,7 @@ class PieceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 8, 9})
-    void setCol(int col) {
+    void setCol(final int col) {
         Piece p = new Piece();
         p.setCol(col);
 
@@ -34,7 +34,7 @@ class PieceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 11})
-    void setColException(int badCol) {
+    void setColException(final int badCol) {
         Piece p = new Piece();
         Assertions.assertThrows(IllegalArgumentException.class,
             () -> p.setCol(badCol));
@@ -43,7 +43,7 @@ class PieceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3})
-    void setRotation(int rNum) {
+    void setRotation(final int rNum) {
         Piece p = new Piece();
         p.setRotationNum(rNum);
         Assertions.assertEquals(p.getRotationNum(), rNum);
@@ -51,7 +51,7 @@ class PieceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 4})
-    void setRotationException(int badRNum) {
+    void setRotationException(final int badRNum) {
         Piece p = new Piece();
 
         Assertions.assertThrows(IllegalArgumentException.class,
