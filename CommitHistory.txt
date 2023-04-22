@@ -1,3 +1,139 @@
+commit 6decb0bbbf5f2196ce10742d62ca6c608579e936
+Author: dbjoe <110318360+dbjoe@users.noreply.github.com>
+Date:   Fri Apr 21 21:42:06 2023 -0400
+
+    Add files via upload
+
+commit 12c77357542b4455b44e21233642341beb5001cb
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 21:27:44 2023 -0400
+
+    PMD fixes
+
+commit 2e3c8e74cb2ceada6220daa90842bd0e34a9917d
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 19:09:31 2023 -0400
+
+    Remove duplicate tests
+
+commit 9ef58d229e6daf78009752e65cdf9eb0875f73f8
+Merge: 3086415 88cbb34
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 18:43:03 2023 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 308641567667d861b38b490452e52aea4eb22c61
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 18:42:53 2023 -0400
+
+    Add tests to PlayerLogic
+
+commit 88cbb3441bc8c717e2407e6f0cff42c1fa1ea9af
+Author: d <geeda@mail.gvsu.edu>
+Date:   Fri Apr 21 16:56:14 2023 -0400
+
+    Added Test for checkLossFalse.
+
+commit 95d04a2baa91a52f59a88ad5fbeba20f3ced4d93
+Merge: 5a5ff62 af8f0e6
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 13:42:55 2023 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 5a5ff62bb8e19a86ef6b54b7855c03a208ba69a9
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Fri Apr 21 13:42:42 2023 -0400
+
+    Fix rotate call
+
+commit af8f0e6a58c3fb1369de067837ca3b83c9ef1b8a
+Merge: b17e55a c117972
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Fri Apr 21 08:10:14 2023 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit b17e55a743aac374b5a07b626665f3af0dc6c54f
+Author: AJGameDev <ajmgamedev@gmail.com>
+Date:   Fri Apr 21 08:09:43 2023 -0400
+
+    Comments
+
+commit c117972de092a36b9135e21a1024911968270cff
+Author: Aaron MacDougall <79646418+AaronMacD@users.noreply.github.com>
+Date:   Fri Apr 21 07:59:03 2023 -0400
+
+    Add files via upload
+
+commit 9d0e4258e18b2c18a888d94f85896f7f6d4e5370
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 20 22:49:30 2023 -0400
+
+    Add PlayerLogic tests
+
+commit 8a8c3a39da289a5334a3d3f3a9fd488e226a0697
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 20 17:37:41 2023 -0400
+
+    Comment unused methods
+
+commit 57775e3233ad2d24470e2ec020a2ec5a39e1860e
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 20 16:59:04 2023 -0400
+
+    Create package-info
+
+commit 65d956ca38e8094341a6ab4aeede283b145235a2
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 20 16:26:15 2023 -0400
+
+    PMD fixes
+
+commit 2b6d71c1fc44c940de4152955613066a2d8d061b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Thu Apr 20 15:59:52 2023 -0400
+
+    checkStyle fixes
+
+commit b8b6d85b7d0dc91c90da02f852c9b1421f8ac63b
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 22:55:37 2023 -0400
+
+    Add SoundManager class
+
+commit fddbe1dd03107ec500f6348911c8ec479d3e3c99
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 22:55:12 2023 -0400
+
+    Add tests for PlayerLogic
+
+commit 4aa2542d7ab0e932a1847decde03327e139676a7
+Merge: 8cd28bd a1d7ac0
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 20:56:54 2023 -0400
+
+    Merge branch 'PlayerLogic'
+
+commit a1d7ac0d2afc7bec9ab9712b535981108daa2e63
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 20:52:18 2023 -0400
+
+    Add PlayerLogicTest
+
+commit d5550a101d37c4a13469ad9c024c1bf67b737642
+Author: dbjoe <josephzylla@gmail.com>
+Date:   Wed Apr 19 20:21:49 2023 -0400
+
+    Move logic methods to PlayerLogic class
+
+commit 8cd28bd37282c767e5a22e9d21d392b21181a1f6
+Author: Aaron MacDougall <79646418+AaronMacD@users.noreply.github.com>
+Date:   Wed Apr 19 18:59:47 2023 -0400
+
+    Add files via upload
+
 commit 30bb695f90d9aca107debc714ccfd0a9dab9a724
 Author: dbjoe <josephzylla@gmail.com>
 Date:   Wed Apr 19 12:36:03 2023 -0400
